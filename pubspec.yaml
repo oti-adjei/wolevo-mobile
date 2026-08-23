@@ -1,0 +1,79 @@
+name: wolevo
+description: "A new Flutter project."
+publish_to: 'none'
+version: 0.1.0+1
+
+environment:
+  sdk: ^3.12.2
+
+dependencies:
+  dio: ^5.11.0
+  file_picker: ^12.0.0
+  flutter:
+    sdk: flutter
+  flutter_riverpod: ^2.6.1
+  flutter_secure_storage: ^11.0.0
+  flutter_svg: ^2.3.0
+  go_router: ^17.5.0
+  intl: ^0.20.3
+  posthog_flutter: ^5.36.6
+  share_plus: ^13.3.0
+  shared_preferences: ^2.5.5
+  url_launcher: ^6.3.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+  flutter_native_splash: ^2.4.8
+  flutter_launcher_icons: ^0.14.4
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/brand/
+    - assets/logos/
+
+  fonts:
+    - family: Sora
+      fonts:
+        - asset: assets/fonts/Sora-var.ttf
+
+# Native launch screen. Regenerate after any change with:
+#   dart run flutter_native_splash:create
+#
+# The OS splash is necessarily a still image — iOS renders a static launch
+# storyboard and Android 12+ allows only a short icon animation. The motion the
+# app actually shows lives in Flutter (SplashScreen), which opens on the same
+# mark over the same background so the handoff is invisible.
+flutter_native_splash:
+  color: "#0A3307"
+  image: assets/brand/splash_mark.png
+  # The inverted lockup the client also supplied — swap these two lines in to
+  # use a neon field with a dark mark instead:
+  #   color: "#01FF69"
+  #   image: assets/brand/splash_mark_dark.png
+  android_12:
+    color: "#0A3307"
+    image: assets/brand/splash_mark_android12.png
+    icon_background_color: "#0A3307"
+  android: true
+  ios: true
+  web: false
+
+# App icon. Regenerate after changing the source art with:
+#   dart run flutter_launcher_icons
+#
+# Seasonal variants are generated alongside this one (assets/brand/icon_*.png)
+# by tool/generate_brand_assets.py. Point image_path at a different variant and
+# re-run to reskin the installed icon on the next build.
+flutter_launcher_icons:
+  image_path: assets/brand/icon_default.png
+  android: true
+  ios: true
+  remove_alpha_ios: true
+  # Android adaptive icon: flat brand field with the mark as the foreground, so
+  # the launcher can mask it to whatever shape the device uses.
+  adaptive_icon_background: "#0A3307"
+  adaptive_icon_foreground: assets/brand/icon_default_foreground.png

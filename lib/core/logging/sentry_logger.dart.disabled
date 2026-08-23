@@ -1,0 +1,100 @@
+import 'package:sentry_flutter/sentry_flutter.dart';
+
+import 'app_logger.dart';
+
+/// Sends errors and breadcrumbs to Sentry.
+///
+/// Written against [AppLogger] so no feature code knows Sentry exists — swap
+/// this out and everything still compiles.
+///
+/// Levels below [LogLevel.warning] become breadcrumbs rather than events:
+/// shipping every debug line as an issue is how a Sentry quota disappears in a
+/// week, and breadcrumbs are attached to the next real error anyway.
+class SentryLogger implements AppLogger {
+  const SentryLogger({this.fallback = const NoopLogger()});
+
+  /// Also written to the console in non-production builds, so developers keep
+  /// seeing output locally.
+  final AppLogger fallback;
+
+  @override
+  void log(
+    LogLevel level,
+    String message, {
+    Object? error,
+    StackTrace? stackTrace,
+    Map<String, Object?> context = const {},
+  }) {
+    fallback.log(
+      level,
+      message,
+      error: error,
+      stackTrace: stackTrace,
+      context: context,
+    );
+
+    switch (level) {
+      case LogLevel.debug:
+      case LogLevel.info:
+        breadcrumb(message, data: context);
+
+      case LogLevel.warning:
+        Sentry.captureMessage(
+          message,
+          level: SentryLevel.warning,
+          withScope: (scope) => _applyContext(scope, context),
+        );
+
+      case LogLevel.error:
+        if (error != null) {
+          Sentry.captureException(
+            error,
+            stackTrace: stackTrace,
+            withScope: (scope) => _applyContext(scope, {
+              ...context,
+              'message': message,
+            }),
+          );
+        } else {
+          Sentry.captureMessage(
+            message,
+            level: SentryLevel.error,
+            withScope: (scope) => _applyContext(scope, context),
+          );
+        }
+    }
+  }
+
+  @override
+  void breadcrumb(String message, {Map<String, Object?> data = const {}}) {
+    fallback.breadcrumb(message, data: data);
+    Sentry.addBreadcrumb(
+      Breadcrumb(
+        message: message,
+        data: data.isEmpty ? null : data,
+        timestamp: DateTime.now().toUtc(),
+      ),
+    );
+  }
+
+  @override
+  void setUser({String? id, String? email}) {
+    fallback.setUser(id: id, email: email);
+    Sentry.configureScope(
+      (scope) => scope.setUser(
+        id == null
+            ? null
+            // Email is deliberately omitted: this app handles addresses, phone
+            // numbers and locker IDs, and an opaque id is enough to group a
+            // user's issues without shipping PII to a third party.
+            : SentryUser(id: id),
+      ),
+    );
+  }
+
+  void _applyContext(Scope scope, Map<String, Object?> context) {
+    for (final entry in context.entries) {
+      scope.setContexts(entry.key, entry.value);
+    }
+  }
+}

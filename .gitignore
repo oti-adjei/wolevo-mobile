@@ -1,0 +1,124 @@
+# ─── Miscellaneous ───────────────────────────────────────────────────────────
+*.class
+*.log
+*.pyc
+*.swp
+.DS_Store
+.atom/
+.build/
+.buildlog/
+.history
+.svn/
+.swiftpm/
+migrate_working_dir/
+
+# ─── IDE ─────────────────────────────────────────────────────────────────────
+*.iml
+*.ipr
+*.iws
+.idea/
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
+!.vscode/launch.json
+
+# ─── Flutter / Dart / Pub ────────────────────────────────────────────────────
+**/doc/api/
+**/ios/Flutter/.last_build_id
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.pub-cache/
+.pub/
+build/
+coverage/
+*.mocks.dart
+
+# pubspec.lock IS committed: this is an application, not a package, so builds
+# should be reproducible across machines and CI.
+
+# ─── FVM ─────────────────────────────────────────────────────────────────────
+# fvm is optional — the project only needs Flutter 3.44.8 from any install.
+.fvm/
+.fvmrc
+
+# ─── Symbols ─────────────────────────────────────────────────────────────────
+app.*.symbols
+app.*.map.json
+
+# ─── Android ─────────────────────────────────────────────────────────────────
+**/android/**/gradle-wrapper.jar
+**/android/.gradle
+**/android/captures/
+**/android/gradlew
+**/android/gradlew.bat
+**/android/local.properties
+**/android/**/GeneratedPluginRegistrant.java
+**/android/key.properties
+*.jks
+*.keystore
+
+# ─── iOS ─────────────────────────────────────────────────────────────────────
+**/ios/**/*.mode1v3
+**/ios/**/*.mode2v3
+**/ios/**/*.moved-aside
+**/ios/**/*.pbxuser
+**/ios/**/*.perspectivev3
+**/ios/**/*sync/
+**/ios/**/.sconsign.dblite
+**/ios/**/.tags*
+**/ios/**/.vagrant/
+**/ios/**/DerivedData/
+**/ios/**/Icon?
+**/ios/**/Pods/
+**/ios/**/.symlinks/
+**/ios/**/profile
+**/ios/**/xcuserdata
+**/ios/.generated/
+**/ios/Flutter/App.framework
+**/ios/Flutter/Flutter.framework
+**/ios/Flutter/Flutter.podspec
+**/ios/Flutter/Generated.xcconfig
+**/ios/Flutter/app.flx
+**/ios/Flutter/app.zip
+**/ios/Flutter/flutter_assets/
+**/ios/Flutter/flutter_export_environment.sh
+**/ios/ServiceDefinitions.json
+**/ios/Runner.xcworkspace/xcshareddata/
+ios/Podfile
+ios/Podfile.lock
+
+# Generated Swift package: pins the iOS deployment target at generation time.
+# If it goes stale, delete it — see docs/handbook/09-conventions.md.
+**/ios/Flutter/ephemeral/
+
+# ─── macOS / Linux / Windows / Web ───────────────────────────────────────────
+**/macos/Flutter/GeneratedPluginRegistrant.swift
+**/macos/Flutter/ephemeral/
+**/linux/flutter/ephemeral/
+**/windows/flutter/ephemeral/
+
+# ─── Secrets ─────────────────────────────────────────────────────────────────
+# Secrets are passed with --dart-define, never committed and never bundled as
+# an asset — see docs/handbook/10-observability.md. These entries are a
+# backstop in case anyone reaches for a dotenv out of habit.
+.env
+.env.*
+!.env.example
+*.pem
+*.p12
+*.p8
+secrets.json
+google-services.json
+GoogleService-Info.plist
+
+# ─── Generated brand assets ──────────────────────────────────────────────────
+# Splash and launcher icons ARE committed: they are build inputs, and CI must
+# not depend on Python/Pillow being installed. Regenerate with
+# tool/generate_brand_assets.py when the source art changes.
+
+# ─── Discovery screenshots ───────────────────────────────────────────────────
+# Kept locally, not committed: they were captured against a real account and
+# show the account holder's email, phone, locker ID and name in the pixels,
+# which no text-level scrub can reach. discovery-notes.md carries the findings.
+discovery/shots/
