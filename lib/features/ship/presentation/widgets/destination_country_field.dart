@@ -71,7 +71,10 @@ class DestinationCountryField extends StatelessWidget {
                 Text(value.flag, style: AppText.body),
                 const SizedBox(width: AppSpace.sm),
                 Expanded(child: Text(value.name, style: AppText.body)),
-                const Icon(Icons.keyboard_arrow_down, color: AppColors.neutral1),
+                const Icon(
+                  Icons.keyboard_arrow_down,
+                  color: AppColors.neutral1,
+                ),
               ],
             ),
           ),

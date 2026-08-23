@@ -89,7 +89,10 @@ class SelectedMarker extends StatelessWidget {
       children: [
         const Icon(Icons.check, size: 14, color: AppColors.secondary),
         const SizedBox(width: 4),
-        Text(label, style: AppText.body14Semibold.copyWith(color: AppColors.secondary)),
+        Text(
+          label,
+          style: AppText.body14Semibold.copyWith(color: AppColors.secondary),
+        ),
       ],
     );
   }
@@ -115,7 +118,10 @@ class IconChip extends StatelessWidget {
     return Container(
       height: size,
       width: size,
-      decoration: BoxDecoration(color: background, borderRadius: AppRadius.rCard),
+      decoration: BoxDecoration(
+        color: background,
+        borderRadius: AppRadius.rCard,
+      ),
       child: Icon(icon, size: size * 0.45, color: foreground),
     );
   }
@@ -140,7 +146,10 @@ class InfoCallout extends StatelessWidget {
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.all(AppSpace.lg),
-      decoration: BoxDecoration(color: background, borderRadius: AppRadius.rCard),
+      decoration: BoxDecoration(
+        color: background,
+        borderRadius: AppRadius.rCard,
+      ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -148,7 +157,9 @@ class InfoCallout extends StatelessWidget {
             Text(leading!, style: AppText.body14),
             const SizedBox(width: AppSpace.sm),
           ],
-          Expanded(child: DefaultTextStyle(style: AppText.body14, child: child)),
+          Expanded(
+            child: DefaultTextStyle(style: AppText.body14, child: child),
+          ),
         ],
       ),
     );

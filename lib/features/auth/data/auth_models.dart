@@ -71,22 +71,25 @@ class WolevoUser {
   }
 
   factory WolevoUser.fromJson(Map<String, dynamic> json) => WolevoUser(
-        id: json['id'] as String,
-        firstName: json['firstName'] as String,
-        lastName: json['lastName'] as String,
-        email: json['email'] as String,
-        emailVerified: json['emailVerified'] as bool? ?? false,
-        phoneNumber: json['phoneNumber'] as String,
-        destinationCountry:
-            DestinationCountry.fromCode(json['destinationCountryCode'] as String? ?? 'GH'),
-        lockerId: json['lockerId'] as String,
-        accountType: AccountType.fromApi(json['accountType'] as String? ?? 'PERSONAL'),
-        referralCode: json['referralCode'] as String? ?? '',
-        dateOfBirth: json['dateOfBirth'] == null
-            ? null
-            : DateTime.parse(json['dateOfBirth'] as String),
-        promotionalEmails: json['promotionalEmails'] as bool? ?? false,
-      );
+    id: json['id'] as String,
+    firstName: json['firstName'] as String,
+    lastName: json['lastName'] as String,
+    email: json['email'] as String,
+    emailVerified: json['emailVerified'] as bool? ?? false,
+    phoneNumber: json['phoneNumber'] as String,
+    destinationCountry: DestinationCountry.fromCode(
+      json['destinationCountryCode'] as String? ?? 'GH',
+    ),
+    lockerId: json['lockerId'] as String,
+    accountType: AccountType.fromApi(
+      json['accountType'] as String? ?? 'PERSONAL',
+    ),
+    referralCode: json['referralCode'] as String? ?? '',
+    dateOfBirth: json['dateOfBirth'] == null
+        ? null
+        : DateTime.parse(json['dateOfBirth'] as String),
+    promotionalEmails: json['promotionalEmails'] as bool? ?? false,
+  );
 }
 
 /// The profile screen shows `Personal`; a `/business-shipping` route exists on
@@ -100,8 +103,10 @@ enum AccountType {
   final String apiValue;
   final String label;
 
-  static AccountType fromApi(String v) =>
-      values.firstWhere((t) => t.apiValue == v.toUpperCase(), orElse: () => personal);
+  static AccountType fromApi(String v) => values.firstWhere(
+    (t) => t.apiValue == v.toUpperCase(),
+    orElse: () => personal,
+  );
 }
 
 /// The US warehouse address. Street, PMB and phone are shared across all users —
@@ -135,7 +140,8 @@ class WarehouseAddress {
   String get retailerFirstName => 'Wolevo';
   String get retailerLastName => name.replaceFirst('Wolevo ', '');
 
-  factory WarehouseAddress.fromJson(Map<String, dynamic> json) => WarehouseAddress(
+  factory WarehouseAddress.fromJson(Map<String, dynamic> json) =>
+      WarehouseAddress(
         name: json['name'] as String,
         addressLine1: json['addressLine1'] as String,
         addressLine2: json['addressLine2'] as String,
@@ -149,13 +155,13 @@ class WarehouseAddress {
 
   /// One-block form, for the "copy the whole address" action.
   String get asBlock => [
-        name,
-        addressLine1,
-        addressLine2,
-        '$city, $stateCode $zipCode',
-        countryCode,
-        phone,
-      ].join('\n');
+    name,
+    addressLine1,
+    addressLine2,
+    '$city, $stateCode $zipCode',
+    countryCode,
+    phone,
+  ].join('\n');
 }
 
 /// `POST /api/v1/auth/register`
@@ -182,14 +188,15 @@ class RegisterRequest {
   final String? referralCode;
 
   Map<String, dynamic> toJson() => {
-        'firstName': firstName,
-        'lastName': lastName,
-        'email': email,
-        'phoneNumber': phoneNumber,
-        'password': password,
-        'confirmPassword': confirmPassword,
-        if (referralCode != null && referralCode!.isNotEmpty) 'referralCode': referralCode,
-      };
+    'firstName': firstName,
+    'lastName': lastName,
+    'email': email,
+    'phoneNumber': phoneNumber,
+    'password': password,
+    'confirmPassword': confirmPassword,
+    if (referralCode != null && referralCode!.isNotEmpty)
+      'referralCode': referralCode,
+  };
 }
 
 /// `POST /api/v1/auth/login`
@@ -217,9 +224,9 @@ class AuthSession {
   final String? refreshToken;
 
   AuthSession copyWith({WolevoUser? user}) => AuthSession(
-        user: user ?? this.user,
-        warehouseAddress: warehouseAddress,
-        accessToken: accessToken,
-        refreshToken: refreshToken,
-      );
+    user: user ?? this.user,
+    warehouseAddress: warehouseAddress,
+    accessToken: accessToken,
+    refreshToken: refreshToken,
+  );
 }

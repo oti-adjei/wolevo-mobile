@@ -48,7 +48,9 @@ class ProductPriceRail extends StatelessWidget {
         Row(
           children: [
             Icon(
-              product.inStock ? Icons.check_circle : Icons.remove_circle_outline,
+              product.inStock
+                  ? Icons.check_circle
+                  : Icons.remove_circle_outline,
               size: 16,
               color: product.inStock ? AppColors.primary3 : AppColors.neutral1,
             ),
@@ -56,7 +58,9 @@ class ProductPriceRail extends StatelessWidget {
             Text(
               product.inStock ? 'In Stock' : 'Out of Stock',
               style: AppText.body14Semibold.copyWith(
-                color: product.inStock ? AppColors.primary3 : AppColors.neutral1,
+                color: product.inStock
+                    ? AppColors.primary3
+                    : AppColors.neutral1,
               ),
             ),
           ],

@@ -45,14 +45,13 @@ extension AppLoggerLevels on AppLogger {
     Object? error,
     StackTrace? stackTrace,
     Map<String, Object?> context = const {},
-  }) =>
-      log(
-        LogLevel.error,
-        message,
-        error: error,
-        stackTrace: stackTrace,
-        context: context,
-      );
+  }) => log(
+    LogLevel.error,
+    message,
+    error: error,
+    stackTrace: stackTrace,
+    context: context,
+  );
 }
 
 /// Writes to the IDE console. The default everywhere except production.

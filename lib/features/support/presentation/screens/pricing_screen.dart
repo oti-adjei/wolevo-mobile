@@ -34,8 +34,9 @@ class _PricingScreenState extends State<PricingScreen> {
             foregroundColor: Colors.white,
             leading: IconButton(
               icon: const Icon(Icons.arrow_back),
-              onPressed: () =>
-                  context.canPop() ? context.pop() : context.go(AppRoutes.landing),
+              onPressed: () => context.canPop()
+                  ? context.pop()
+                  : context.go(AppRoutes.landing),
             ),
             flexibleSpace: const FlexibleSpaceBar(
               background: _PricingHero(),
@@ -156,7 +157,9 @@ class _PricingAccordion extends StatelessWidget {
                         const SizedBox(height: 2),
                         Text(
                           section.subtitle,
-                          style: AppText.body14.copyWith(color: AppColors.neutral1),
+                          style: AppText.body14.copyWith(
+                            color: AppColors.neutral1,
+                          ),
                         ),
                       ],
                     ),

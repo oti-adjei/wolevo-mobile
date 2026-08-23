@@ -27,8 +27,9 @@ class HomeSectionView extends StatelessWidget {
           child: SectionHeader(
             title: section.title,
             actionLabel: 'Show all',
-            onAction: () =>
-                context.push('${AppRoutes.shop}?retailer=${section.retailer.apiValue}'),
+            onAction: () => context.push(
+              '${AppRoutes.shop}?retailer=${section.retailer.apiValue}',
+            ),
           ),
         ),
         const SizedBox(height: AppSpace.md),

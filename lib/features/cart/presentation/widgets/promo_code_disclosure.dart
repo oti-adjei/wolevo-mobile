@@ -21,7 +21,8 @@ class PromoCodeDisclosure extends ConsumerStatefulWidget {
   final String? appliedCode;
 
   @override
-  ConsumerState<PromoCodeDisclosure> createState() => _PromoCodeDisclosureState();
+  ConsumerState<PromoCodeDisclosure> createState() =>
+      _PromoCodeDisclosureState();
 }
 
 class _PromoCodeDisclosureState extends ConsumerState<PromoCodeDisclosure> {
@@ -97,12 +98,16 @@ class _PromoCodeDisclosureState extends ConsumerState<PromoCodeDisclosure> {
                   const SizedBox(width: AppSpace.sm),
                   Expanded(
                     child: Text(
-                      applied == null ? 'Have a promo code?' : 'Promo code applied',
+                      applied == null
+                          ? 'Have a promo code?'
+                          : 'Promo code applied',
                       style: AppText.body14Semibold,
                     ),
                   ),
                   Icon(
-                    _expanded ? Icons.keyboard_arrow_up : Icons.keyboard_arrow_down,
+                    _expanded
+                        ? Icons.keyboard_arrow_up
+                        : Icons.keyboard_arrow_down,
                     color: AppColors.neutral1,
                   ),
                 ],
@@ -115,14 +120,18 @@ class _PromoCodeDisclosureState extends ConsumerState<PromoCodeDisclosure> {
             if (applied != null)
               Row(
                 children: [
-                  const Icon(Icons.check_circle_outline,
-                      size: 18, color: AppColors.success2),
+                  const Icon(
+                    Icons.check_circle_outline,
+                    size: 18,
+                    color: AppColors.success2,
+                  ),
                   const SizedBox(width: AppSpace.sm),
                   Expanded(
                     child: Text(
                       '$applied applied',
-                      style: AppText.body14Semibold
-                          .copyWith(color: AppColors.success2),
+                      style: AppText.body14Semibold.copyWith(
+                        color: AppColors.success2,
+                      ),
                     ),
                   ),
                   AppTextLink(

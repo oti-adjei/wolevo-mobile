@@ -45,7 +45,9 @@ class MockCalculatorRepository implements CalculatorRepository {
   Future<ShippingEstimate> estimate(ShippingEstimateRequest request) async {
     await Future<void>.delayed(const Duration(milliseconds: 800));
 
-    final destination = DestinationCountry.fromCode(request.destinationCountryCode);
+    final destination = DestinationCountry.fromCode(
+      request.destinationCountryCode,
+    );
 
     return switch (request.mode) {
       EstimateMode.link => _estimateFromLink(request, destination),

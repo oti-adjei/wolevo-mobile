@@ -20,7 +20,8 @@ class HelpScreen extends StatelessWidget {
       appBar: AppBar(
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
-          onPressed: () => context.canPop() ? context.pop() : context.go(AppRoutes.landing),
+          onPressed: () =>
+              context.canPop() ? context.pop() : context.go(AppRoutes.landing),
         ),
         title: const Text('Help Center'),
       ),
@@ -137,7 +138,9 @@ class _FaqTileState extends State<_FaqTile> {
         children: [
           Row(
             children: [
-              Expanded(child: Text(widget.question, style: AppText.body14Medium)),
+              Expanded(
+                child: Text(widget.question, style: AppText.body14Medium),
+              ),
               Icon(
                 _open ? Icons.keyboard_arrow_up : Icons.keyboard_arrow_down,
                 size: 20,

@@ -42,8 +42,9 @@ class HomeFeedController extends AsyncNotifier<HomeFeed> {
   }
 }
 
-final homeFeedProvider =
-    AsyncNotifierProvider<HomeFeedController, HomeFeed>(HomeFeedController.new);
+final homeFeedProvider = AsyncNotifierProvider<HomeFeedController, HomeFeed>(
+  HomeFeedController.new,
+);
 
 /// Everything the search screen renders, in one immutable value.
 class SearchState {
@@ -142,7 +143,9 @@ class SearchController extends Notifier<SearchState> {
     final retailer = state.retailer;
     state = state.copyWith(status: SearchStatus.loading);
     try {
-      final results = await ref.read(homeRepositoryProvider).search(
+      final results = await ref
+          .read(homeRepositoryProvider)
+          .search(
             query: query,
             retailer: retailer,
             country: ref.read(destinationCountryProvider),
@@ -197,15 +200,17 @@ class ActiveShipmentsSummary {
   }
 }
 
-final activeShipmentsProvider =
-    FutureProvider<ActiveShipmentsSummary>((ref) async {
+final activeShipmentsProvider = FutureProvider<ActiveShipmentsSummary>((
+  ref,
+) async {
   final repo = ref.watch(ordersRepositoryProvider);
   final page = await repo.list(pagination: const Pagination(pageSize: 50));
 
   // "Active" means anything the warehouse still owes the user: delivered and
   // cancelled fulfillments have left the pipeline.
   final active = page.items.where(
-    (f) => f.status != OrderStatus.delivered && f.status != OrderStatus.cancelled,
+    (f) =>
+        f.status != OrderStatus.delivered && f.status != OrderStatus.cancelled,
   );
 
   return ActiveShipmentsSummary(

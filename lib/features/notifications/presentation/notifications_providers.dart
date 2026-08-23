@@ -18,7 +18,8 @@ final notificationsUnreadOnlyProvider = StateProvider<bool>((ref) => true);
 /// marked read.
 class UnreadCountController extends AsyncNotifier<int> {
   @override
-  Future<int> build() => ref.watch(notificationsRepositoryProvider).unreadCount();
+  Future<int> build() =>
+      ref.watch(notificationsRepositoryProvider).unreadCount();
 
   Future<void> refresh() async {
     state = await AsyncValue.guard(
@@ -27,12 +28,14 @@ class UnreadCountController extends AsyncNotifier<int> {
   }
 }
 
-final unreadCountProvider =
-    AsyncNotifierProvider<UnreadCountController, int>(UnreadCountController.new);
+final unreadCountProvider = AsyncNotifierProvider<UnreadCountController, int>(
+  UnreadCountController.new,
+);
 
 /// The inbox list, respecting the unread/all toggle.
 class NotificationsListController extends AsyncNotifier<List<AppNotification>> {
-  NotificationsRepository get _repo => ref.read(notificationsRepositoryProvider);
+  NotificationsRepository get _repo =>
+      ref.read(notificationsRepositoryProvider);
 
   @override
   Future<List<AppNotification>> build() async {
@@ -66,15 +69,14 @@ class NotificationsListController extends AsyncNotifier<List<AppNotification>> {
 
 final notificationsListProvider =
     AsyncNotifierProvider<NotificationsListController, List<AppNotification>>(
-  NotificationsListController.new,
-);
+      NotificationsListController.new,
+    );
 
 /// The bell dropdown shows the most recent few regardless of read state.
-final recentNotificationsProvider = FutureProvider.autoDispose<List<AppNotification>>(
-  (ref) async {
-    final page = await ref
-        .watch(notificationsRepositoryProvider)
-        .list(unreadOnly: false, pagination: const Pagination(pageSize: 5));
-    return page.items;
-  },
-);
+final recentNotificationsProvider =
+    FutureProvider.autoDispose<List<AppNotification>>((ref) async {
+      final page = await ref
+          .watch(notificationsRepositoryProvider)
+          .list(unreadOnly: false, pagination: const Pagination(pageSize: 5));
+      return page.items;
+    });

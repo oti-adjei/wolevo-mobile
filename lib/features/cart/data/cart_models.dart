@@ -31,37 +31,37 @@ class CartItem {
   Money get lineTotal => unitPrice * quantity;
 
   CartItem copyWith({int? quantity}) => CartItem(
-        id: id,
-        productId: productId,
-        retailer: retailer,
-        title: title,
-        unitPrice: unitPrice,
-        quantity: quantity ?? this.quantity,
-        imageUrl: imageUrl,
-        variantSummary: variantSummary,
-      );
+    id: id,
+    productId: productId,
+    retailer: retailer,
+    title: title,
+    unitPrice: unitPrice,
+    quantity: quantity ?? this.quantity,
+    imageUrl: imageUrl,
+    variantSummary: variantSummary,
+  );
 
   factory CartItem.fromJson(Map<String, dynamic> json) => CartItem(
-        id: json['id'] as String,
-        productId: json['productId'] as String,
-        retailer: Retailer.fromApi(json['retailer'] as String),
-        title: json['title'] as String,
-        unitPrice: Money.fromJson(json['unitPrice'] as Map<String, dynamic>),
-        quantity: json['quantity'] as int,
-        imageUrl: json['imageUrl'] as String?,
-        variantSummary: json['variantSummary'] as String?,
-      );
+    id: json['id'] as String,
+    productId: json['productId'] as String,
+    retailer: Retailer.fromApi(json['retailer'] as String),
+    title: json['title'] as String,
+    unitPrice: Money.fromJson(json['unitPrice'] as Map<String, dynamic>),
+    quantity: json['quantity'] as int,
+    imageUrl: json['imageUrl'] as String?,
+    variantSummary: json['variantSummary'] as String?,
+  );
 
   Map<String, dynamic> toJson() => {
-        'id': id,
-        'productId': productId,
-        'retailer': retailer.apiValue,
-        'title': title,
-        'unitPrice': unitPrice.toJson(),
-        'quantity': quantity,
-        'imageUrl': imageUrl,
-        'variantSummary': variantSummary,
-      };
+    'id': id,
+    'productId': productId,
+    'retailer': retailer.apiValue,
+    'title': title,
+    'unitPrice': unitPrice.toJson(),
+    'quantity': quantity,
+    'imageUrl': imageUrl,
+    'variantSummary': variantSummary,
+  };
 }
 
 /// Items sharing a retailer. The cart screen renders one group per store, with
@@ -170,14 +170,14 @@ class DeliveryDetails {
   }
 
   Map<String, dynamic> toJson() => {
-        'destinationCountryCode': destinationCountry.code,
-        'addressId': addressId,
-        'phoneNumber': phoneNumber,
-        'differentReceiver': differentReceiver,
-        'receiverName': receiverName,
-        'receiverPhone': receiverPhone,
-        'orderNotes': orderNotes,
-      };
+    'destinationCountryCode': destinationCountry.code,
+    'addressId': addressId,
+    'phoneNumber': phoneNumber,
+    'differentReceiver': differentReceiver,
+    'receiverName': receiverName,
+    'receiverPhone': receiverPhone,
+    'orderNotes': orderNotes,
+  };
 }
 
 /// ASSUMPTION: checkout was never exercised during discovery — the Checkout

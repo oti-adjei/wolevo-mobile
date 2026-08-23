@@ -20,11 +20,26 @@ abstract final class WolevoMarkGeometry {
   /// Outline of the three slanted bars, in source coordinates offset so the
   /// bounding box starts at (0, 0).
   static const List<Offset> wOutline = [
-    Offset(34, 0), Offset(40, 2), Offset(40, 39), Offset(9, 70),
-    Offset(10, 78), Offset(82, 6), Offset(88, 7), Offset(87, 46),
-    Offset(63, 70), Offset(64, 78), Offset(136, 6), Offset(142, 7),
-    Offset(141, 47), Offset(62, 126), Offset(56, 127), Offset(54, 125),
-    Offset(53, 80), Offset(6, 127), Offset(2, 127), Offset(0, 125),
+    Offset(34, 0),
+    Offset(40, 2),
+    Offset(40, 39),
+    Offset(9, 70),
+    Offset(10, 78),
+    Offset(82, 6),
+    Offset(88, 7),
+    Offset(87, 46),
+    Offset(63, 70),
+    Offset(64, 78),
+    Offset(136, 6),
+    Offset(142, 7),
+    Offset(141, 47),
+    Offset(62, 126),
+    Offset(56, 127),
+    Offset(54, 125),
+    Offset(53, 80),
+    Offset(6, 127),
+    Offset(2, 127),
+    Offset(0, 125),
     Offset(0, 34),
   ];
 

@@ -43,24 +43,28 @@ class DeliveryDetailsController extends Notifier<DeliveryDetails> {
     );
   }
 
-  void setAddress(String addressId) => state = state.copyWith(addressId: addressId);
+  void setAddress(String addressId) =>
+      state = state.copyWith(addressId: addressId);
 
-  void setPhone(String phoneNumber) => state = state.copyWith(phoneNumber: phoneNumber);
+  void setPhone(String phoneNumber) =>
+      state = state.copyWith(phoneNumber: phoneNumber);
 
   void setDifferentReceiver(bool value) =>
       state = state.copyWith(differentReceiver: value);
 
-  void setReceiverName(String value) => state = state.copyWith(receiverName: value);
+  void setReceiverName(String value) =>
+      state = state.copyWith(receiverName: value);
 
-  void setReceiverPhone(String value) => state = state.copyWith(receiverPhone: value);
+  void setReceiverPhone(String value) =>
+      state = state.copyWith(receiverPhone: value);
 
   void setOrderNotes(String value) => state = state.copyWith(orderNotes: value);
 }
 
 final deliveryDetailsProvider =
     NotifierProvider<DeliveryDetailsController, DeliveryDetails>(
-  DeliveryDetailsController.new,
-);
+      DeliveryDetailsController.new,
+    );
 
 /// `GET /api/v1/carts/active`, plus the mutations the panel drives.
 ///
@@ -90,7 +94,9 @@ class CartController extends AsyncNotifier<Cart> {
     try {
       state = AsyncValue.data(await action());
     } catch (e, st) {
-      state = previous == null ? AsyncValue.error(e, st) : AsyncValue.data(previous);
+      state = previous == null
+          ? AsyncValue.error(e, st)
+          : AsyncValue.data(previous);
       rethrow;
     }
   }
@@ -104,15 +110,17 @@ class CartController extends AsyncNotifier<Cart> {
     String? imageUrl,
     String? variantSummary,
   }) {
-    ref.read(analyticsProvider).track(
-      AnalyticsEvents.addedToCart,
-      properties: {
-        'product_id': productId,
-        'retailer': retailer.apiValue,
-        'quantity': quantity,
-        'unit_price_usd': unitPrice.usd,
-      },
-    );
+    ref
+        .read(analyticsProvider)
+        .track(
+          AnalyticsEvents.addedToCart,
+          properties: {
+            'product_id': productId,
+            'retailer': retailer.apiValue,
+            'quantity': quantity,
+            'unit_price_usd': unitPrice.usd,
+          },
+        );
     return _mutate(
       () => _repo.addItem(
         productId: productId,
@@ -129,17 +137,21 @@ class CartController extends AsyncNotifier<Cart> {
   Future<void> updateQuantity(String itemId, int quantity) =>
       _mutate(() => _repo.updateQuantity(itemId: itemId, quantity: quantity));
 
-  Future<void> removeItem(String itemId) => _mutate(() => _repo.removeItem(itemId));
+  Future<void> removeItem(String itemId) =>
+      _mutate(() => _repo.removeItem(itemId));
 
   Future<void> clear() => _mutate(_repo.clear);
 
   /// Throws [PromoCodeException] so the disclosure can show the error inline.
-  Future<void> applyPromo(String code) => _mutate(() => _repo.applyPromoCode(code));
+  Future<void> applyPromo(String code) =>
+      _mutate(() => _repo.applyPromoCode(code));
 
   Future<void> removePromo() => _mutate(_repo.removePromoCode);
 }
 
-final cartProvider = AsyncNotifierProvider<CartController, Cart>(CartController.new);
+final cartProvider = AsyncNotifierProvider<CartController, Cart>(
+  CartController.new,
+);
 
 /// Badge count for the header and the product screen's `View Cart (3)` button.
 /// Reads 0 while the first fetch is in flight rather than flashing a stale one.
@@ -158,22 +170,23 @@ class CheckoutController extends AsyncNotifier<CheckoutResult?> {
     final delivery = ref.read(deliveryDetailsProvider);
     final cart = ref.read(cartProvider).valueOrNull;
     state = await AsyncValue.guard(
-      () => ref.read(cartRepositoryProvider).checkout(
-            delivery: delivery,
-            method: method,
-          ),
+      () => ref
+          .read(cartRepositoryProvider)
+          .checkout(delivery: delivery, method: method),
     );
     if (state.valueOrNull case final result?) {
-      ref.read(analyticsProvider).track(
-        AnalyticsEvents.orderPlaced,
-        properties: {
-          'reference': result.orderReference,
-          'method': method.apiValue,
-          'total_usd': result.paidAmount.usd,
-          'currency': result.paidAmount.localCurrency,
-          'item_count': cart?.itemCount ?? 0,
-        },
-      );
+      ref
+          .read(analyticsProvider)
+          .track(
+            AnalyticsEvents.orderPlaced,
+            properties: {
+              'reference': result.orderReference,
+              'method': method.apiValue,
+              'total_usd': result.paidAmount.usd,
+              'currency': result.paidAmount.localCurrency,
+              'item_count': cart?.itemCount ?? 0,
+            },
+          );
       // The cart is emptied server-side by a successful checkout.
       ref.invalidate(cartProvider);
     }
@@ -181,4 +194,6 @@ class CheckoutController extends AsyncNotifier<CheckoutResult?> {
 }
 
 final checkoutControllerProvider =
-    AsyncNotifierProvider<CheckoutController, CheckoutResult?>(CheckoutController.new);
+    AsyncNotifierProvider<CheckoutController, CheckoutResult?>(
+      CheckoutController.new,
+    );

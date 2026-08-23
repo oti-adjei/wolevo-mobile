@@ -14,10 +14,10 @@ enum ShopMode {
   String? get queryValue => this == ShopMode.browse ? null : name;
 
   static ShopMode fromQuery(String? value) => switch (value?.toLowerCase()) {
-        'search' => ShopMode.search,
-        'paste' => ShopMode.paste,
-        _ => ShopMode.browse,
-      };
+    'search' => ShopMode.search,
+    'paste' => ShopMode.paste,
+    _ => ShopMode.browse,
+  };
 }
 
 /// One tile in the shop grid — the payload behind both the default browse feed
@@ -59,26 +59,26 @@ class ShopListing {
   }
 
   factory ShopListing.fromJson(Map<String, dynamic> json) => ShopListing(
-        productId: json['productId'] as String,
-        retailer: Retailer.fromApi(json['retailer'] as String? ?? 'AMAZON'),
-        title: json['title'] as String? ?? '',
-        imageUrl: json['imageUrl'] as String? ?? '',
-        price: Money.fromJson(json['price'] as Map<String, dynamic>),
-        wasPrice: json['wasPrice'] == null
-            ? null
-            : Money.fromJson(json['wasPrice'] as Map<String, dynamic>),
-        inStock: json['inStock'] as bool? ?? true,
-      );
+    productId: json['productId'] as String,
+    retailer: Retailer.fromApi(json['retailer'] as String? ?? 'AMAZON'),
+    title: json['title'] as String? ?? '',
+    imageUrl: json['imageUrl'] as String? ?? '',
+    price: Money.fromJson(json['price'] as Map<String, dynamic>),
+    wasPrice: json['wasPrice'] == null
+        ? null
+        : Money.fromJson(json['wasPrice'] as Map<String, dynamic>),
+    inStock: json['inStock'] as bool? ?? true,
+  );
 
   Map<String, dynamic> toJson() => {
-        'productId': productId,
-        'retailer': retailer.apiValue,
-        'title': title,
-        'imageUrl': imageUrl,
-        'price': price.toJson(),
-        if (wasPrice != null) 'wasPrice': wasPrice!.toJson(),
-        'inStock': inStock,
-      };
+    'productId': productId,
+    'retailer': retailer.apiValue,
+    'title': title,
+    'imageUrl': imageUrl,
+    'price': price.toJson(),
+    if (wasPrice != null) 'wasPrice': wasPrice!.toJson(),
+    'inStock': inStock,
+  };
 }
 
 /// A page of listings that also carries the catalogue-wide count.

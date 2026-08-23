@@ -46,7 +46,8 @@ class MockProductRepository implements ProductRepository {
     return ProductDetail(
       productId: ankerAsin,
       retailer: Retailer.amazon,
-      title: 'Anker USB C to USB C Cable, 60W Fast Charging Cable '
+      title:
+          'Anker USB C to USB C Cable, 60W Fast Charging Cable '
           '(2-Pack, 6 ft, Black)',
       seller: 'Amazon (FBA)',
       brand: 'Anker',
@@ -175,7 +176,9 @@ class MockProductRepository implements ProductRepository {
       brand: brand,
       condition: title.toLowerCase().contains('renewed')
           ? 'Renewed'
-          : (title.toLowerCase().contains('grade b') ? 'Used - Very Good' : 'New'),
+          : (title.toLowerCase().contains('grade b')
+                ? 'Used - Very Good'
+                : 'New'),
       images: List<String>.filled(imageCount, ''),
       price: price,
       wasPrice: seed?.wasPrice,
@@ -221,7 +224,8 @@ class MockProductRepository implements ProductRepository {
         'Covered by Wolevo buyer protection until the parcel reaches your door.',
       ],
       dimensions: {
-        'Package Dimensions': '${8 + hash % 6} x ${5 + hash % 4} x '
+        'Package Dimensions':
+            '${8 + hash % 6} x ${5 + hash % 4} x '
             '${2 + hash % 3} inches',
         'Item Weight': '${1 + hash % 5}.${hash % 10} lb',
         'Shipping Weight': '${1 + hash % 6}.0 lb',
@@ -232,12 +236,12 @@ class MockProductRepository implements ProductRepository {
   }
 
   List<String> _colorsFor(int hash) => switch (hash % 3) {
-        // Names limited to the ones the variant picker can paint from a brand
-        // token — it never invents a hex value for a colour swatch.
-        0 => const ['Black', 'Silver', 'Green'],
-        1 => const ['White', 'Black', 'Red'],
-        _ => const ['Black', 'Green', 'Red'],
-      };
+    // Names limited to the ones the variant picker can paint from a brand
+    // token — it never invents a hex value for a colour swatch.
+    0 => const ['Black', 'Silver', 'Green'],
+    1 => const ['White', 'Black', 'Red'],
+    _ => const ['Black', 'Green', 'Red'],
+  };
 
   /// Deterministic, platform-independent hash — `String.hashCode` is not
   /// guaranteed stable across runs.

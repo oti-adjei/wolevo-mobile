@@ -15,7 +15,8 @@ enum HomeSectionKind {
   // ASSUMPTION: the live payload distinguishes the two row types with a `kind`
   // field. Only the rendered output was observable, so the parser also falls
   // back to inferring the kind from whichever list is populated.
-  static HomeSectionKind fromApi(String? value) => switch (value?.toUpperCase()) {
+  static HomeSectionKind fromApi(String? value) =>
+      switch (value?.toUpperCase()) {
         'CATEGORIES' => HomeSectionKind.categories,
         'PRODUCTS' => HomeSectionKind.products,
         _ => HomeSectionKind.products,
@@ -56,24 +57,24 @@ class DealProduct {
   }
 
   factory DealProduct.fromJson(Map<String, dynamic> json) => DealProduct(
-        productId: json['productId'] as String,
-        retailer: Retailer.fromApi(json['retailer'] as String? ?? 'AMAZON'),
-        title: json['title'] as String? ?? '',
-        imageUrl: json['imageUrl'] as String? ?? '',
-        price: Money.fromJson(json['price'] as Map<String, dynamic>),
-        wasPrice: json['wasPrice'] == null
-            ? null
-            : Money.fromJson(json['wasPrice'] as Map<String, dynamic>),
-      );
+    productId: json['productId'] as String,
+    retailer: Retailer.fromApi(json['retailer'] as String? ?? 'AMAZON'),
+    title: json['title'] as String? ?? '',
+    imageUrl: json['imageUrl'] as String? ?? '',
+    price: Money.fromJson(json['price'] as Map<String, dynamic>),
+    wasPrice: json['wasPrice'] == null
+        ? null
+        : Money.fromJson(json['wasPrice'] as Map<String, dynamic>),
+  );
 
   Map<String, dynamic> toJson() => {
-        'productId': productId,
-        'retailer': retailer.apiValue,
-        'title': title,
-        'imageUrl': imageUrl,
-        'price': price.toJson(),
-        if (wasPrice != null) 'wasPrice': wasPrice!.toJson(),
-      };
+    'productId': productId,
+    'retailer': retailer.apiValue,
+    'title': title,
+    'imageUrl': imageUrl,
+    'price': price.toJson(),
+    if (wasPrice != null) 'wasPrice': wasPrice!.toJson(),
+  };
 }
 
 /// One tile in a category row — Fashion Nova / Plug Tech / Sephora merchandise
@@ -90,16 +91,16 @@ class CategoryTile {
   final Retailer retailer;
 
   factory CategoryTile.fromJson(Map<String, dynamic> json) => CategoryTile(
-        label: json['label'] as String? ?? '',
-        imageUrl: json['imageUrl'] as String? ?? '',
-        retailer: Retailer.fromApi(json['retailer'] as String? ?? 'AMAZON'),
-      );
+    label: json['label'] as String? ?? '',
+    imageUrl: json['imageUrl'] as String? ?? '',
+    retailer: Retailer.fromApi(json['retailer'] as String? ?? 'AMAZON'),
+  );
 
   Map<String, dynamic> toJson() => {
-        'label': label,
-        'imageUrl': imageUrl,
-        'retailer': retailer.apiValue,
-      };
+    'label': label,
+    'imageUrl': imageUrl,
+    'retailer': retailer.apiValue,
+  };
 }
 
 /// One merchandised row: `Deals from Amazon`, `Sephora`, …
@@ -123,7 +124,8 @@ class HomeSection {
   final List<DealProduct> products;
   final List<CategoryTile> categories;
 
-  bool get isEmpty => kind == HomeSectionKind.products ? products.isEmpty : categories.isEmpty;
+  bool get isEmpty =>
+      kind == HomeSectionKind.products ? products.isEmpty : categories.isEmpty;
 
   factory HomeSection.fromJson(Map<String, dynamic> json) {
     final products = (json['products'] as List<dynamic>? ?? const [])
@@ -137,7 +139,9 @@ class HomeSection {
       retailer: retailer,
       title: json['title'] as String? ?? retailer.label,
       kind: json['kind'] == null
-          ? (categories.isNotEmpty ? HomeSectionKind.categories : HomeSectionKind.products)
+          ? (categories.isNotEmpty
+                ? HomeSectionKind.categories
+                : HomeSectionKind.products)
           : HomeSectionKind.fromApi(json['kind'] as String),
       products: products,
       categories: categories,
@@ -145,12 +149,12 @@ class HomeSection {
   }
 
   Map<String, dynamic> toJson() => {
-        'retailer': retailer.apiValue,
-        'title': title,
-        'kind': kind.apiValue,
-        'products': products.map((p) => p.toJson()).toList(),
-        'categories': categories.map((c) => c.toJson()).toList(),
-      };
+    'retailer': retailer.apiValue,
+    'title': title,
+    'kind': kind.apiValue,
+    'products': products.map((p) => p.toJson()).toList(),
+    'categories': categories.map((c) => c.toJson()).toList(),
+  };
 }
 
 /// The whole `/shop/homepage-deals` response.
@@ -166,14 +170,14 @@ class HomeFeed {
   List<Retailer> get browsableRetailers => Retailer.values;
 
   factory HomeFeed.fromJson(Map<String, dynamic> json) => HomeFeed(
-        sections: (json['sections'] as List<dynamic>? ?? const [])
-            .map((e) => HomeSection.fromJson(e as Map<String, dynamic>))
-            .toList(growable: false),
-      );
+    sections: (json['sections'] as List<dynamic>? ?? const [])
+        .map((e) => HomeSection.fromJson(e as Map<String, dynamic>))
+        .toList(growable: false),
+  );
 
   Map<String, dynamic> toJson() => {
-        'sections': sections.map((s) => s.toJson()).toList(),
-      };
+    'sections': sections.map((s) => s.toJson()).toList(),
+  };
 }
 
 /// A page of `GET /shop/search` results plus the count the web app prints
@@ -193,7 +197,8 @@ class SearchResults {
   final int totalCount;
   final bool hasMore;
 
-  static SearchResults emptyFor(String query, Retailer retailer) => SearchResults(
+  static SearchResults emptyFor(String query, Retailer retailer) =>
+      SearchResults(
         query: query,
         retailer: retailer,
         products: const [],

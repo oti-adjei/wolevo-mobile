@@ -28,7 +28,9 @@ void main() {
 
     final container = ProviderContainer(
       overrides: [
-        authRepositoryProvider.overrideWithValue(FakeAuthRepository.signedOut()),
+        authRepositoryProvider.overrideWithValue(
+          FakeAuthRepository.signedOut(),
+        ),
       ],
     );
     addTearDown(container.dispose);
@@ -61,7 +63,9 @@ void main() {
     expect(find.text('Receive it at home.'), findsOneWidget);
   });
 
-  testWidgets('Skip lands on register and marks onboarding seen', (tester) async {
+  testWidgets('Skip lands on register and marks onboarding seen', (
+    tester,
+  ) async {
     final container = await pumpOnboarding(tester);
 
     await tester.tap(find.text('Skip'));
@@ -107,8 +111,9 @@ void main() {
     expect(find.byType(LoginScreen), findsOneWidget);
   });
 
-  testWidgets('a second launch skips onboarding and opens Explore',
-      (tester) async {
+  testWidgets('a second launch skips onboarding and opens Explore', (
+    tester,
+  ) async {
     SharedPreferences.setMockInitialValues({'wolevo.onboarding.seen': true});
     await pumpOnboarding(tester);
 
@@ -126,8 +131,9 @@ void main() {
     expect(find.byType(RegisterScreen), findsNothing);
   });
 
-  testWidgets('the login route it lands on is reachable without a session',
-      (tester) async {
+  testWidgets('the login route it lands on is reachable without a session', (
+    tester,
+  ) async {
     await pumpOnboarding(tester);
     await swipeToLastSlide(tester);
 

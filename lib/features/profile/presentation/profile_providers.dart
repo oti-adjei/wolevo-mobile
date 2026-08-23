@@ -26,8 +26,9 @@ enum ProfileSection {
   final String label;
 }
 
-final profileSectionProvider =
-    StateProvider<ProfileSection>((ref) => ProfileSection.profile);
+final profileSectionProvider = StateProvider<ProfileSection>(
+  (ref) => ProfileSection.profile,
+);
 
 /// `GET /api/v1/addresses`.
 class SavedAddressesController extends AsyncNotifier<List<SavedAddress>> {
@@ -53,8 +54,8 @@ class SavedAddressesController extends AsyncNotifier<List<SavedAddress>> {
 
 final savedAddressesProvider =
     AsyncNotifierProvider<SavedAddressesController, List<SavedAddress>>(
-  SavedAddressesController.new,
-);
+      SavedAddressesController.new,
+    );
 
 /// `GET /api/v1/user/referrals`. Falls back to the signed-in user's own code if
 /// the endpoint ever returns a blank one.
@@ -138,20 +139,23 @@ class CitySearchController extends AutoDisposeNotifier<CitySearchState> {
     final query = state.query;
     final country = state.countryCode;
     try {
-      final results = await ref.read(profileRepositoryProvider).searchCities(
-            query: query,
-            countryCode: country,
-          );
+      final results = await ref
+          .read(profileRepositoryProvider)
+          .searchCities(query: query, countryCode: country);
       if (id != _requestId) return;
       state = state.copyWith(results: results, loading: false);
     } catch (e) {
       if (id != _requestId) return;
-      state = state.copyWith(results: const [], loading: false, errorMessage: '$e');
+      state = state.copyWith(
+        results: const [],
+        loading: false,
+        errorMessage: '$e',
+      );
     }
   }
 }
 
 final citySearchProvider =
     AutoDisposeNotifierProvider<CitySearchController, CitySearchState>(
-  CitySearchController.new,
-);
+      CitySearchController.new,
+    );

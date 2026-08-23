@@ -37,15 +37,16 @@ class OrderDetailScreen extends ConsumerWidget {
       appBar: AppBar(
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
-          onPressed: () => context.canPop() ? context.pop() : context.go(AppRoutes.orders),
+          onPressed: () =>
+              context.canPop() ? context.pop() : context.go(AppRoutes.orders),
         ),
         title: Text(async.valueOrNull?.reference ?? 'Order'),
       ),
       body: switch (async) {
         AsyncError(:final error) => ErrorRetry(
-            message: '$error',
-            onRetry: () => ref.invalidate(orderDetailProvider(orderId)),
-          ),
+          message: '$error',
+          onRetry: () => ref.invalidate(orderDetailProvider(orderId)),
+        ),
         AsyncData(:final value) => _Body(fulfillment: value),
         _ => const AppLoader(),
       },
@@ -97,7 +98,12 @@ class _Body extends StatelessWidget {
         const EyebrowLabel('Cost summary'),
         const SizedBox(height: AppSpace.md),
         // Single column — the desktop sidebar does not survive a 375px phone.
-        AppCard(child: _CostSummary(costs: f.costs, destination: f.destinationCountry.name)),
+        AppCard(
+          child: _CostSummary(
+            costs: f.costs,
+            destination: f.destinationCountry.name,
+          ),
+        ),
         const SizedBox(height: AppSpace.xxl),
         const EyebrowLabel('Delivery address'),
         const SizedBox(height: AppSpace.md),
@@ -284,14 +290,14 @@ class _TimelineNode extends StatelessWidget {
                     color: done
                         ? AppColors.secondary
                         : isCurrent
-                            ? AppColors.tertiary
-                            : AppColors.background,
+                        ? AppColors.tertiary
+                        : AppColors.background,
                     border: Border.all(
                       color: done
                           ? AppColors.secondary
                           : isCurrent
-                              ? AppColors.secondary3
-                              : AppColors.surface4,
+                          ? AppColors.secondary3
+                          : AppColors.surface4,
                       width: 2,
                     ),
                   ),
@@ -303,7 +309,9 @@ class _TimelineNode extends StatelessWidget {
                   Expanded(
                     child: Container(
                       width: 2,
-                      color: connectorFilled ? AppColors.secondary : AppColors.surface4,
+                      color: connectorFilled
+                          ? AppColors.secondary
+                          : AppColors.surface4,
                     ),
                   ),
               ],
@@ -312,7 +320,10 @@ class _TimelineNode extends StatelessWidget {
           const SizedBox(width: AppSpace.md),
           Expanded(
             child: Padding(
-              padding: EdgeInsets.only(bottom: isLast ? 0 : AppSpace.xl, top: 2),
+              padding: EdgeInsets.only(
+                bottom: isLast ? 0 : AppSpace.xl,
+                top: 2,
+              ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -322,7 +333,9 @@ class _TimelineNode extends StatelessWidget {
                         child: Text(
                           event.label,
                           style: AppText.body14Semibold.copyWith(
-                            color: muted ? AppColors.neutral2 : AppColors.bodyText,
+                            color: muted
+                                ? AppColors.neutral2
+                                : AppColors.bodyText,
                           ),
                         ),
                       ),
@@ -345,7 +358,9 @@ class _TimelineNode extends StatelessWidget {
                     const SizedBox(height: 4),
                     Text(
                       DateFormat('d MMM yyyy · HH:mm').format(ts),
-                      style: AppText.caption.copyWith(color: AppColors.neutral2),
+                      style: AppText.caption.copyWith(
+                        color: AppColors.neutral2,
+                      ),
                     ),
                   ],
                 ],
@@ -396,7 +411,9 @@ class _ItemRow extends StatelessWidget {
             children: [
               Text(
                 item.unitPrice.usdLabel,
-                style: AppText.body14Semibold.copyWith(color: AppColors.secondary3),
+                style: AppText.body14Semibold.copyWith(
+                  color: AppColors.secondary3,
+                ),
               ),
               Text(
                 item.unitPrice.localLabel,
@@ -422,7 +439,10 @@ class _CostSummary extends StatelessWidget {
       children: [
         _CostRow(label: 'Subtotal', value: costs.subtotal),
         _CostRow(label: 'Retailer Shipping', value: costs.retailerShipping),
-        _CostRow(label: 'Shipping to $destination', value: costs.shippingToDestination),
+        _CostRow(
+          label: 'Shipping to $destination',
+          value: costs.shippingToDestination,
+        ),
         _CostRow(label: 'Handling', value: costs.handling),
         const Padding(
           padding: EdgeInsets.symmetric(vertical: AppSpace.md),
@@ -435,7 +455,11 @@ class _CostSummary extends StatelessWidget {
 }
 
 class _CostRow extends StatelessWidget {
-  const _CostRow({required this.label, required this.value, this.emphasised = false});
+  const _CostRow({
+    required this.label,
+    required this.value,
+    this.emphasised = false,
+  });
 
   final String label;
   final Money? value;
@@ -469,7 +493,9 @@ class _CostRow extends StatelessWidget {
               children: [
                 Text(
                   value!.usdLabel,
-                  style: emphasised ? AppText.bodySemibold : AppText.body14Medium,
+                  style: emphasised
+                      ? AppText.bodySemibold
+                      : AppText.body14Medium,
                 ),
                 Text(
                   value!.localLabel,
@@ -508,7 +534,11 @@ class _AddressBlock extends StatelessWidget {
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Icon(Icons.place_outlined, size: 16, color: AppColors.neutral1),
+              const Icon(
+                Icons.place_outlined,
+                size: 16,
+                color: AppColors.neutral1,
+              ),
               const SizedBox(width: 6),
               Expanded(
                 child: Text(

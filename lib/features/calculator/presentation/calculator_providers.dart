@@ -7,8 +7,9 @@ import '../data/calculator_repository.dart';
 import '../data/mock_calculator_repository.dart';
 
 /// Swap this single line for a Dio-backed implementation to go live.
-final calculatorRepositoryProvider =
-    Provider<CalculatorRepository>((ref) => MockCalculatorRepository());
+final calculatorRepositoryProvider = Provider<CalculatorRepository>(
+  (ref) => MockCalculatorRepository(),
+);
 
 /// Estimate state for the calculator card. `null` data means "nothing quoted
 /// yet", which is the placeholder state the panel renders before the first
@@ -26,14 +27,16 @@ class CalculatorController extends AutoDisposeAsyncNotifier<ShippingEstimate?> {
     if (state.valueOrNull case final estimate?) {
       // The calculator is public, so this often fires before signup — it is the
       // top of the funnel, not a logged-in action.
-      ref.read(analyticsProvider).track(
-        AnalyticsEvents.shippingEstimated,
-        properties: {
-          'mode': request.mode.name,
-          'destination': request.destinationCountryCode,
-          'shipping_usd': estimate.shipping.usd,
-        },
-      );
+      ref
+          .read(analyticsProvider)
+          .track(
+            AnalyticsEvents.shippingEstimated,
+            properties: {
+              'mode': request.mode.name,
+              'destination': request.destinationCountryCode,
+              'shipping_usd': estimate.shipping.usd,
+            },
+          );
     }
   }
 
@@ -43,5 +46,5 @@ class CalculatorController extends AutoDisposeAsyncNotifier<ShippingEstimate?> {
 
 final calculatorEstimateProvider =
     AutoDisposeAsyncNotifierProvider<CalculatorController, ShippingEstimate?>(
-  CalculatorController.new,
-);
+      CalculatorController.new,
+    );

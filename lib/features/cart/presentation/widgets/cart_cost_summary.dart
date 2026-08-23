@@ -51,10 +51,15 @@ class CartCostSummary extends StatelessWidget {
                       onTap: onRemovePromo,
                       borderRadius: AppRadius.rSm,
                       child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 4,
+                          vertical: 2,
+                        ),
                         child: Text(
                           'Remove',
-                          style: AppText.caption.copyWith(color: AppColors.neutral1),
+                          style: AppText.caption.copyWith(
+                            color: AppColors.neutral1,
+                          ),
                         ),
                       ),
                     ),
@@ -131,8 +136,11 @@ class CostRow extends StatelessWidget {
               children: [
                 Text(
                   '${negative ? '−' : ''}${amount.usdLabel}${suffix ?? ''}',
-                  style: (emphasised ? AppText.bodySemibold : AppText.body14Medium)
-                      .copyWith(color: negative ? AppColors.success2 : null),
+                  style:
+                      (emphasised ? AppText.bodySemibold : AppText.body14Medium)
+                          .copyWith(
+                            color: negative ? AppColors.success2 : null,
+                          ),
                 ),
                 Text(
                   '${negative ? '−' : ''}${amount.localLabel}${suffix ?? ''}',
@@ -157,7 +165,9 @@ class CartCurrencyNote extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Note: All prices will be converted to your destination currency at checkout.'),
+          Text(
+            'Note: All prices will be converted to your destination currency at checkout.',
+          ),
           SizedBox(height: 4),
           Text('Click checkout to see final pricing.'),
         ],

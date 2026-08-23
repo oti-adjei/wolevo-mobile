@@ -49,7 +49,11 @@ class OrderStatusFilterBar extends StatelessWidget {
 }
 
 class _Chip extends StatelessWidget {
-  const _Chip({required this.label, required this.selected, required this.onTap});
+  const _Chip({
+    required this.label,
+    required this.selected,
+    required this.onTap,
+  });
 
   final String label;
   final bool selected;
@@ -63,7 +67,10 @@ class _Chip extends StatelessWidget {
         onTap: onTap,
         borderRadius: AppRadius.rPill,
         child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: AppSpace.lg, vertical: 9),
+          padding: const EdgeInsets.symmetric(
+            horizontal: AppSpace.lg,
+            vertical: 9,
+          ),
           decoration: BoxDecoration(
             color: selected ? AppColors.secondary : AppColors.background,
             borderRadius: AppRadius.rPill,
@@ -86,7 +93,11 @@ class _Chip extends StatelessWidget {
 /// The `× Clear all filters (1)` control the site shows underneath the chip row
 /// whenever a filter is active.
 class ClearFiltersButton extends StatelessWidget {
-  const ClearFiltersButton({super.key, required this.count, required this.onPressed});
+  const ClearFiltersButton({
+    super.key,
+    required this.count,
+    required this.onPressed,
+  });
 
   final int count;
   final VoidCallback onPressed;
@@ -98,7 +109,10 @@ class ClearFiltersButton extends StatelessWidget {
       child: TextButton.icon(
         onPressed: onPressed,
         icon: const Icon(Icons.close, size: 16),
-        label: Text('Clear all filters ($count)', style: AppText.body14Semibold),
+        label: Text(
+          'Clear all filters ($count)',
+          style: AppText.body14Semibold,
+        ),
         style: TextButton.styleFrom(
           foregroundColor: AppColors.neutral1,
           padding: const EdgeInsets.symmetric(horizontal: AppSpace.sm),

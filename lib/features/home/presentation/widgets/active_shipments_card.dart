@@ -53,7 +53,9 @@ class ActiveShipmentsCard extends ConsumerWidget {
                           'ACTIVE SHIPMENTS',
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
-                          style: AppText.micro.copyWith(color: AppColors.secondary),
+                          style: AppText.micro.copyWith(
+                            color: AppColors.secondary,
+                          ),
                         ),
                       ),
                       const SizedBox(width: AppSpace.sm),

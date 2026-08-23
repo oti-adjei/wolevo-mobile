@@ -55,7 +55,10 @@ class SessionController extends AsyncNotifier<AuthSession?> {
 
     if (state.valueOrNull case final session?) {
       _attachIdentity(session);
-      _analytics.track(AnalyticsEvents.signedIn, properties: {'method': 'password'});
+      _analytics.track(
+        AnalyticsEvents.signedIn,
+        properties: {'method': 'password'},
+      );
     }
   }
 
@@ -66,13 +69,16 @@ class SessionController extends AsyncNotifier<AuthSession?> {
 
     if (state.valueOrNull case final session?) {
       _attachIdentity(session);
-      _analytics.track(AnalyticsEvents.signedUp, properties: {
-        'method': 'password',
-        'destination_country': session.user.destinationCountry.code,
-        // Whether the referral programme actually drives signups is the first
-        // question anyone will ask of this funnel.
-        'used_referral': request.referralCode?.isNotEmpty ?? false,
-      });
+      _analytics.track(
+        AnalyticsEvents.signedUp,
+        properties: {
+          'method': 'password',
+          'destination_country': session.user.destinationCountry.code,
+          // Whether the referral programme actually drives signups is the first
+          // question anyone will ask of this funnel.
+          'used_referral': request.referralCode?.isNotEmpty ?? false,
+        },
+      );
     }
   }
 
@@ -83,7 +89,10 @@ class SessionController extends AsyncNotifier<AuthSession?> {
 
     if (state.valueOrNull case final session?) {
       _attachIdentity(session);
-      _analytics.track(AnalyticsEvents.signedIn, properties: {'method': 'google'});
+      _analytics.track(
+        AnalyticsEvents.signedIn,
+        properties: {'method': 'google'},
+      );
     }
   }
 
@@ -116,8 +125,9 @@ class SessionController extends AsyncNotifier<AuthSession?> {
   }
 }
 
-final sessionProvider =
-    AsyncNotifierProvider<SessionController, AuthSession?>(SessionController.new);
+final sessionProvider = AsyncNotifierProvider<SessionController, AuthSession?>(
+  SessionController.new,
+);
 
 /// True once a session exists. Reads as false while the initial restore is in
 /// flight, which keeps the router on the splash route.

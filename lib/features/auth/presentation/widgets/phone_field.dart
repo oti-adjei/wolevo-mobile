@@ -98,7 +98,9 @@ class PhoneField extends StatefulWidget {
 }
 
 class _PhoneFieldState extends State<PhoneField> {
-  late PhoneCountry _country = _countryForDestination(widget.initialDestination);
+  late PhoneCountry _country = _countryForDestination(
+    widget.initialDestination,
+  );
   final _controller = TextEditingController();
 
   @override
@@ -108,8 +110,9 @@ class _PhoneFieldState extends State<PhoneField> {
     if (initial == null || initial.isEmpty) return;
 
     // Longest dial code first, so +233 wins over a shorter prefix.
-    final matches = kPhoneCountries.where((c) => initial.startsWith(c.dialCode)).toList()
-      ..sort((a, b) => b.dialCode.length.compareTo(a.dialCode.length));
+    final matches =
+        kPhoneCountries.where((c) => initial.startsWith(c.dialCode)).toList()
+          ..sort((a, b) => b.dialCode.length.compareTo(a.dialCode.length));
     if (matches.isNotEmpty) {
       _country = matches.first;
       _controller.text = initial.substring(_country.dialCode.length);
@@ -127,8 +130,8 @@ class _PhoneFieldState extends State<PhoneField> {
   String get _national => _controller.text.replaceAll(RegExp(r'\D'), '');
 
   void _emit() => widget.onChanged(
-        _national.isEmpty ? '' : '${_country.dialCode}$_national',
-      );
+    _national.isEmpty ? '' : '${_country.dialCode}$_national',
+  );
 
   Future<void> _pickCountry() async {
     final picked = await showAppSheet<PhoneCountry>(

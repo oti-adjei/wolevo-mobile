@@ -15,9 +15,12 @@ final siteRegionProvider = StateProvider<SiteRegion>((ref) => SiteRegion.ghana);
 /// The Shop | Ship toggle in the hero.
 enum LandingMode { shop, ship }
 
-final landingModeProvider = StateProvider<LandingMode>((ref) => LandingMode.shop);
+final landingModeProvider = StateProvider<LandingMode>(
+  (ref) => LandingMode.shop,
+);
 
 /// The "How it works" tab selection — mirrors [LandingMode] but is independent
 /// of the hero toggle on the live site.
-final howItWorksTabProvider =
-    StateProvider<LandingMode>((ref) => LandingMode.shop);
+final howItWorksTabProvider = StateProvider<LandingMode>(
+  (ref) => LandingMode.shop,
+);

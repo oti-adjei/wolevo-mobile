@@ -23,11 +23,7 @@ enum AppEnvironment {
     apiBaseUrl: 'https://staging-api.wolevo.com/api/v1',
     label: 'STAGING',
   ),
-  prod(
-    name: 'prod',
-    apiBaseUrl: 'https://api.wolevo.com/api/v1',
-    label: null,
-  );
+  prod(name: 'prod', apiBaseUrl: 'https://api.wolevo.com/api/v1', label: null);
 
   const AppEnvironment({
     required this.name,
@@ -59,9 +55,9 @@ enum AppEnvironment {
   );
 
   static AppEnvironment _resolve(String value) => values.firstWhere(
-        (e) => e.name == value.toLowerCase(),
-        orElse: () => AppEnvironment.dev,
-      );
+    (e) => e.name == value.toLowerCase(),
+    orElse: () => AppEnvironment.dev,
+  );
 }
 
 /// Secrets are injected the same way, never committed.

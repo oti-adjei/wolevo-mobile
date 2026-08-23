@@ -148,7 +148,8 @@ class _IntentContent extends StatelessWidget {
       case ShipIntent.yetToShop:
         return IntentExplainerCard(
           title: 'Three steps before you register',
-          intro: "Three steps and you're shopping any American store like you live there.",
+          intro:
+              "Three steps and you're shopping any American store like you live there.",
           steps: const [
             ExplainerStep(
               'Open your Wolevo locker address',
@@ -179,7 +180,8 @@ class _IntentContent extends StatelessWidget {
       case ShipIntent.someoneSending:
         return IntentExplainerCard(
           title: 'Getting a package from someone in the US',
-          intro: 'Family, friend, or anyone in the States — they ship, you receive it '
+          intro:
+              'Family, friend, or anyone in the States — they ship, you receive it '
               'at your doorstep. Three steps:',
           steps: const [
             ExplainerStep(
@@ -198,7 +200,10 @@ class _IntentContent extends StatelessWidget {
             ),
           ],
           actions: [
-            PrimaryButton(label: 'Copy address to send them', onPressed: onCopyAddress),
+            PrimaryButton(
+              label: 'Copy address to send them',
+              onPressed: onCopyAddress,
+            ),
             const SizedBox(height: AppSpace.sm),
             Center(
               child: AppTextLink(

@@ -22,18 +22,21 @@ class Money {
   final String localCurrency;
 
   factory Money.fromJson(Map<String, dynamic> json) => Money(
-        usd: (json['usd'] as num).toDouble(),
-        localAmount: (json['localAmount'] as num).toDouble(),
-        localCurrency: json['localCurrency'] as String,
-      );
+    usd: (json['usd'] as num).toDouble(),
+    localAmount: (json['localAmount'] as num).toDouble(),
+    localCurrency: json['localCurrency'] as String,
+  );
 
   Map<String, dynamic> toJson() => {
-        'usd': usd,
-        'localAmount': localAmount,
-        'localCurrency': localCurrency,
-      };
+    'usd': usd,
+    'localAmount': localAmount,
+    'localCurrency': localCurrency,
+  };
 
-  static final _usdFormat = NumberFormat.currency(symbol: r'$', decimalDigits: 2);
+  static final _usdFormat = NumberFormat.currency(
+    symbol: r'$',
+    decimalDigits: 2,
+  );
 
   /// `$187.68`
   String get usdLabel => _usdFormat.format(usd);
@@ -47,28 +50,31 @@ class Money {
       'NGN' => '₦',
       _ => '$localCurrency ',
     };
-    return NumberFormat.currency(symbol: symbol, decimalDigits: 2).format(localAmount);
+    return NumberFormat.currency(
+      symbol: symbol,
+      decimalDigits: 2,
+    ).format(localAmount);
   }
 
   Money operator *(num factor) => Money(
-        usd: usd * factor,
-        localAmount: localAmount * factor,
-        localCurrency: localCurrency,
-      );
+    usd: usd * factor,
+    localAmount: localAmount * factor,
+    localCurrency: localCurrency,
+  );
 
   Money operator +(Money other) => Money(
-        usd: usd + other.usd,
-        localAmount: localAmount + other.localAmount,
-        localCurrency: localCurrency,
-      );
+    usd: usd + other.usd,
+    localAmount: localAmount + other.localAmount,
+    localCurrency: localCurrency,
+  );
 
   /// Convenience for mock data: builds a Money using the fixed demo rate for a
   /// destination. Real responses always arrive with both fields populated.
   factory Money.mock(double usd, DestinationCountry country) => Money(
-        usd: usd,
-        localAmount: usd * country.mockRate,
-        localCurrency: country.currencyCode,
-      );
+    usd: usd,
+    localAmount: usd * country.mockRate,
+    localCurrency: country.currencyCode,
+  );
 
   static Money zero(DestinationCountry country) => Money.mock(0, country);
 }

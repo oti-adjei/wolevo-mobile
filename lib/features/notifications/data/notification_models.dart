@@ -21,9 +21,9 @@ enum NotificationKind {
   final Color tint;
 
   static NotificationKind fromApi(String value) => values.firstWhere(
-        (k) => k.apiValue == value.toUpperCase(),
-        orElse: () => NotificationKind.system,
-      );
+    (k) => k.apiValue == value.toUpperCase(),
+    orElse: () => NotificationKind.system,
+  );
 }
 
 /// A row from `GET /api/v1/user/notifications`.
@@ -52,16 +52,17 @@ class AppNotification {
   final String? deepLink;
 
   AppNotification copyWith({bool? read}) => AppNotification(
-        id: id,
-        title: title,
-        body: body,
-        createdAt: createdAt,
-        read: read ?? this.read,
-        kind: kind,
-        deepLink: deepLink,
-      );
+    id: id,
+    title: title,
+    body: body,
+    createdAt: createdAt,
+    read: read ?? this.read,
+    kind: kind,
+    deepLink: deepLink,
+  );
 
-  factory AppNotification.fromJson(Map<String, dynamic> json) => AppNotification(
+  factory AppNotification.fromJson(Map<String, dynamic> json) =>
+      AppNotification(
         id: json['id'] as String,
         title: json['title'] as String,
         body: json['body'] as String? ?? '',
@@ -72,12 +73,12 @@ class AppNotification {
       );
 
   Map<String, dynamic> toJson() => {
-        'id': id,
-        'title': title,
-        'body': body,
-        'createdAt': createdAt.toIso8601String(),
-        'read': read,
-        'kind': kind.apiValue,
-        'deepLink': deepLink,
-      };
+    'id': id,
+    'title': title,
+    'body': body,
+    'createdAt': createdAt.toIso8601String(),
+    'read': read,
+    'kind': kind.apiValue,
+    'deepLink': deepLink,
+  };
 }

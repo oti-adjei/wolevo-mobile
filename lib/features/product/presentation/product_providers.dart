@@ -36,7 +36,9 @@ class ProductDetailController
   @override
   Future<ProductDetail> build(ProductArgs arg) async {
     final country = ref.watch(productDestinationProvider);
-    final product = await ref.read(productRepositoryProvider).parse(
+    final product = await ref
+        .read(productRepositoryProvider)
+        .parse(
           productId: arg.productId,
           retailer: arg.retailer,
           destinationCountry: country,
@@ -44,16 +46,18 @@ class ProductDetailController
 
     // Fired here rather than in the screen's initState: this runs once per
     // load, so a rebuild cannot double-count a view.
-    ref.read(analyticsProvider).track(
-      AnalyticsEvents.productViewed,
-      properties: {
-        'product_id': product.productId,
-        'retailer': product.retailer.apiValue,
-        'price_usd': product.price.usd,
-        'in_stock': product.inStock,
-        'destination': country.code,
-      },
-    );
+    ref
+        .read(analyticsProvider)
+        .track(
+          AnalyticsEvents.productViewed,
+          properties: {
+            'product_id': product.productId,
+            'retailer': product.retailer.apiValue,
+            'price_usd': product.price.usd,
+            'in_stock': product.inStock,
+            'destination': country.code,
+          },
+        );
 
     return product;
   }
@@ -67,8 +71,12 @@ class ProductDetailController
   }
 }
 
-final productDetailProvider = AsyncNotifierProvider.family<ProductDetailController,
-    ProductDetail, ProductArgs>(ProductDetailController.new);
+final productDetailProvider =
+    AsyncNotifierProvider.family<
+      ProductDetailController,
+      ProductDetail,
+      ProductArgs
+    >(ProductDetailController.new);
 
 /// Quantity for the sticky action bar. Keyed by product so backing out of one
 /// product and into another does not carry the count over.
@@ -93,5 +101,5 @@ class ProductQuantityController extends FamilyNotifier<int, ProductArgs> {
 
 final productQuantityProvider =
     NotifierProvider.family<ProductQuantityController, int, ProductArgs>(
-  ProductQuantityController.new,
-);
+      ProductQuantityController.new,
+    );

@@ -38,19 +38,20 @@ class SavedAddress {
   /// Human country name for the third line of [formatted]. Only the two
   /// deliverable countries are named; anything else falls back to the code.
   String get countryName => switch (countryCode.toUpperCase()) {
-        'GH' => 'Ghana',
-        'NG' => 'Nigeria',
-        _ => countryCode.toUpperCase(),
-      };
+    'GH' => 'Ghana',
+    'NG' => 'Nigeria',
+    _ => countryCode.toUpperCase(),
+  };
 
   /// The card's display form, newline separated:
   /// `8 Bia Rd` / `Accra, Greater Accra` / `Ghana`.
   String get formatted => [
-        if (streetAddress != null && streetAddress!.trim().isNotEmpty) streetAddress!.trim(),
-        if (apartment != null && apartment!.trim().isNotEmpty) apartment!.trim(),
-        [city, region].where((p) => p.trim().isNotEmpty).join(', '),
-        countryName,
-      ].join('\n');
+    if (streetAddress != null && streetAddress!.trim().isNotEmpty)
+      streetAddress!.trim(),
+    if (apartment != null && apartment!.trim().isNotEmpty) apartment!.trim(),
+    [city, region].where((p) => p.trim().isNotEmpty).join(', '),
+    countryName,
+  ].join('\n');
 
   SavedAddress copyWith({
     String? id,
@@ -77,28 +78,29 @@ class SavedAddress {
   }
 
   factory SavedAddress.fromJson(Map<String, dynamic> json) => SavedAddress(
-        id: json['id'] as String,
-        countryCode: json['countryCode'] as String? ?? json['country'] as String? ?? 'GH',
-        city: json['city'] as String? ?? '',
-        region: json['region'] as String? ?? json['state'] as String? ?? '',
-        streetAddress: json['streetAddress'] as String?,
-        apartment: json['apartment'] as String?,
-        label: json['label'] as String?,
-        nearestLandmark: json['nearestLandmark'] as String?,
-        isPrimary: json['isPrimary'] as bool? ?? false,
-      );
+    id: json['id'] as String,
+    countryCode:
+        json['countryCode'] as String? ?? json['country'] as String? ?? 'GH',
+    city: json['city'] as String? ?? '',
+    region: json['region'] as String? ?? json['state'] as String? ?? '',
+    streetAddress: json['streetAddress'] as String?,
+    apartment: json['apartment'] as String?,
+    label: json['label'] as String?,
+    nearestLandmark: json['nearestLandmark'] as String?,
+    isPrimary: json['isPrimary'] as bool? ?? false,
+  );
 
   Map<String, dynamic> toJson() => {
-        'id': id,
-        'countryCode': countryCode,
-        'city': city,
-        'region': region,
-        'streetAddress': streetAddress,
-        'apartment': apartment,
-        'label': label,
-        'nearestLandmark': nearestLandmark,
-        'isPrimary': isPrimary,
-      };
+    'id': id,
+    'countryCode': countryCode,
+    'city': city,
+    'region': region,
+    'streetAddress': streetAddress,
+    'apartment': apartment,
+    'label': label,
+    'nearestLandmark': nearestLandmark,
+    'isPrimary': isPrimary,
+  };
 }
 
 /// One typeahead hit from
@@ -125,20 +127,20 @@ class GeocodedPlace {
       [city, region, countryName].where((p) => p.trim().isNotEmpty).join(', ');
 
   factory GeocodedPlace.fromJson(Map<String, dynamic> json) => GeocodedPlace(
-        city: json['city'] as String? ?? '',
-        region: json['region'] as String? ?? json['state'] as String? ?? '',
-        countryCode: json['countryCode'] as String? ?? '',
-        countryName: json['countryName'] as String? ?? '',
-        flag: json['flag'] as String? ?? '',
-      );
+    city: json['city'] as String? ?? '',
+    region: json['region'] as String? ?? json['state'] as String? ?? '',
+    countryCode: json['countryCode'] as String? ?? '',
+    countryName: json['countryName'] as String? ?? '',
+    flag: json['flag'] as String? ?? '',
+  );
 
   Map<String, dynamic> toJson() => {
-        'city': city,
-        'region': region,
-        'countryCode': countryCode,
-        'countryName': countryName,
-        'flag': flag,
-      };
+    'city': city,
+    'region': region,
+    'countryCode': countryCode,
+    'countryName': countryName,
+    'flag': flag,
+  };
 }
 
 /// `GET /api/v1/user/referrals`.
@@ -155,9 +157,11 @@ class ReferralSummary {
   final String link;
   final List<ReferralEntry> entries;
 
-  factory ReferralSummary.fromJson(Map<String, dynamic> json) => ReferralSummary(
+  factory ReferralSummary.fromJson(Map<String, dynamic> json) =>
+      ReferralSummary(
         code: json['code'] as String? ?? '',
-        link: json['link'] as String? ??
+        link:
+            json['link'] as String? ??
             'https://www.wolevo.com/?ref=${json['code'] ?? ''}',
         entries: (json['entries'] as List<dynamic>? ?? const [])
             .map((e) => ReferralEntry.fromJson(e as Map<String, dynamic>))
@@ -165,10 +169,10 @@ class ReferralSummary {
       );
 
   Map<String, dynamic> toJson() => {
-        'code': code,
-        'link': link,
-        'entries': entries.map((e) => e.toJson()).toList(),
-      };
+    'code': code,
+    'link': link,
+    'entries': entries.map((e) => e.toJson()).toList(),
+  };
 }
 
 /// A friend who signed up with the user's code.
@@ -186,14 +190,14 @@ class ReferralEntry {
   final bool rewarded;
 
   factory ReferralEntry.fromJson(Map<String, dynamic> json) => ReferralEntry(
-        name: json['name'] as String? ?? '',
-        joinedAt: DateTime.parse(json['joinedAt'] as String),
-        rewarded: json['rewarded'] as bool? ?? false,
-      );
+    name: json['name'] as String? ?? '',
+    joinedAt: DateTime.parse(json['joinedAt'] as String),
+    rewarded: json['rewarded'] as bool? ?? false,
+  );
 
   Map<String, dynamic> toJson() => {
-        'name': name,
-        'joinedAt': joinedAt.toIso8601String(),
-        'rewarded': rewarded,
-      };
+    'name': name,
+    'joinedAt': joinedAt.toIso8601String(),
+    'rewarded': rewarded,
+  };
 }

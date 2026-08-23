@@ -31,7 +31,11 @@ class PricingSection {
 }
 
 class PricingBlock {
-  const PricingBlock({required this.title, required this.body, required this.icon});
+  const PricingBlock({
+    required this.title,
+    required this.body,
+    required this.icon,
+  });
 
   final String title;
   final String body;
@@ -95,7 +99,8 @@ abstract final class SupportContent {
       entries: [
         FaqEntry(
           question: 'Which countries do you ship to?',
-          answer: 'Ghana and Nigeria today, with more African countries planned.',
+          answer:
+              'Ghana and Nigeria today, with more African countries planned.',
         ),
         FaqEntry(
           question: 'Can someone else ship to my locker address?',

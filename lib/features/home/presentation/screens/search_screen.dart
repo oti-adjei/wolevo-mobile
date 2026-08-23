@@ -76,7 +76,11 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
             hintStyle: AppText.body.copyWith(color: Colors.white70),
             suffixIcon: state.hasQuery
                 ? IconButton(
-                    icon: const Icon(Icons.close, size: 20, color: Colors.white70),
+                    icon: const Icon(
+                      Icons.close,
+                      size: 20,
+                      color: Colors.white70,
+                    ),
                     onPressed: _clear,
                   )
                 : null,
@@ -91,7 +95,9 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
             onSelected: notifier.setRetailer,
           ),
           const Divider(height: 1, color: AppColors.surface4),
-          Expanded(child: _Body(state: state, onClear: _clear)),
+          Expanded(
+            child: _Body(state: state, onClear: _clear),
+          ),
         ],
       ),
     );
@@ -133,13 +139,17 @@ class _RetailerScopeStrip extends StatelessWidget {
                   decoration: BoxDecoration(
                     borderRadius: AppRadius.rPill,
                     border: Border.all(
-                      color: isSelected ? AppColors.secondary3 : AppColors.surface4,
+                      color: isSelected
+                          ? AppColors.secondary3
+                          : AppColors.surface4,
                     ),
                   ),
                   child: Text(
                     retailer.label,
                     style: AppText.body14Semibold.copyWith(
-                      color: isSelected ? AppColors.secondary : AppColors.neutral1,
+                      color: isSelected
+                          ? AppColors.secondary
+                          : AppColors.neutral1,
                     ),
                   ),
                 ),
@@ -164,16 +174,20 @@ class _Body extends StatelessWidget {
 
     return switch (state.status) {
       SearchStatus.loading => const AppLoader(label: 'Searching…'),
-      SearchStatus.error => ErrorRetry(message: state.errorMessage ?? 'Search failed.'),
+      SearchStatus.error => ErrorRetry(
+        message: state.errorMessage ?? 'Search failed.',
+      ),
       SearchStatus.idle => const _SearchIntro(),
-      SearchStatus.loaded => state.results.isEmpty
-          ? EmptyState(
-              icon: Icons.search_off,
-              title: 'No matching products',
-              message: 'Nothing on ${state.retailer.label} matched '
-                  '"${state.query.trim()}". Try a different term or store.',
-            )
-          : _Results(state: state, onClear: onClear),
+      SearchStatus.loaded =>
+        state.results.isEmpty
+            ? EmptyState(
+                icon: Icons.search_off,
+                title: 'No matching products',
+                message:
+                    'Nothing on ${state.retailer.label} matched '
+                    '"${state.query.trim()}". Try a different term or store.',
+              )
+            : _Results(state: state, onClear: onClear),
     };
   }
 }
@@ -187,7 +201,8 @@ class _SearchIntro extends StatelessWidget {
     return EmptyState(
       icon: Icons.search,
       title: 'Search for what you need',
-      message: 'We search ${Retailer.values.map((r) => r.label).join(' · ')} — '
+      message:
+          'We search ${Retailer.values.map((r) => r.label).join(' · ')} — '
           'pick a store above, then type what you are looking for.',
     );
   }
@@ -227,15 +242,24 @@ class _Results extends StatelessWidget {
                   onTap: onClear,
                   borderRadius: AppRadius.rSm,
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 4),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 6,
+                      vertical: 4,
+                    ),
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        const Icon(Icons.close, size: 14, color: AppColors.neutral1),
+                        const Icon(
+                          Icons.close,
+                          size: 14,
+                          color: AppColors.neutral1,
+                        ),
                         const SizedBox(width: 2),
                         Text(
                           'Clear',
-                          style: AppText.body14.copyWith(color: AppColors.neutral1),
+                          style: AppText.body14.copyWith(
+                            color: AppColors.neutral1,
+                          ),
                         ),
                       ],
                     ),
@@ -268,7 +292,8 @@ class _Results extends StatelessWidget {
               // Square thumb + two title lines + two price lines.
               childAspectRatio: 0.60,
             ),
-            itemBuilder: (context, index) => ProductCard(product: state.results[index]),
+            itemBuilder: (context, index) =>
+                ProductCard(product: state.results[index]),
           ),
         ),
       ],

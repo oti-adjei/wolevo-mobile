@@ -74,7 +74,9 @@ class ShopListingCard extends StatelessWidget {
               Flexible(
                 child: Text(
                   listing.price.usdLabel,
-                  style: AppText.bodySemibold.copyWith(color: AppColors.secondary3),
+                  style: AppText.bodySemibold.copyWith(
+                    color: AppColors.secondary3,
+                  ),
                   overflow: TextOverflow.ellipsis,
                 ),
               ),
@@ -116,16 +118,16 @@ class ShopListingCardSkeleton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Widget bar(double widthFactor, double height) => FractionallySizedBox(
-          alignment: Alignment.centerLeft,
-          widthFactor: widthFactor,
-          child: Container(
-            height: height,
-            decoration: BoxDecoration(
-              color: AppColors.surface3,
-              borderRadius: BorderRadius.circular(4),
-            ),
-          ),
-        );
+      alignment: Alignment.centerLeft,
+      widthFactor: widthFactor,
+      child: Container(
+        height: height,
+        decoration: BoxDecoration(
+          color: AppColors.surface3,
+          borderRadius: BorderRadius.circular(4),
+        ),
+      ),
+    );
 
     return AppCard(
       padding: const EdgeInsets.all(AppSpace.sm),

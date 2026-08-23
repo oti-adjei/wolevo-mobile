@@ -68,10 +68,7 @@ class _RetailerTile extends StatelessWidget {
             child: Container(
               height: 66,
               alignment: Alignment.center,
-              padding: const EdgeInsets.symmetric(
-                horizontal: 12,
-                vertical: 14,
-              ),
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 14),
               decoration: BoxDecoration(
                 borderRadius: AppRadius.rCard,
                 border: Border.all(color: AppColors.surface4),

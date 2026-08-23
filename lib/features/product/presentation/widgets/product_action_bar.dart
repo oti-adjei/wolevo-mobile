@@ -193,14 +193,19 @@ class _CartButton extends StatelessWidget {
                     right: 4,
                     top: 4,
                     child: Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 1),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 5,
+                        vertical: 1,
+                      ),
                       decoration: const BoxDecoration(
                         color: AppColors.secondary,
                         borderRadius: AppRadius.rPill,
                       ),
                       child: Text(
                         '${count! > 99 ? 99 : count}',
-                        style: AppText.micro.copyWith(color: AppColors.background),
+                        style: AppText.micro.copyWith(
+                          color: AppColors.background,
+                        ),
                       ),
                     ),
                   ),

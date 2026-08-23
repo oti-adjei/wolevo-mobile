@@ -47,7 +47,9 @@ class _CollapsibleSectionState extends State<CollapsibleSection> {
                     child: Text(widget.title, style: AppText.cardTitleMedium),
                   ),
                   Icon(
-                    _expanded ? Icons.keyboard_arrow_up : Icons.keyboard_arrow_down,
+                    _expanded
+                        ? Icons.keyboard_arrow_up
+                        : Icons.keyboard_arrow_down,
                     size: 22,
                     color: AppColors.neutral1,
                   ),
@@ -61,8 +63,9 @@ class _CollapsibleSectionState extends State<CollapsibleSection> {
               padding: const EdgeInsets.only(bottom: AppSpace.md),
               child: SizedBox(width: double.infinity, child: widget.child),
             ),
-            crossFadeState:
-                _expanded ? CrossFadeState.showSecond : CrossFadeState.showFirst,
+            crossFadeState: _expanded
+                ? CrossFadeState.showSecond
+                : CrossFadeState.showFirst,
             duration: const Duration(milliseconds: 180),
             sizeCurve: Curves.easeOut,
           ),

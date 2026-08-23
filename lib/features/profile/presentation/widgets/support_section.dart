@@ -41,7 +41,9 @@ class SupportSection extends StatelessWidget {
                         const SizedBox(height: 2),
                         Text(
                           'Browse our knowledge base and frequently asked questions.',
-                          style: AppText.caption.copyWith(color: AppColors.neutral1),
+                          style: AppText.caption.copyWith(
+                            color: AppColors.neutral1,
+                          ),
                         ),
                       ],
                     ),
@@ -148,13 +150,19 @@ class _ContactRow extends StatelessWidget {
                     const SizedBox(height: 2),
                     Text(
                       subtitle!,
-                      style: AppText.caption.copyWith(color: AppColors.neutral1),
+                      style: AppText.caption.copyWith(
+                        color: AppColors.neutral1,
+                      ),
                     ),
                   ],
                 ],
               ),
             ),
-            const Icon(Icons.chevron_right, size: 20, color: AppColors.neutral2),
+            const Icon(
+              Icons.chevron_right,
+              size: 20,
+              color: AppColors.neutral2,
+            ),
           ],
         ),
       ),

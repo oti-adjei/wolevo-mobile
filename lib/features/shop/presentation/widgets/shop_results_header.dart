@@ -99,7 +99,10 @@ class _ClearControl extends StatelessWidget {
         borderRadius: AppRadius.rPill,
         onTap: onPressed,
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: AppSpace.md, vertical: 6),
+          padding: const EdgeInsets.symmetric(
+            horizontal: AppSpace.md,
+            vertical: 6,
+          ),
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [

@@ -40,7 +40,10 @@ class IntentExplainerCard extends StatelessWidget {
         children: [
           Text(title, style: AppText.cardTitle),
           const SizedBox(height: AppSpace.sm),
-          Text(intro, style: AppText.body14.copyWith(color: AppColors.neutral1)),
+          Text(
+            intro,
+            style: AppText.body14.copyWith(color: AppColors.neutral1),
+          ),
           const SizedBox(height: AppSpace.xl),
           for (var i = 0; i < steps.length; i++) ...[
             _NumberedStep(index: i + 1, step: steps[i]),

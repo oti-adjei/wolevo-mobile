@@ -14,15 +14,15 @@ enum Retailer {
   final String label;
 
   static Retailer fromApi(String value) => values.firstWhere(
-        (r) => r.apiValue == value.toUpperCase(),
-        orElse: () => Retailer.amazon,
-      );
+    (r) => r.apiValue == value.toUpperCase(),
+    orElse: () => Retailer.amazon,
+  );
 
   /// Retailers that expose a searchable product feed. The rest are browsed via
   /// category tiles on Home (Fashion Nova, Plug Tech and Sephora render tiles,
   /// not product cards).
   bool get hasProductFeed => switch (this) {
-        Retailer.amazon || Retailer.ebay || Retailer.bestBuy => true,
-        _ => false,
-      };
+    Retailer.amazon || Retailer.ebay || Retailer.bestBuy => true,
+    _ => false,
+  };
 }

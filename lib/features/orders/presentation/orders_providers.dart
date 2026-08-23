@@ -31,7 +31,11 @@ class OrdersFilter {
   int get activeCount =>
       (status != null ? 1 : 0) + (query.trim().isEmpty ? 0 : 1);
 
-  OrdersFilter copyWith({OrderStatus? status, String? query, bool clearStatus = false}) {
+  OrdersFilter copyWith({
+    OrderStatus? status,
+    String? query,
+    bool clearStatus = false,
+  }) {
     return OrdersFilter(
       status: clearStatus ? null : (status ?? this.status),
       query: query ?? this.query,
@@ -63,7 +67,9 @@ class OrdersFilterController extends Notifier<OrdersFilter> {
 }
 
 final ordersFilterProvider =
-    NotifierProvider<OrdersFilterController, OrdersFilter>(OrdersFilterController.new);
+    NotifierProvider<OrdersFilterController, OrdersFilter>(
+      OrdersFilterController.new,
+    );
 
 /// Accumulated pages plus the flags the list needs to drive infinite scroll.
 class OrdersListState {
@@ -168,8 +174,12 @@ class OrdersListController extends AsyncNotifier<OrdersListState> {
 }
 
 final ordersListProvider =
-    AsyncNotifierProvider<OrdersListController, OrdersListState>(OrdersListController.new);
+    AsyncNotifierProvider<OrdersListController, OrdersListState>(
+      OrdersListController.new,
+    );
 
 /// One fulfillment, for the detail screen. Family keyed by the route's `id`.
 final orderDetailProvider = FutureProvider.autoDispose
-    .family<Fulfillment, String>((ref, id) => ref.watch(ordersRepositoryProvider).byId(id));
+    .family<Fulfillment, String>(
+      (ref, id) => ref.watch(ordersRepositoryProvider).byId(id),
+    );

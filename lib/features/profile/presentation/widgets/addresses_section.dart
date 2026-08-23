@@ -47,7 +47,8 @@ class AddressesSection extends ConsumerWidget {
               return const EmptyState(
                 icon: Icons.location_off_outlined,
                 title: 'No saved addresses',
-                message: 'Add a delivery address so we know where to send your orders.',
+                message:
+                    'Add a delivery address so we know where to send your orders.',
               );
             }
             return Column(
@@ -175,7 +176,8 @@ class _AddressCard extends ConsumerWidget {
                 label: 'Edit',
                 expand: false,
                 size: AppButtonSize.compact,
-                onPressed: () => context.push(AppRoutes.addAddress, extra: address),
+                onPressed: () =>
+                    context.push(AppRoutes.addAddress, extra: address),
               ),
               const SizedBox(width: AppSpace.md),
               DestructiveButton(

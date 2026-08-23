@@ -8,7 +8,11 @@ import '../../../../core/theme/app_typography.dart';
 /// `We accept` payment rail. The site lays these out in a single row; at 375px
 /// they wrap.
 class ProductTrustRow extends StatelessWidget {
-  const ProductTrustRow({super.key, this.onShippingPolicy, this.onRefundPolicy});
+  const ProductTrustRow({
+    super.key,
+    this.onShippingPolicy,
+    this.onRefundPolicy,
+  });
 
   final VoidCallback? onShippingPolicy;
   final VoidCallback? onRefundPolicy;
@@ -22,7 +26,10 @@ class ProductTrustRow extends StatelessWidget {
           spacing: AppSpace.lg,
           runSpacing: AppSpace.md,
           children: [
-            const _TrustItem(icon: Icons.lock_outline, label: 'Secure Transaction'),
+            const _TrustItem(
+              icon: Icons.lock_outline,
+              label: 'Secure Transaction',
+            ),
             _TrustItem(
               icon: Icons.local_shipping_outlined,
               label: 'Shipping Policy',
@@ -50,7 +57,10 @@ class ProductTrustRow extends StatelessWidget {
             _PaymentChip(label: 'Visa', icon: Icons.credit_card),
             _PaymentChip(label: 'Mastercard', icon: Icons.credit_card),
             _PaymentChip(label: 'Mobile Money', icon: Icons.smartphone),
-            _PaymentChip(label: 'Bank Transfer', icon: Icons.account_balance_outlined),
+            _PaymentChip(
+              label: 'Bank Transfer',
+              icon: Icons.account_balance_outlined,
+            ),
           ],
         ),
       ],

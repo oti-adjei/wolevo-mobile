@@ -75,10 +75,10 @@ class _AddAddressScreenState extends ConsumerState<AddAddressScreen> {
   }
 
   bool get _canAdvance => switch (_step) {
-        0 => _country != null,
-        1 => _place != null,
-        _ => true,
-      };
+    0 => _country != null,
+    1 => _place != null,
+    _ => true,
+  };
 
   void _next() {
     if (_step < 2) {
@@ -102,17 +102,24 @@ class _AddAddressScreenState extends ConsumerState<AddAddressScreen> {
 
     setState(() => _saving = true);
     try {
-      await ref.read(savedAddressesProvider.notifier).save(
+      await ref
+          .read(savedAddressesProvider.notifier)
+          .save(
             SavedAddress(
               id: widget.existing?.id ?? '',
               countryCode: place.countryCode,
               city: place.city,
               region: place.region,
-              streetAddress: _street.text.trim().isEmpty ? null : _street.text.trim(),
-              apartment: _apartment.text.trim().isEmpty ? null : _apartment.text.trim(),
+              streetAddress: _street.text.trim().isEmpty
+                  ? null
+                  : _street.text.trim(),
+              apartment: _apartment.text.trim().isEmpty
+                  ? null
+                  : _apartment.text.trim(),
               label: _label.text.trim().isEmpty ? null : _label.text.trim(),
-              nearestLandmark:
-                  _landmark.text.trim().isEmpty ? null : _landmark.text.trim(),
+              nearestLandmark: _landmark.text.trim().isEmpty
+                  ? null
+                  : _landmark.text.trim(),
               isPrimary: _isPrimary,
             ),
           );
@@ -131,8 +138,13 @@ class _AddAddressScreenState extends ConsumerState<AddAddressScreen> {
     return Scaffold(
       backgroundColor: AppColors.surface,
       appBar: AppBar(
-        leading: IconButton(icon: const Icon(Icons.arrow_back), onPressed: _back),
-        title: Text(widget.existing == null ? 'Enter a New Address' : 'Edit Address'),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: _back,
+        ),
+        title: Text(
+          widget.existing == null ? 'Enter a New Address' : 'Edit Address',
+        ),
       ),
       body: SafeArea(
         top: false,
@@ -142,27 +154,27 @@ class _AddAddressScreenState extends ConsumerState<AddAddressScreen> {
             Expanded(
               child: switch (_step) {
                 0 => _CountryStep(
-                    selected: _country,
-                    onSelected: (c) => setState(() {
-                      _country = c;
-                      _place = null;
-                      ref.read(citySearchProvider.notifier).setCountry(c.code);
-                    }),
-                  ),
+                  selected: _country,
+                  onSelected: (c) => setState(() {
+                    _country = c;
+                    _place = null;
+                    ref.read(citySearchProvider.notifier).setCountry(c.code);
+                  }),
+                ),
                 1 => _CityStep(
-                    controller: _cityQuery,
-                    selected: _place,
-                    onSelected: (p) => setState(() => _place = p),
-                  ),
+                  controller: _cityQuery,
+                  selected: _place,
+                  onSelected: (p) => setState(() => _place = p),
+                ),
                 _ => _DetailsStep(
-                    place: _place!,
-                    street: _street,
-                    apartment: _apartment,
-                    label: _label,
-                    landmark: _landmark,
-                    isPrimary: _isPrimary,
-                    onPrimaryChanged: (v) => setState(() => _isPrimary = v),
-                  ),
+                  place: _place!,
+                  street: _street,
+                  apartment: _apartment,
+                  label: _label,
+                  landmark: _landmark,
+                  isPrimary: _isPrimary,
+                  onPrimaryChanged: (v) => setState(() => _isPrimary = v),
+                ),
               },
             ),
             _BottomBar(
@@ -205,7 +217,9 @@ class _StepIndicator extends StatelessWidget {
                   Container(
                     height: 4,
                     decoration: BoxDecoration(
-                      color: i <= step ? AppColors.secondary : AppColors.surface4,
+                      color: i <= step
+                          ? AppColors.secondary
+                          : AppColors.surface4,
                       borderRadius: AppRadius.rPill,
                     ),
                   ),
@@ -213,7 +227,9 @@ class _StepIndicator extends StatelessWidget {
                   Text(
                     'Step ${i + 1}: ${_labels[i]}',
                     style: AppText.caption.copyWith(
-                      color: i <= step ? AppColors.secondary : AppColors.neutral2,
+                      color: i <= step
+                          ? AppColors.secondary
+                          : AppColors.neutral2,
                     ),
                   ),
                 ],
@@ -264,7 +280,9 @@ class _CountryStep extends StatelessWidget {
                       Text(country.name, style: AppText.cardTitleMedium),
                       Text(
                         'Delivery and pickup available',
-                        style: AppText.caption.copyWith(color: AppColors.neutral1),
+                        style: AppText.caption.copyWith(
+                          color: AppColors.neutral1,
+                        ),
                       ),
                     ],
                   ),
@@ -315,7 +333,8 @@ class _CityStep extends ConsumerWidget {
           controller: controller,
           hint: 'e.g., Accra, Tema, Kumasi',
           helper: 'Search for your city',
-          onChanged: (value) => ref.read(citySearchProvider.notifier).setQuery(value),
+          onChanged: (value) =>
+              ref.read(citySearchProvider.notifier).setQuery(value),
         ),
         const SizedBox(height: AppSpace.lg),
         if (search.loading)
@@ -350,7 +369,11 @@ class _CityStep extends ConsumerWidget {
                     ),
                   ),
                   if (selected?.city == place.city)
-                    const Icon(Icons.check, size: 18, color: AppColors.secondary),
+                    const Icon(
+                      Icons.check,
+                      size: 18,
+                      color: AppColors.secondary,
+                    ),
                 ],
               ),
             ),

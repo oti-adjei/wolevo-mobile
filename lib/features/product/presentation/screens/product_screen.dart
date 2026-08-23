@@ -47,12 +47,14 @@ class _ProductScreenState extends ConsumerState<ProductScreen> {
   /// once the cart's real count is known.
   int? _cartCount;
 
-  ProductArgs get _args => (productId: widget.productId, retailer: widget.retailer);
+  ProductArgs get _args =>
+      (productId: widget.productId, retailer: widget.retailer);
 
   Future<void> _share(ProductDetail product) async {
     await SharePlus.instance.share(
       ShareParams(
-        text: '${product.title} — ${product.price.usdLabel} on Wolevo. '
+        text:
+            '${product.title} — ${product.price.usdLabel} on Wolevo. '
             '${AppRoutes.product}?retailer=${product.retailer.apiValue}'
             '&productId=${product.productId}',
         subject: product.title,
@@ -64,7 +66,9 @@ class _ProductScreenState extends ConsumerState<ProductScreen> {
     final quantity = ref.read(productQuantityProvider(_args));
     setState(() => _adding = true);
     try {
-      final cart = await ref.read(cartRepositoryProvider).addItem(
+      final cart = await ref
+          .read(cartRepositoryProvider)
+          .addItem(
             productId: product.productId,
             retailer: product.retailer,
             title: product.title,
@@ -120,15 +124,15 @@ class _ProductScreenState extends ConsumerState<ProductScreen> {
       ),
       body: switch (detail) {
         AsyncError(:final error) => ErrorRetry(
-            message: '$error',
-            onRetry: () => ref.invalidate(productDetailProvider(_args)),
-          ),
+          message: '$error',
+          onRetry: () => ref.invalidate(productDetailProvider(_args)),
+        ),
         AsyncData(:final value) => _ProductBody(
-            product: value,
-            onVariantSelected: (groupName, optionId) => ref
-                .read(productDetailProvider(_args).notifier)
-                .selectVariant(groupName: groupName, optionId: optionId),
-          ),
+          product: value,
+          onVariantSelected: (groupName, optionId) => ref
+              .read(productDetailProvider(_args).notifier)
+              .selectVariant(groupName: groupName, optionId: optionId),
+        ),
         _ => const AppLoader(),
       },
       bottomNavigationBar: product == null
@@ -203,7 +207,8 @@ class _ProductBody extends StatelessWidget {
                   if (index > 0) const SizedBox(height: AppSpace.xl),
                   VariantPicker(
                     group: group,
-                    onSelected: (optionId) => onVariantSelected(group.name, optionId),
+                    onSelected: (optionId) =>
+                        onVariantSelected(group.name, optionId),
                   ),
                 ],
               ],
@@ -245,7 +250,10 @@ class _RetailerBadge extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: AppSpace.md, vertical: 4),
+        padding: const EdgeInsets.symmetric(
+          horizontal: AppSpace.md,
+          vertical: 4,
+        ),
         decoration: BoxDecoration(
           color: AppColors.secondary2,
           borderRadius: AppRadius.rPill,

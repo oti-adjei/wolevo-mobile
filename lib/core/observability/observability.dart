@@ -24,7 +24,8 @@ class Observability {
   static Future<void> start(FutureOr<void> Function() appRunner) async {
     final env = AppEnvironment.current;
 
-    _postHogEnabled = env.reportingEnabled && AppSecrets.posthogApiKey.isNotEmpty;
+    _postHogEnabled =
+        env.reportingEnabled && AppSecrets.posthogApiKey.isNotEmpty;
     if (_postHogEnabled) {
       await Posthog().setup(
         PostHogConfig(AppSecrets.posthogApiKey)

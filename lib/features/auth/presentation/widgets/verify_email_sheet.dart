@@ -59,8 +59,9 @@ class _VerifyEmailSheetState extends ConsumerState<VerifyEmailSheet> {
       _error = null;
     });
     try {
-      final verified =
-          await ref.read(sessionProvider.notifier).refreshVerification();
+      final verified = await ref
+          .read(sessionProvider.notifier)
+          .refreshVerification();
       if (!mounted) return;
       if (verified) {
         Navigator.of(context).pop();
@@ -174,8 +175,9 @@ class _VerifyEmailSheetState extends ConsumerState<VerifyEmailSheet> {
                       onPressed: busy ? null : _confirmVerified,
                       style: FilledButton.styleFrom(
                         backgroundColor: AppColors.success,
-                        disabledBackgroundColor: AppColors.success
-                            .withValues(alpha: 0.55),
+                        disabledBackgroundColor: AppColors.success.withValues(
+                          alpha: 0.55,
+                        ),
                         foregroundColor: Colors.white,
                         disabledForegroundColor: Colors.white,
                         elevation: 0,

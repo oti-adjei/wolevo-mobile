@@ -31,8 +31,10 @@ class CartItemThumb extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final hash =
-        item.title.codeUnits.fold<int>(7, (acc, c) => (acc * 31 + c) & 0x7fffffff);
+    final hash = item.title.codeUnits.fold<int>(
+      7,
+      (acc, c) => (acc * 31 + c) & 0x7fffffff,
+    );
     final (background, foreground) = _tints[hash % _tints.length];
 
     return Container(
@@ -46,7 +48,10 @@ class CartItemThumb extends StatelessWidget {
       ),
       child: Text(
         item.retailer.label.substring(0, 1).toUpperCase(),
-        style: AppText.cardTitle.copyWith(color: foreground, fontSize: size * 0.36),
+        style: AppText.cardTitle.copyWith(
+          color: foreground,
+          fontSize: size * 0.36,
+        ),
       ),
     );
   }

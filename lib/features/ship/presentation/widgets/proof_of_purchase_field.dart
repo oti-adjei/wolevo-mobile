@@ -130,17 +130,18 @@ class _ProofOfPurchaseFieldState extends State<ProofOfPurchaseField> {
             ],
           ),
         ),
-        if (_error != null) ...[
-          const SizedBox(height: 6),
-          FieldError(_error!),
-        ],
+        if (_error != null) ...[const SizedBox(height: 6), FieldError(_error!)],
       ],
     );
   }
 }
 
 class _DropTarget extends StatelessWidget {
-  const _DropTarget({required this.enabled, required this.busy, required this.onTap});
+  const _DropTarget({
+    required this.enabled,
+    required this.busy,
+    required this.onTap,
+  });
 
   final bool enabled;
   final bool busy;
@@ -200,7 +201,12 @@ class _FileChip extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.fromLTRB(AppSpace.md, AppSpace.sm, AppSpace.sm, AppSpace.sm),
+      padding: const EdgeInsets.fromLTRB(
+        AppSpace.md,
+        AppSpace.sm,
+        AppSpace.sm,
+        AppSpace.sm,
+      ),
       decoration: BoxDecoration(
         color: AppColors.background,
         borderRadius: AppRadius.rInput,
@@ -209,7 +215,11 @@ class _FileChip extends StatelessWidget {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          const Icon(Icons.description_outlined, size: 16, color: AppColors.secondary),
+          const Icon(
+            Icons.description_outlined,
+            size: 16,
+            color: AppColors.secondary,
+          ),
           const SizedBox(width: AppSpace.sm),
           ConstrainedBox(
             constraints: const BoxConstraints(maxWidth: 160),
@@ -253,10 +263,7 @@ class _DashedBorderPainter extends CustomPainter {
       ..style = PaintingStyle.stroke
       ..strokeWidth = 1.5;
 
-    final rrect = RRect.fromRectAndRadius(
-      Offset.zero & size,
-      AppRadius.card,
-    );
+    final rrect = RRect.fromRectAndRadius(Offset.zero & size, AppRadius.card);
     final path = Path()..addRRect(rrect);
 
     const dash = 6.0;
@@ -272,5 +279,6 @@ class _DashedBorderPainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(_DashedBorderPainter oldDelegate) => oldDelegate.color != color;
+  bool shouldRepaint(_DashedBorderPainter oldDelegate) =>
+      oldDelegate.color != color;
 }

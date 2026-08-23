@@ -40,7 +40,9 @@ void main() {
     return ProviderScope(
       overrides: [
         authRepositoryProvider.overrideWithValue(
-          signedIn ? FakeAuthRepository.signedIn() : FakeAuthRepository.signedOut(),
+          signedIn
+              ? FakeAuthRepository.signedIn()
+              : FakeAuthRepository.signedOut(),
         ),
       ],
       child: MaterialApp(
@@ -93,7 +95,9 @@ void main() {
     expect(find.text('I already have an account'), findsOneWidget);
   });
 
-  testWidgets('explore offers shop, ship and a working calculator', (tester) async {
+  testWidgets('explore offers shop, ship and a working calculator', (
+    tester,
+  ) async {
     await pumpPhone(tester, wrap(const ExploreScreen(), signedIn: false));
     expect(find.text('Shop global.'), findsOneWidget);
     expect(find.text('Shop'), findsWidgets);
@@ -132,9 +136,12 @@ void main() {
   });
 
   testWidgets('calculator panel renders standalone', (tester) async {
-    await pumpPhone(tester, wrap(
+    await pumpPhone(
+      tester,
+      wrap(
         const Scaffold(body: SingleChildScrollView(child: CalculatorPanel())),
-      ));
+      ),
+    );
     expect(find.textContaining('Know your cost'), findsWidgets);
   });
 
@@ -159,14 +166,18 @@ void main() {
     expect(find.text('Already shipped'), findsOneWidget);
   });
 
-  testWidgets('orders renders its filters and empty/loaded state', (tester) async {
+  testWidgets('orders renders its filters and empty/loaded state', (
+    tester,
+  ) async {
     await pumpPhone(tester, wrap(const OrdersScreen()));
     await tester.pump(const Duration(seconds: 1));
     expect(find.text('My Orders'), findsOneWidget);
     expect(find.text('All'), findsOneWidget);
   });
 
-  testWidgets('account hub lists every section and the locker id', (tester) async {
+  testWidgets('account hub lists every section and the locker id', (
+    tester,
+  ) async {
     await pumpPhone(tester, wrap(const AccountScreen()));
     await tester.pump(const Duration(seconds: 1));
     expect(find.text('Profile'), findsOneWidget);
@@ -224,7 +235,9 @@ void main() {
   testWidgets('product renders the observed Anker listing', (tester) async {
     await pumpPhone(
       tester,
-      wrap(const ProductScreen(productId: 'B088NRLMPV', retailer: Retailer.amazon)),
+      wrap(
+        const ProductScreen(productId: 'B088NRLMPV', retailer: Retailer.amazon),
+      ),
     );
     await tester.pump(const Duration(seconds: 1));
     // Details captured verbatim from the live product page.
@@ -239,7 +252,10 @@ void main() {
     await tester.pump(const Duration(milliseconds: 300));
     await tester.drag(find.byType(ListView).first, const Offset(0, -900));
     await tester.pump(const Duration(milliseconds: 300));
-    expect(find.textContaining('Free Shipping to our US Warehouse'), findsWidgets);
+    expect(
+      find.textContaining('Free Shipping to our US Warehouse'),
+      findsWidgets,
+    );
     expect(find.textContaining('Ship to Ghana'), findsWidgets);
   });
 

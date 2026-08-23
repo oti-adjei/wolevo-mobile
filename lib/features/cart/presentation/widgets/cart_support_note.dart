@@ -28,9 +28,17 @@ class CartSupportNote extends StatelessWidget {
           crossAxisAlignment: WrapCrossAlignment.center,
           children: [
             Text('Having issues? ', style: muted),
-            _SupportLink(label: 'WhatsApp', style: link, onTap: () => _launch(_whatsapp)),
+            _SupportLink(
+              label: 'WhatsApp',
+              style: link,
+              onTap: () => _launch(_whatsapp),
+            ),
             Text(' · ', style: muted),
-            _SupportLink(label: 'Email', style: link, onTap: () => _launch(_email)),
+            _SupportLink(
+              label: 'Email',
+              style: link,
+              onTap: () => _launch(_email),
+            ),
             Text(' · ', style: muted),
             _SupportLink(
               label: 'Help',

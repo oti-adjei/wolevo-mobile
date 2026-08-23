@@ -49,8 +49,7 @@ class MockOrdersRepository implements OrdersRepository {
       if (f.reference.toLowerCase().contains(needle)) return true;
       if ((f.trackingNumber ?? '').toLowerCase().contains(needle)) return true;
       return f.items.any((i) => i.title.toLowerCase().contains(needle));
-    }).toList()
-      ..sort((a, b) => b.createdAt.compareTo(a.createdAt));
+    }).toList()..sort((a, b) => b.createdAt.compareTo(a.createdAt));
 
     final start = (pagination.pageNumber - 1) * pagination.pageSize;
     if (start >= matches.length) {
@@ -123,14 +122,17 @@ class MockOrdersRepository implements OrdersRepository {
     ];
 
     const descriptions = <TrackingStage, String>{
-      TrackingStage.ordered: 'We received your order and started processing it.',
+      TrackingStage.ordered:
+          'We received your order and started processing it.',
       TrackingStage.receivedAtWarehouse:
           'Your package arrived at our Delaware warehouse and was weighed.',
       TrackingStage.shipped: 'Your package left the US warehouse.',
-      TrackingStage.inCustoms: 'Clearing import duties at the destination port.',
+      TrackingStage.inCustoms:
+          'Clearing import duties at the destination port.',
       TrackingStage.outForDelivery: 'A courier is on the way to your address.',
       TrackingStage.delivered: 'Handed over at your delivery address.',
-      TrackingStage.readyForPickup: 'Waiting for you at the Accra pickup point.',
+      TrackingStage.readyForPickup:
+          'Waiting for you at the Accra pickup point.',
     };
 
     // Roughly a stage every two days — enough to make the timestamps read as a

@@ -112,7 +112,9 @@ class _CalculatorPanelState extends ConsumerState<CalculatorPanel> {
 
     if (picked == null) return;
     setState(() {
-      _destination = picked == _clearCountry ? null : picked as DestinationCountry;
+      _destination = picked == _clearCountry
+          ? null
+          : picked as DestinationCountry;
     });
   }
 
@@ -183,7 +185,10 @@ class _CalculatorPanelState extends ConsumerState<CalculatorPanel> {
               const SizedBox(height: AppSpace.xxl),
               _CountrySelect(value: _destination, onTap: _pickCountry),
               const SizedBox(height: AppSpace.xl),
-              if (_mode == EstimateMode.link) _buildLinkForm() else _buildWeightForm(),
+              if (_mode == EstimateMode.link)
+                _buildLinkForm()
+              else
+                _buildWeightForm(),
               if (state.hasError) ...[
                 const SizedBox(height: AppSpace.lg),
                 ErrorBanner(message: _messageFor(state.error!)),
@@ -224,7 +229,8 @@ class _CalculatorPanelState extends ConsumerState<CalculatorPanel> {
       label: 'PRODUCT LINK',
       controller: _urlController,
       hint: 'Paste a product URL (e.g., amazon.com/dp/…)',
-      helper: 'Supported: Amazon, eBay, Fashion Nova, Plug Tech, Best Buy, and Sephora',
+      helper:
+          'Supported: Amazon, eBay, Fashion Nova, Plug Tech, Best Buy, and Sephora',
       keyboardType: TextInputType.url,
       textInputAction: TextInputAction.done,
       onChanged: (_) => setState(() {}),
@@ -259,11 +265,17 @@ class _CalculatorPanelState extends ConsumerState<CalculatorPanel> {
         // toggle drops to its own line beneath them.
         Row(
           children: [
-            Expanded(child: _DimensionField(controller: _lengthController, hint: 'L')),
+            Expanded(
+              child: _DimensionField(controller: _lengthController, hint: 'L'),
+            ),
             const SizedBox(width: AppSpace.sm),
-            Expanded(child: _DimensionField(controller: _widthController, hint: 'W')),
+            Expanded(
+              child: _DimensionField(controller: _widthController, hint: 'W'),
+            ),
             const SizedBox(width: AppSpace.sm),
-            Expanded(child: _DimensionField(controller: _heightController, hint: 'H')),
+            Expanded(
+              child: _DimensionField(controller: _heightController, hint: 'H'),
+            ),
           ],
         ),
         const SizedBox(height: AppSpace.sm),
@@ -414,7 +426,10 @@ class _CountrySelect extends StatelessWidget {
                         : AppText.body,
                   ),
                 ),
-                const Icon(Icons.keyboard_arrow_down, color: AppColors.neutral1),
+                const Icon(
+                  Icons.keyboard_arrow_down,
+                  color: AppColors.neutral1,
+                ),
               ],
             ),
           ),
@@ -484,9 +499,14 @@ class _UnitToggle<T> extends StatelessWidget {
               borderRadius: AppRadius.rPill,
               onTap: () => onChanged(option),
               child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 12,
+                  vertical: 6,
+                ),
                 decoration: BoxDecoration(
-                  color: option == value ? AppColors.secondary : Colors.transparent,
+                  color: option == value
+                      ? AppColors.secondary
+                      : Colors.transparent,
                   borderRadius: AppRadius.rPill,
                 ),
                 child: Text(
@@ -524,7 +544,11 @@ class _PlaceholderCard extends StatelessWidget {
       ),
       child: Column(
         children: [
-          const Icon(Icons.inventory_2_outlined, size: 36, color: AppColors.surface5),
+          const Icon(
+            Icons.inventory_2_outlined,
+            size: 36,
+            color: AppColors.surface5,
+          ),
           const SizedBox(height: AppSpace.md),
           Text(
             copy,
@@ -631,8 +655,16 @@ class _ValueProps extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     const props = [
-      (r'$', 'Transparent Pricing', 'No hidden fees. Breakdown includes everything.'),
-      ('⚡', 'Instant Estimate', 'See costs immediately with your package details'),
+      (
+        r'$',
+        'Transparent Pricing',
+        'No hidden fees. Breakdown includes everything.',
+      ),
+      (
+        '⚡',
+        'Instant Estimate',
+        'See costs immediately with your package details',
+      ),
       ('✓', 'No Surprises', 'The price you see is the price you pay'),
     ];
 
@@ -655,7 +687,9 @@ class _ValueProps extends StatelessWidget {
                   ),
                   child: Text(
                     glyph,
-                    style: AppText.bodySemibold.copyWith(color: AppColors.secondary),
+                    style: AppText.bodySemibold.copyWith(
+                      color: AppColors.secondary,
+                    ),
                   ),
                 ),
                 const SizedBox(width: AppSpace.md),
@@ -667,7 +701,9 @@ class _ValueProps extends StatelessWidget {
                       const SizedBox(height: 2),
                       Text(
                         body,
-                        style: AppText.caption.copyWith(color: AppColors.neutral1),
+                        style: AppText.caption.copyWith(
+                          color: AppColors.neutral1,
+                        ),
                       ),
                     ],
                   ),

@@ -16,6 +16,7 @@ Read in order:
 | 8 | [Testing](08-testing.md) | What is covered, how to add to it |
 | 9 | [Conventions & gotchas](09-conventions.md) | House rules and the traps we already hit |
 | 10 | [Environments, logging & analytics](10-observability.md) | Build envs, the logging seam, Sentry/PostHog plan |
+| 11 | [CI & releases](11-releases.md) | GitHub workflows, cutting a release, signing |
 
 ## The one-paragraph version
 

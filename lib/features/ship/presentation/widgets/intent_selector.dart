@@ -22,10 +22,10 @@ class IntentSelector extends StatelessWidget {
   final ValueChanged<ShipIntent> onChanged;
 
   static IconData _iconFor(ShipIntent intent) => switch (intent) {
-        ShipIntent.yetToShop => Icons.shopping_bag_outlined,
-        ShipIntent.someoneSending => Icons.local_shipping_outlined,
-        ShipIntent.alreadyShipped => Icons.inventory_2_outlined,
-      };
+    ShipIntent.yetToShop => Icons.shopping_bag_outlined,
+    ShipIntent.someoneSending => Icons.local_shipping_outlined,
+    ShipIntent.alreadyShipped => Icons.inventory_2_outlined,
+  };
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +37,8 @@ class IntentSelector extends StatelessWidget {
             selected: intent == selected,
             onTap: () => onChanged(intent),
           ),
-          if (intent != ShipIntent.values.last) const SizedBox(height: AppSpace.md),
+          if (intent != ShipIntent.values.last)
+            const SizedBox(height: AppSpace.md),
         ],
       ],
     );

@@ -8,11 +8,12 @@ class Pagination {
   final int pageSize;
 
   Map<String, dynamic> toQuery() => {
-        'pagination.pageNumber': pageNumber,
-        'pagination.pageSize': pageSize,
-      };
+    'pagination.pageNumber': pageNumber,
+    'pagination.pageSize': pageSize,
+  };
 
-  Pagination next() => Pagination(pageNumber: pageNumber + 1, pageSize: pageSize);
+  Pagination next() =>
+      Pagination(pageNumber: pageNumber + 1, pageSize: pageSize);
 }
 
 /// A page of results plus enough metadata to drive infinite scroll.
@@ -27,5 +28,6 @@ class Paged<T> {
   final int pageNumber;
   final bool hasMore;
 
-  static Paged<T> empty<T>() => Paged<T>(items: const [], pageNumber: 1, hasMore: false);
+  static Paged<T> empty<T>() =>
+      Paged<T>(items: const [], pageNumber: 1, hasMore: false);
 }

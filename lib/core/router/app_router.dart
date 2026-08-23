@@ -85,10 +85,7 @@ final routerProvider = Provider<GoRouter>((ref) {
       return null;
     },
     routes: [
-      GoRoute(
-        path: AppRoutes.splash,
-        builder: (_, _) => const SplashScreen(),
-      ),
+      GoRoute(path: AppRoutes.splash, builder: (_, _) => const SplashScreen()),
       GoRoute(
         path: AppRoutes.onboarding,
         builder: (_, _) => const OnboardingScreen(),
@@ -101,10 +98,7 @@ final routerProvider = Provider<GoRouter>((ref) {
         path: AppRoutes.welcome,
         builder: (_, _) => const LandingScreen(),
       ),
-      GoRoute(
-        path: AppRoutes.login,
-        builder: (_, _) => const LoginScreen(),
-      ),
+      GoRoute(path: AppRoutes.login, builder: (_, _) => const LoginScreen()),
       GoRoute(
         path: AppRoutes.register,
         builder: (_, _) => const RegisterScreen(),
@@ -117,19 +111,15 @@ final routerProvider = Provider<GoRouter>((ref) {
         path: AppRoutes.calculator,
         builder: (_, _) => const CalculatorScreen(),
       ),
-      GoRoute(
-        path: AppRoutes.help,
-        builder: (_, _) => const HelpScreen(),
-      ),
+      GoRoute(path: AppRoutes.help, builder: (_, _) => const HelpScreen()),
       GoRoute(
         path: AppRoutes.pricing,
         builder: (_, _) => const PricingScreen(),
       ),
       GoRoute(
         path: AppRoutes.support,
-        builder: (_, state) => SupportScreen(
-          initialCountry: state.uri.queryParameters['country'],
-        ),
+        builder: (_, state) =>
+            SupportScreen(initialCountry: state.uri.queryParameters['country']),
       ),
 
       // Authenticated routes pushed above the tab shell.
@@ -223,7 +213,9 @@ final routerProvider = Provider<GoRouter>((ref) {
                     path: ':id',
                     parentNavigatorKey: _rootKey,
                     builder: (_, state) => AuthGate(
-                      child: OrderDetailScreen(orderId: state.pathParameters['id']!),
+                      child: OrderDetailScreen(
+                        orderId: state.pathParameters['id']!,
+                      ),
                     ),
                   ),
                 ],
@@ -239,7 +231,8 @@ final routerProvider = Provider<GoRouter>((ref) {
                   GoRoute(
                     path: 'addresses/new',
                     parentNavigatorKey: _rootKey,
-                    builder: (_, _) => const AuthGate(child: AddAddressScreen()),
+                    builder: (_, _) =>
+                        const AuthGate(child: AddAddressScreen()),
                   ),
                   GoRoute(
                     path: ':section',
@@ -262,9 +255,7 @@ final routerProvider = Provider<GoRouter>((ref) {
     ],
     errorBuilder: (context, state) => Scaffold(
       backgroundColor: AppColors.surface,
-      body: SafeArea(
-        child: Center(child: Text('No route for ${state.uri}')),
-      ),
+      body: SafeArea(child: Center(child: Text('No route for ${state.uri}'))),
     ),
   );
 });
@@ -285,5 +276,7 @@ bool _isPublic(String location) {
     AppRoutes.support,
   ];
   if (location == AppRoutes.landing) return true;
-  return publicPrefixes.where((p) => p != AppRoutes.landing).any(location.startsWith);
+  return publicPrefixes
+      .where((p) => p != AppRoutes.landing)
+      .any(location.startsWith);
 }

@@ -9,7 +9,11 @@ import '../../../../core/theme/app_typography.dart';
 /// Two short labels fit a 375px viewport comfortably, so unlike the five-node
 /// ship journey this one stays horizontal, exactly as the web draws it.
 class CartStepIndicator extends StatelessWidget {
-  const CartStepIndicator({super.key, required this.currentIndex, this.onStepTapped});
+  const CartStepIndicator({
+    super.key,
+    required this.currentIndex,
+    this.onStepTapped,
+  });
 
   /// Zero-based: 0 = Items, 1 = Delivery.
   final int currentIndex;
@@ -29,7 +33,9 @@ class CartStepIndicator extends StatelessWidget {
               child: Container(
                 height: 2,
                 margin: const EdgeInsets.symmetric(horizontal: AppSpace.sm),
-                color: i <= currentIndex ? AppColors.secondary : AppColors.surface4,
+                color: i <= currentIndex
+                    ? AppColors.secondary
+                    : AppColors.surface4,
               ),
             ),
           _StepNode(
@@ -67,13 +73,13 @@ class _StepNode extends StatelessWidget {
     final Color nodeColor = completed
         ? AppColors.secondary
         : current
-            ? AppColors.tertiary
-            : AppColors.surface3;
+        ? AppColors.tertiary
+        : AppColors.surface3;
     final Color nodeForeground = completed
         ? Colors.white
         : current
-            ? AppColors.secondary
-            : AppColors.neutral2;
+        ? AppColors.secondary
+        : AppColors.neutral2;
 
     return InkWell(
       onTap: onTap,
@@ -87,12 +93,17 @@ class _StepNode extends StatelessWidget {
               height: 26,
               width: 26,
               alignment: Alignment.center,
-              decoration: BoxDecoration(color: nodeColor, shape: BoxShape.circle),
+              decoration: BoxDecoration(
+                color: nodeColor,
+                shape: BoxShape.circle,
+              ),
               child: completed
                   ? Icon(Icons.check, size: 15, color: nodeForeground)
                   : Text(
                       '${index + 1}',
-                      style: AppText.body14Semibold.copyWith(color: nodeForeground),
+                      style: AppText.body14Semibold.copyWith(
+                        color: nodeForeground,
+                      ),
                     ),
             ),
             const SizedBox(width: AppSpace.sm),

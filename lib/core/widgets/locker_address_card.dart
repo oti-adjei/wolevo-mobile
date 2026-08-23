@@ -51,9 +51,9 @@ class _LockerAddressPanelState extends ConsumerState<LockerAddressPanel> {
               // Only the open counts: this is the step that tells us whether
               // people actually reach their US address.
               if (_expanded) {
-                ref.read(analyticsProvider).track(
-                      AnalyticsEvents.lockerAddressViewed,
-                    );
+                ref
+                    .read(analyticsProvider)
+                    .track(AnalyticsEvents.lockerAddressViewed);
               }
             },
             child: Padding(
@@ -73,18 +73,24 @@ class _LockerAddressPanelState extends ConsumerState<LockerAddressPanel> {
                       children: [
                         Text(
                           'YOUR US SHIPPING ADDRESS · TAX-FREE',
-                          style: AppText.micro.copyWith(color: AppColors.secondary),
+                          style: AppText.micro.copyWith(
+                            color: AppColors.secondary,
+                          ),
                         ),
                         const SizedBox(height: 2),
                         Text(
                           'Tap to view — copy each field into checkout',
-                          style: AppText.caption.copyWith(color: AppColors.secondary),
+                          style: AppText.caption.copyWith(
+                            color: AppColors.secondary,
+                          ),
                         ),
                       ],
                     ),
                   ),
                   Icon(
-                    _expanded ? Icons.keyboard_arrow_up : Icons.keyboard_arrow_down,
+                    _expanded
+                        ? Icons.keyboard_arrow_up
+                        : Icons.keyboard_arrow_down,
                     color: AppColors.secondary,
                   ),
                 ],
@@ -111,7 +117,11 @@ class _LockerAddressPanelState extends ConsumerState<LockerAddressPanel> {
                 _CopyRow(label: 'Address line 1', value: a.addressLine1),
                 _CopyRow(label: 'Address line 2', value: a.addressLine2),
                 _CopyRow(label: 'City', value: a.city),
-                _CopyRow(label: 'State', value: a.stateCode, trailing: '(${a.stateName})'),
+                _CopyRow(
+                  label: 'State',
+                  value: a.stateCode,
+                  trailing: '(${a.stateName})',
+                ),
                 _CopyRow(label: 'Zip code', value: a.zipCode),
                 _CopyRow(label: 'Country', value: a.countryCode),
                 _CopyRow(label: 'Phone', value: a.phone, last: true),
@@ -172,7 +182,10 @@ class _CopyRow extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(label.toUpperCase(), style: AppText.micro.copyWith(color: AppColors.neutral1)),
+                Text(
+                  label.toUpperCase(),
+                  style: AppText.micro.copyWith(color: AppColors.neutral1),
+                ),
                 const SizedBox(height: 4),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.baseline,
@@ -183,7 +196,9 @@ class _CopyRow extends StatelessWidget {
                       const SizedBox(width: 6),
                       Text(
                         trailing!,
-                        style: AppText.body14.copyWith(color: AppColors.neutral1),
+                        style: AppText.body14.copyWith(
+                          color: AppColors.neutral1,
+                        ),
                       ),
                     ],
                   ],
@@ -201,7 +216,12 @@ class _CopyRow extends StatelessWidget {
 
 /// Mint "Copy" pill that writes to the clipboard and confirms with a snackbar.
 class CopyChip extends ConsumerWidget {
-  const CopyChip({super.key, required this.value, this.label, this.text = 'Copy'});
+  const CopyChip({
+    super.key,
+    required this.value,
+    this.label,
+    this.text = 'Copy',
+  });
 
   final String value;
   final String? label;
@@ -255,7 +275,10 @@ class _WarningBlock extends StatelessWidget {
           Text(title, style: AppText.body14Semibold),
           const SizedBox(height: 6),
           for (final line in lines) ...[
-            Text(line, style: AppText.caption.copyWith(color: AppColors.neutral)),
+            Text(
+              line,
+              style: AppText.caption.copyWith(color: AppColors.neutral),
+            ),
             const SizedBox(height: 4),
           ],
         ],
@@ -283,7 +306,11 @@ class _RetailerNameSplit extends StatelessWidget {
           ),
           const SizedBox(height: AppSpace.md),
           _CopyRow(label: 'First name', value: address.retailerFirstName),
-          _CopyRow(label: 'Last name', value: address.retailerLastName, last: true),
+          _CopyRow(
+            label: 'Last name',
+            value: address.retailerLastName,
+            last: true,
+          ),
           const SizedBox(height: AppSpace.sm),
           Text(
             'Your locker ID must appear on the package. Keep it in the name field '

@@ -66,7 +66,9 @@ class _VariantPickerState extends State<VariantPicker> {
             for (final option in visible)
               _VariantChip(
                 option: option,
-                onTap: option.available ? () => widget.onSelected(option.id) : null,
+                onTap: option.available
+                    ? () => widget.onSelected(option.id)
+                    : null,
               ),
           ],
         ),
@@ -79,7 +81,9 @@ class _VariantPickerState extends State<VariantPicker> {
               padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 2),
               child: Text(
                 _expanded ? 'See less' : 'See more ($overflow more)',
-                style: AppText.body14Semibold.copyWith(color: AppColors.secondary),
+                style: AppText.body14Semibold.copyWith(
+                  color: AppColors.secondary,
+                ),
               ),
             ),
           ),
@@ -155,7 +159,9 @@ class _VariantChip extends StatelessWidget {
                 Text(
                   option.label,
                   style: AppText.body14Medium.copyWith(
-                    color: selected ? AppColors.secondary : AppColors.secondary5,
+                    color: selected
+                        ? AppColors.secondary
+                        : AppColors.secondary5,
                   ),
                 ),
               ],

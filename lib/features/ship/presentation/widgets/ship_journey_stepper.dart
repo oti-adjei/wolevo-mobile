@@ -66,13 +66,13 @@ class _JourneyRow extends StatelessWidget {
     final Color nodeColor = completed
         ? AppColors.secondary
         : current
-            ? AppColors.tertiary
-            : AppColors.surface3;
+        ? AppColors.tertiary
+        : AppColors.surface3;
     final Color nodeForeground = completed
         ? Colors.white
         : current
-            ? AppColors.secondary
-            : AppColors.neutral2;
+        ? AppColors.secondary
+        : AppColors.neutral2;
 
     return IntrinsicHeight(
       child: Row(
@@ -84,12 +84,17 @@ class _JourneyRow extends StatelessWidget {
                 height: 28,
                 width: 28,
                 alignment: Alignment.center,
-                decoration: BoxDecoration(color: nodeColor, shape: BoxShape.circle),
+                decoration: BoxDecoration(
+                  color: nodeColor,
+                  shape: BoxShape.circle,
+                ),
                 child: completed
                     ? Icon(Icons.check, size: 16, color: nodeForeground)
                     : Text(
                         '${index + 1}',
-                        style: AppText.body14Semibold.copyWith(color: nodeForeground),
+                        style: AppText.body14Semibold.copyWith(
+                          color: nodeForeground,
+                        ),
                       ),
               ),
               if (!last)
@@ -97,7 +102,9 @@ class _JourneyRow extends StatelessWidget {
                   child: Container(
                     width: 2,
                     margin: const EdgeInsets.symmetric(vertical: 4),
-                    color: completed ? AppColors.secondary2 : AppColors.surface3,
+                    color: completed
+                        ? AppColors.secondary2
+                        : AppColors.surface3,
                   ),
                 ),
             ],

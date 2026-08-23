@@ -181,7 +181,9 @@ class _ProductGalleryState extends State<ProductGallery> {
                 ),
                 child: Text(
                   '${_index + 1} / ${images.length}',
-                  style: AppText.captionSemibold.copyWith(color: AppColors.background),
+                  style: AppText.captionSemibold.copyWith(
+                    color: AppColors.background,
+                  ),
                 ),
               ),
             ),
@@ -205,7 +207,9 @@ class _ProductGalleryState extends State<ProductGallery> {
                     decoration: BoxDecoration(
                       borderRadius: AppRadius.rSm,
                       border: Border.all(
-                        color: active ? AppColors.secondary3 : AppColors.surface4,
+                        color: active
+                            ? AppColors.secondary3
+                            : AppColors.surface4,
                         width: active ? 1.6 : 1,
                       ),
                     ),

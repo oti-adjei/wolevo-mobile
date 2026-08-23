@@ -131,7 +131,11 @@ class EmptyState extends StatelessWidget {
             ],
             if (actionLabel != null) ...[
               const SizedBox(height: AppSpace.xxl),
-              PrimaryButton(label: actionLabel!, onPressed: onAction, expand: false),
+              PrimaryButton(
+                label: actionLabel!,
+                onPressed: onAction,
+                expand: false,
+              ),
             ],
           ],
         ),
@@ -174,11 +178,17 @@ class AppLoader extends StatelessWidget {
           const SizedBox(
             height: 28,
             width: 28,
-            child: CircularProgressIndicator(strokeWidth: 2.5, color: AppColors.secondary),
+            child: CircularProgressIndicator(
+              strokeWidth: 2.5,
+              color: AppColors.secondary,
+            ),
           ),
           if (label != null) ...[
             const SizedBox(height: AppSpace.md),
-            Text(label!, style: AppText.body14.copyWith(color: AppColors.neutral1)),
+            Text(
+              label!,
+              style: AppText.body14.copyWith(color: AppColors.neutral1),
+            ),
           ],
         ],
       ),
@@ -197,7 +207,12 @@ class SheetHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(AppSpace.xl, 0, AppSpace.sm, AppSpace.md),
+      padding: const EdgeInsets.fromLTRB(
+        AppSpace.xl,
+        0,
+        AppSpace.sm,
+        AppSpace.md,
+      ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

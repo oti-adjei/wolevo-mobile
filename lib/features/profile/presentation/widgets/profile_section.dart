@@ -44,12 +44,16 @@ class ProfileInfoSection extends ConsumerWidget {
                         const SizedBox(height: 2),
                         Text(
                           user.email,
-                          style: AppText.body14.copyWith(color: AppColors.neutral1),
+                          style: AppText.body14.copyWith(
+                            color: AppColors.neutral1,
+                          ),
                         ),
                         const SizedBox(height: 2),
                         Text(
                           '${user.accountType.label} Account',
-                          style: AppText.caption.copyWith(color: AppColors.neutral1),
+                          style: AppText.caption.copyWith(
+                            color: AppColors.neutral1,
+                          ),
                         ),
                       ],
                     ),
@@ -59,7 +63,12 @@ class ProfileInfoSection extends ConsumerWidget {
               const SizedBox(height: AppSpace.xl),
               Row(
                 children: [
-                  Expanded(child: Text('Account Information', style: AppText.cardTitleMedium)),
+                  Expanded(
+                    child: Text(
+                      'Account Information',
+                      style: AppText.cardTitleMedium,
+                    ),
+                  ),
                   SecondaryButton(
                     label: 'Edit',
                     icon: Icons.edit_outlined,
@@ -82,7 +91,7 @@ class ProfileInfoSection extends ConsumerWidget {
                 helper: user.emailVerified
                     ? null
                     : 'Order updates and your final bill are sent here. '
-                        'Verify it so nothing gets missed.',
+                          'Verify it so nothing gets missed.',
                 trailing: user.emailVerified
                     ? const _VerifiedChip()
                     : AppTextLink(
@@ -93,12 +102,15 @@ class ProfileInfoSection extends ConsumerWidget {
               InfoRow(label: 'Phone Number', value: user.phoneNumber),
               InfoRow(
                 label: 'Date of Birth',
-                value: dob == null ? 'Not provided' : DateFormat.yMMMd().format(dob),
+                value: dob == null
+                    ? 'Not provided'
+                    : DateFormat.yMMMd().format(dob),
                 muted: dob == null,
               ),
               InfoRow(
                 label: 'Destination Country',
-                value: '${user.destinationCountry.flag}  ${user.destinationCountry.name}',
+                value:
+                    '${user.destinationCountry.flag}  ${user.destinationCountry.name}',
                 helper: 'Used to display prices in local currency if supported',
               ),
               InfoRow(label: 'Account Type', value: user.accountType.label),
@@ -146,12 +158,17 @@ class InfoRow extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(vertical: AppSpace.md),
       decoration: BoxDecoration(
-        border: last ? null : const Border(bottom: BorderSide(color: AppColors.surface3)),
+        border: last
+            ? null
+            : const Border(bottom: BorderSide(color: AppColors.surface3)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(label.toUpperCase(), style: AppText.micro.copyWith(color: AppColors.neutral1)),
+          Text(
+            label.toUpperCase(),
+            style: AppText.micro.copyWith(color: AppColors.neutral1),
+          ),
           const SizedBox(height: 4),
           Row(
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -172,7 +189,10 @@ class InfoRow extends StatelessWidget {
           ),
           if (helper != null) ...[
             const SizedBox(height: 4),
-            Text(helper!, style: AppText.caption.copyWith(color: AppColors.neutral1)),
+            Text(
+              helper!,
+              style: AppText.caption.copyWith(color: AppColors.neutral1),
+            ),
           ],
         ],
       ),
@@ -229,7 +249,10 @@ class _InitialAvatar extends StatelessWidget {
 /// The web's `Edit` opens an inline form; on mobile it becomes a bottom sheet.
 /// Email is deliberately absent — the site states it cannot be changed.
 Future<void> showEditProfileSheet(BuildContext context) {
-  return showAppSheet<void>(context: context, builder: (_) => const _EditProfileSheet());
+  return showAppSheet<void>(
+    context: context,
+    builder: (_) => const _EditProfileSheet(),
+  );
 }
 
 class _EditProfileSheet extends ConsumerStatefulWidget {
@@ -241,8 +264,12 @@ class _EditProfileSheet extends ConsumerStatefulWidget {
 
 class _EditProfileSheetState extends ConsumerState<_EditProfileSheet> {
   late final WolevoUser _user = ref.read(currentUserProvider);
-  late final TextEditingController _first = TextEditingController(text: _user.firstName);
-  late final TextEditingController _last = TextEditingController(text: _user.lastName);
+  late final TextEditingController _first = TextEditingController(
+    text: _user.firstName,
+  );
+  late final TextEditingController _last = TextEditingController(
+    text: _user.lastName,
+  );
   late DateTime? _dob = _user.dateOfBirth;
 
   bool _saving = false;
@@ -279,12 +306,12 @@ class _EditProfileSheetState extends ConsumerState<_EditProfileSheet> {
       _error = null;
     });
     try {
-      await ref.read(profileRepositoryProvider).updateProfile(
-            firstName: first,
-            lastName: last,
-            dateOfBirth: _dob,
-          );
-      ref.read(sessionProvider.notifier).applyUser(
+      await ref
+          .read(profileRepositoryProvider)
+          .updateProfile(firstName: first, lastName: last, dateOfBirth: _dob);
+      ref
+          .read(sessionProvider.notifier)
+          .applyUser(
             _user.copyWith(firstName: first, lastName: last, dateOfBirth: _dob),
           );
       if (!mounted) return;
@@ -326,7 +353,10 @@ class _EditProfileSheetState extends ConsumerState<_EditProfileSheet> {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   if (_error != null) ...[
-                    ErrorBanner(message: _error!, onDismiss: () => setState(() => _error = null)),
+                    ErrorBanner(
+                      message: _error!,
+                      onDismiss: () => setState(() => _error = null),
+                    ),
                     const SizedBox(height: AppSpace.lg),
                   ],
                   AppTextField(
@@ -365,7 +395,9 @@ class _EditProfileSheetState extends ConsumerState<_EditProfileSheet> {
                                   ? 'Not provided'
                                   : DateFormat.yMMMd().format(_dob!),
                               style: AppText.body.copyWith(
-                                color: _dob == null ? AppColors.neutral2 : AppColors.bodyText,
+                                color: _dob == null
+                                    ? AppColors.neutral2
+                                    : AppColors.bodyText,
                               ),
                             ),
                           ),

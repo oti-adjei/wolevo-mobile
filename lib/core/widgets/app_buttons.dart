@@ -261,7 +261,9 @@ class _ButtonBody extends StatelessWidget {
       );
     }
 
-    final style = size == AppButtonSize.compact ? AppText.body14Semibold : AppText.bodySemibold;
+    final style = size == AppButtonSize.compact
+        ? AppText.body14Semibold
+        : AppText.bodySemibold;
 
     return Row(
       mainAxisSize: MainAxisSize.min,

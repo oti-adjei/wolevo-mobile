@@ -20,20 +20,39 @@ class AppShell extends ConsumerWidget {
 
   static const _tabs = <_TabSpec>[
     _TabSpec(AppRoutes.home, 'Home', Icons.home_outlined, Icons.home),
-    _TabSpec(AppRoutes.shop, 'Shop', Icons.shopping_bag_outlined, Icons.shopping_bag),
-    _TabSpec(AppRoutes.ship, 'Ship', Icons.local_shipping_outlined, Icons.local_shipping),
-    _TabSpec(AppRoutes.orders, 'Track', Icons.pin_drop_outlined, Icons.pin_drop),
+    _TabSpec(
+      AppRoutes.shop,
+      'Shop',
+      Icons.shopping_bag_outlined,
+      Icons.shopping_bag,
+    ),
+    _TabSpec(
+      AppRoutes.ship,
+      'Ship',
+      Icons.local_shipping_outlined,
+      Icons.local_shipping,
+    ),
+    _TabSpec(
+      AppRoutes.orders,
+      'Track',
+      Icons.pin_drop_outlined,
+      Icons.pin_drop,
+    ),
     _TabSpec(AppRoutes.account, 'Account', Icons.person_outline, Icons.person),
   ];
 
   void _onTap(int index) {
     // Tapping the active tab pops that branch back to its root.
-    navigationShell.goBranch(index, initialLocation: index == navigationShell.currentIndex);
+    navigationShell.goBranch(
+      index,
+      initialLocation: index == navigationShell.currentIndex,
+    );
   }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final initials = ref.watch(sessionProvider).valueOrNull?.user.initials ?? '?';
+    final initials =
+        ref.watch(sessionProvider).valueOrNull?.user.initials ?? '?';
     final current = navigationShell.currentIndex;
 
     return Scaffold(

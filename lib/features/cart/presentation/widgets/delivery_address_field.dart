@@ -113,7 +113,9 @@ class DeliveryAddressField extends ConsumerWidget {
           onTap: () => _open(context, ref, addresses),
           child: selected == null
               ? Text(
-                  async.isLoading ? 'Loading addresses…' : 'Select a delivery address',
+                  async.isLoading
+                      ? 'Loading addresses…'
+                      : 'Select a delivery address',
                   style: AppText.body.copyWith(color: AppColors.neutral2),
                 )
               : Column(
@@ -127,7 +129,9 @@ class DeliveryAddressField extends ConsumerWidget {
                       const SizedBox(height: 2),
                       Text(
                         landmark,
-                        style: AppText.caption.copyWith(color: AppColors.neutral1),
+                        style: AppText.caption.copyWith(
+                          color: AppColors.neutral1,
+                        ),
                       ),
                     ],
                   ],
@@ -138,9 +142,9 @@ class DeliveryAddressField extends ConsumerWidget {
   }
 
   List<SavedAddress> _inCountry(List<SavedAddress> all) => [
-        for (final a in all)
-          if (a.countryCode.toUpperCase() == country.code) a,
-      ];
+    for (final a in all)
+      if (a.countryCode.toUpperCase() == country.code) a,
+  ];
 
   Future<void> _open(
     BuildContext context,
@@ -202,12 +206,17 @@ class DeliveryAddressField extends ConsumerWidget {
                     padding: const EdgeInsets.symmetric(vertical: AppSpace.md),
                     child: Row(
                       children: [
-                        const Icon(Icons.add, size: 18, color: AppColors.secondary),
+                        const Icon(
+                          Icons.add,
+                          size: 18,
+                          color: AppColors.secondary,
+                        ),
                         const SizedBox(width: AppSpace.sm),
                         Text(
                           'Add a new address',
-                          style: AppText.body14Semibold
-                              .copyWith(color: AppColors.secondary),
+                          style: AppText.body14Semibold.copyWith(
+                            color: AppColors.secondary,
+                          ),
                         ),
                       ],
                     ),

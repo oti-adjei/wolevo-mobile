@@ -25,7 +25,8 @@ class MessagesScreen extends ConsumerWidget {
       appBar: AppBar(
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
-          onPressed: () => context.canPop() ? context.pop() : context.go(AppRoutes.home),
+          onPressed: () =>
+              context.canPop() ? context.pop() : context.go(AppRoutes.home),
         ),
         title: const Text('Notifications'),
         actions: [
@@ -45,7 +46,8 @@ class MessagesScreen extends ConsumerWidget {
         top: false,
         child: RefreshIndicator(
           color: AppColors.secondary,
-          onRefresh: () => ref.read(notificationsListProvider.notifier).refresh(),
+          onRefresh: () =>
+              ref.read(notificationsListProvider.notifier).refresh(),
           child: CustomScrollView(
             physics: const AlwaysScrollableScrollPhysics(),
             slivers: [
@@ -65,45 +67,53 @@ class MessagesScreen extends ConsumerWidget {
               ),
               switch (list) {
                 AsyncError(:final error) => SliverFillRemaining(
-                    hasScrollBody: false,
-                    child: ErrorRetry(
-                      message: '$error',
-                      onRetry: () => ref.invalidate(notificationsListProvider),
-                    ),
+                  hasScrollBody: false,
+                  child: ErrorRetry(
+                    message: '$error',
+                    onRetry: () => ref.invalidate(notificationsListProvider),
                   ),
+                ),
                 AsyncData(:final value) when value.isEmpty => SliverFillRemaining(
-                    hasScrollBody: false,
-                    child: EmptyState(
-                      icon: Icons.notifications_none,
-                      title: unreadOnly ? 'No unread notifications' : 'Nothing here yet',
-                      message: unreadOnly
-                          ? "You're all caught up!"
-                          : 'Updates about your orders and shipments will appear here.',
-                    ),
+                  hasScrollBody: false,
+                  child: EmptyState(
+                    icon: Icons.notifications_none,
+                    title: unreadOnly
+                        ? 'No unread notifications'
+                        : 'Nothing here yet',
+                    message: unreadOnly
+                        ? "You're all caught up!"
+                        : 'Updates about your orders and shipments will appear here.',
                   ),
+                ),
                 AsyncData(:final value) => SliverPadding(
-                    padding: const EdgeInsets.fromLTRB(
-                      AppSpace.gutter,
-                      0,
-                      AppSpace.gutter,
-                      AppSpace.section,
-                    ),
-                    sliver: SliverList.separated(
-                      itemCount: value.length,
-                      separatorBuilder: (_, _) => const SizedBox(height: AppSpace.sm),
-                      itemBuilder: (context, index) {
-                        final n = value[index];
-                        return NotificationRow(
-                          notification: n,
-                          onTap: () {
-                            ref.read(notificationsListProvider.notifier).markRead(n.id);
-                            if (n.deepLink case final link?) context.push(link);
-                          },
-                        );
-                      },
-                    ),
+                  padding: const EdgeInsets.fromLTRB(
+                    AppSpace.gutter,
+                    0,
+                    AppSpace.gutter,
+                    AppSpace.section,
                   ),
-                _ => const SliverFillRemaining(hasScrollBody: false, child: AppLoader()),
+                  sliver: SliverList.separated(
+                    itemCount: value.length,
+                    separatorBuilder: (_, _) =>
+                        const SizedBox(height: AppSpace.sm),
+                    itemBuilder: (context, index) {
+                      final n = value[index];
+                      return NotificationRow(
+                        notification: n,
+                        onTap: () {
+                          ref
+                              .read(notificationsListProvider.notifier)
+                              .markRead(n.id);
+                          if (n.deepLink case final link?) context.push(link);
+                        },
+                      );
+                    },
+                  ),
+                ),
+                _ => const SliverFillRemaining(
+                  hasScrollBody: false,
+                  child: AppLoader(),
+                ),
               },
             ],
           ),

@@ -96,7 +96,9 @@ class AppIconPicker extends ConsumerWidget {
                         const SizedBox(height: 2),
                         Text(
                           'Let Wolevo switch your icon for holidays and events.',
-                          style: AppText.caption.copyWith(color: AppColors.neutral1),
+                          style: AppText.caption.copyWith(
+                            color: AppColors.neutral1,
+                          ),
                         ),
                       ],
                     ),
@@ -166,7 +168,11 @@ class _IconOption extends StatelessWidget {
                       color: AppColors.secondary,
                       shape: BoxShape.circle,
                     ),
-                    child: const Icon(Icons.check, size: 13, color: Colors.white),
+                    child: const Icon(
+                      Icons.check,
+                      size: 13,
+                      color: Colors.white,
+                    ),
                   ),
                 ),
             ],

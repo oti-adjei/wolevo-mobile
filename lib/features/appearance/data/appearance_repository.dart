@@ -14,7 +14,8 @@ abstract interface class AppearanceRepository {
 /// Mock source. Returns a campaign window so the behaviour is demoable; flip
 /// [campaign] to null to see the no-campaign path.
 class MockAppearanceRepository implements AppearanceRepository {
-  MockAppearanceRepository({IconCampaign? campaign}) : campaign = campaign ?? _festiveSeason;
+  MockAppearanceRepository({IconCampaign? campaign})
+    : campaign = campaign ?? _festiveSeason;
 
   final IconCampaign campaign;
 

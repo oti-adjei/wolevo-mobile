@@ -74,10 +74,8 @@ enum AppIconVariant {
   /// activity-aliases — so the default is an alias as well.
   final String? androidAlias;
 
-  static AppIconVariant fromId(String? id) => values.firstWhere(
-        (v) => v.id == id,
-        orElse: () => AppIconVariant.wolevo,
-      );
+  static AppIconVariant fromId(String? id) =>
+      values.firstWhere((v) => v.id == id, orElse: () => AppIconVariant.wolevo);
 }
 
 /// A server-driven icon campaign — the "change it without shipping an update"
@@ -110,21 +108,22 @@ class IconCampaign {
   /// who deliberately picked an icon should not have it silently replaced.
   final bool force;
 
-  bool isActiveAt(DateTime now) => now.isAfter(startsAt) && now.isBefore(endsAt);
+  bool isActiveAt(DateTime now) =>
+      now.isAfter(startsAt) && now.isBefore(endsAt);
 
   factory IconCampaign.fromJson(Map<String, dynamic> json) => IconCampaign(
-        variant: AppIconVariant.fromId(json['variant'] as String?),
-        startsAt: DateTime.parse(json['startsAt'] as String),
-        endsAt: DateTime.parse(json['endsAt'] as String),
-        name: json['name'] as String?,
-        force: json['force'] as bool? ?? false,
-      );
+    variant: AppIconVariant.fromId(json['variant'] as String?),
+    startsAt: DateTime.parse(json['startsAt'] as String),
+    endsAt: DateTime.parse(json['endsAt'] as String),
+    name: json['name'] as String?,
+    force: json['force'] as bool? ?? false,
+  );
 
   Map<String, dynamic> toJson() => {
-        'variant': variant.id,
-        'startsAt': startsAt.toIso8601String(),
-        'endsAt': endsAt.toIso8601String(),
-        'name': name,
-        'force': force,
-      };
+    'variant': variant.id,
+    'startsAt': startsAt.toIso8601String(),
+    'endsAt': endsAt.toIso8601String(),
+    'name': name,
+    'force': force,
+  };
 }

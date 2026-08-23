@@ -54,14 +54,15 @@ class HomeScreen extends ConsumerWidget {
             ...switch (feed) {
               AsyncData(:final value) => _feedSlivers(value),
               AsyncError() => [
-                  SliverFillRemaining(
-                    hasScrollBody: false,
-                    child: ErrorRetry(
-                      message: _feedErrorMessage,
-                      onRetry: () => ref.read(homeFeedProvider.notifier).refresh(),
-                    ),
+                SliverFillRemaining(
+                  hasScrollBody: false,
+                  child: ErrorRetry(
+                    message: _feedErrorMessage,
+                    onRetry: () =>
+                        ref.read(homeFeedProvider.notifier).refresh(),
                   ),
-                ],
+                ),
+              ],
               _ => const [SliverToBoxAdapter(child: _FeedSkeleton())],
             },
             const SliverToBoxAdapter(child: SizedBox(height: AppSpace.section)),
@@ -88,7 +89,8 @@ class HomeScreen extends ConsumerWidget {
       SliverList.separated(
         itemCount: feed.sections.length,
         separatorBuilder: (_, _) => const SizedBox(height: AppSpace.section),
-        itemBuilder: (context, index) => HomeSectionView(section: feed.sections[index]),
+        itemBuilder: (context, index) =>
+            HomeSectionView(section: feed.sections[index]),
       ),
     ];
   }
@@ -127,23 +129,23 @@ class _FeedSkeleton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Widget row() => Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: AppSpace.gutter),
-              child: Container(
-                height: 22,
-                width: 180,
-                decoration: BoxDecoration(
-                  color: AppColors.surface3,
-                  borderRadius: BorderRadius.circular(4),
-                ),
-              ),
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: AppSpace.gutter),
+          child: Container(
+            height: 22,
+            width: 180,
+            decoration: BoxDecoration(
+              color: AppColors.surface3,
+              borderRadius: BorderRadius.circular(4),
             ),
-            const SizedBox(height: AppSpace.md),
-            const DealCarouselSkeleton(),
-          ],
-        );
+          ),
+        ),
+        const SizedBox(height: AppSpace.md),
+        const DealCarouselSkeleton(),
+      ],
+    );
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,

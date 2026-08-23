@@ -1,0 +1,70 @@
+name: Release
+
+# Tag-driven: `git tag v0.1.0 && git push --tags` builds the artefacts and
+# publishes a release with them attached.
+on:
+  push:
+    tags: ['v*']
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: Build environment
+        required: true
+        default: dev
+        type: choice
+        options: [dev, staging, prod]
+
+permissions:
+  contents: write
+
+jobs:
+  android:
+    name: Android APK
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: 3.44.8
+          channel: stable
+          cache: true
+
+      - run: flutter pub get
+
+      - name: Resolve environment
+        id: env
+        run: echo "value=${{ inputs.environment || 'dev' }}" >> "$GITHUB_OUTPUT"
+
+      # Release mode, not debug: a debug APK is ~155 MB because it carries every
+      # ABI plus debug symbols. This is still signed with the standard debug key
+      # (see android/app/build.gradle.kts), so testers can sideload it without a
+      # keystore — a store build needs real signing.
+      - name: Build APK
+        run: |
+          flutter build apk --release \
+            --dart-define=WOLEVO_ENV=${{ steps.env.outputs.value }}
+
+      - name: Name the artefact
+        run: |
+          mv build/app/outputs/flutter-apk/app-release.apk \
+             wolevo-${{ steps.env.outputs.value }}-${{ github.ref_name }}.apk
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: android-apk
+          path: wolevo-*.apk
+          retention-days: 30
+
+      - name: Attach to release
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: wolevo-*.apk
+          generate_release_notes: true
+          prerelease: ${{ contains(github.ref_name, '-dev') || contains(github.ref_name, '-beta') }}

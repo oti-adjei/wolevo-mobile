@@ -67,7 +67,9 @@ class _ShopScreenState extends ConsumerState<ShopScreen> {
           widget.initialQuery == null) {
         return;
       }
-      ref.read(shopQueryProvider.notifier).hydrate(
+      ref
+          .read(shopQueryProvider.notifier)
+          .hydrate(
             retailer: widget.initialRetailer,
             mode: widget.initialMode,
             query: widget.initialQuery,
@@ -93,7 +95,6 @@ class _ShopScreenState extends ConsumerState<ShopScreen> {
     }
   }
 
-
   void _enterPaste() {
     _modeBeforePaste = ref.read(shopQueryProvider).mode;
     ref.read(pasteLinkProvider.notifier).reset();
@@ -102,8 +103,12 @@ class _ShopScreenState extends ConsumerState<ShopScreen> {
 
   void _leavePaste() {
     ref.read(pasteLinkProvider.notifier).reset();
-    ref.read(shopQueryProvider.notifier).setMode(
-          _modeBeforePaste == ShopMode.paste ? ShopMode.search : _modeBeforePaste,
+    ref
+        .read(shopQueryProvider.notifier)
+        .setMode(
+          _modeBeforePaste == ShopMode.paste
+              ? ShopMode.search
+              : _modeBeforePaste,
         );
     if (ref.read(shopQueryProvider).mode == ShopMode.search) {
       _searchFocus.requestFocus();
@@ -136,7 +141,10 @@ class _ShopScreenState extends ConsumerState<ShopScreen> {
         // mockup drew this header light, but a green bar is the brand's
         // signature and the client kept it deliberately.
         centerTitle: true,
-        title: Text('Shop', style: AppText.cardTitle.copyWith(color: Colors.white)),
+        title: Text(
+          'Shop',
+          style: AppText.cardTitle.copyWith(color: Colors.white),
+        ),
         actions: [
           IconButton(
             tooltip: 'Cart',
@@ -160,8 +168,9 @@ class _ShopScreenState extends ConsumerState<ShopScreen> {
               SliverToBoxAdapter(
                 child: StoreSelector(
                   selected: query.retailer,
-                  onSelected: (retailer) =>
-                      ref.read(shopQueryProvider.notifier).setRetailer(retailer),
+                  onSelected: (retailer) => ref
+                      .read(shopQueryProvider.notifier)
+                      .setRetailer(retailer),
                 ),
               ),
               const SliverToBoxAdapter(child: SizedBox(height: AppSpace.lg)),
@@ -169,14 +178,17 @@ class _ShopScreenState extends ConsumerState<ShopScreen> {
               // mode toggle — the mockup treats it as the primary control.
               SliverToBoxAdapter(
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: AppSpace.gutter),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: AppSpace.gutter,
+                  ),
                   child: ShopSearchField(
                     controller: _searchController,
                     focusNode: _searchFocus,
                     onChanged: (value) =>
                         ref.read(shopQueryProvider.notifier).setKeyword(value),
-                    onSubmitted: (value) =>
-                        ref.read(shopQueryProvider.notifier).submitKeyword(value),
+                    onSubmitted: (value) => ref
+                        .read(shopQueryProvider.notifier)
+                        .submitKeyword(value),
                     onCleared: () =>
                         ref.read(shopQueryProvider.notifier).clearKeyword(),
                   ),
@@ -197,7 +209,8 @@ class _ShopScreenState extends ConsumerState<ShopScreen> {
               SliverToBoxAdapter(
                 child: CategoryChipRow(
                   selected: _category,
-                  onSelected: (category) => setState(() => _category = category),
+                  onSelected: (category) =>
+                      setState(() => _category = category),
                 ),
               ),
               const SliverToBoxAdapter(child: SizedBox(height: AppSpace.md)),
@@ -226,7 +239,10 @@ class _ShopScreenState extends ConsumerState<ShopScreen> {
     );
   }
 
-  List<Widget> _resultSlivers(ShopQuery query, AsyncValue<ShopListState> listState) {
+  List<Widget> _resultSlivers(
+    ShopQuery query,
+    AsyncValue<ShopListState> listState,
+  ) {
     // Search with an empty box: no request was fired, so prompt instead of
     // rendering a zero-result state.
     if (query.mode == ShopMode.search && !query.hasKeyword) {
@@ -236,7 +252,8 @@ class _ShopScreenState extends ConsumerState<ShopScreen> {
           child: EmptyState(
             icon: Icons.search,
             title: 'Search US stores',
-            message: 'Type what you are looking for — we search the store you picked above.',
+            message:
+                'Type what you are looking for — we search the store you picked above.',
           ),
         ),
       ];
@@ -270,61 +287,61 @@ class _ShopScreenState extends ConsumerState<ShopScreen> {
 
     return switch (listState) {
       AsyncError(:final error) => [
-          header,
-          SliverFillRemaining(
-            hasScrollBody: false,
-            child: ErrorRetry(
-              message: '$error',
-              onRetry: () => ref.invalidate(shopListProvider),
-            ),
+        header,
+        SliverFillRemaining(
+          hasScrollBody: false,
+          child: ErrorRetry(
+            message: '$error',
+            onRetry: () => ref.invalidate(shopListProvider),
           ),
-        ],
+        ),
+      ],
       AsyncLoading() when value == null => [header, const _GridSkeleton()],
       AsyncData(:final value) when value.isEmpty => [
-          header,
-          SliverFillRemaining(
-            hasScrollBody: false,
-            child: query.mode == ShopMode.search
-                ? EmptyState(
-                    icon: Icons.search_off,
-                    title: 'No products found',
-                    message:
-                        'Nothing matched "${query.trimmedKeyword}" at ${query.retailer.label}. '
-                        'Try another keyword or a different store.',
-                    actionLabel: 'Clear search',
-                    onAction: _clearSearch,
-                  )
-                : const EmptyState(
-                    icon: Icons.storefront_outlined,
-                    title: 'Nothing to show yet',
-                    message: 'This store has no featured products right now.',
-                  ),
-          ),
-        ],
+        header,
+        SliverFillRemaining(
+          hasScrollBody: false,
+          child: query.mode == ShopMode.search
+              ? EmptyState(
+                  icon: Icons.search_off,
+                  title: 'No products found',
+                  message:
+                      'Nothing matched "${query.trimmedKeyword}" at ${query.retailer.label}. '
+                      'Try another keyword or a different store.',
+                  actionLabel: 'Clear search',
+                  onAction: _clearSearch,
+                )
+              : const EmptyState(
+                  icon: Icons.storefront_outlined,
+                  title: 'Nothing to show yet',
+                  message: 'This store has no featured products right now.',
+                ),
+        ),
+      ],
       _ => [
-          header,
-          SliverPadding(
-            padding: const EdgeInsets.fromLTRB(
-              AppSpace.gutter,
-              0,
-              AppSpace.gutter,
-              AppSpace.xxl,
-            ),
-            sliver: SliverGrid.builder(
-              gridDelegate: _gridDelegate,
-              itemCount: value?.items.length ?? 0,
-              itemBuilder: (context, index) =>
-                  ShopListingCard(listing: value!.items[index]),
+        header,
+        SliverPadding(
+          padding: const EdgeInsets.fromLTRB(
+            AppSpace.gutter,
+            0,
+            AppSpace.gutter,
+            AppSpace.xxl,
+          ),
+          sliver: SliverGrid.builder(
+            gridDelegate: _gridDelegate,
+            itemCount: value?.items.length ?? 0,
+            itemBuilder: (context, index) =>
+                ShopListingCard(listing: value!.items[index]),
+          ),
+        ),
+        if (value?.loadingMore ?? false)
+          const SliverToBoxAdapter(
+            child: Padding(
+              padding: EdgeInsets.only(bottom: AppSpace.section),
+              child: AppLoader(),
             ),
           ),
-          if (value?.loadingMore ?? false)
-            const SliverToBoxAdapter(
-              child: Padding(
-                padding: EdgeInsets.only(bottom: AppSpace.section),
-                child: AppLoader(),
-              ),
-            ),
-        ],
+      ],
     };
   }
 }
@@ -352,13 +369,11 @@ class _GridSkeleton extends StatelessWidget {
       ),
       sliver: SliverGrid(
         gridDelegate: _gridDelegate,
-        delegate: SliverChildBuilderDelegate(
-          _buildSkeleton,
-          childCount: 4,
-        ),
+        delegate: SliverChildBuilderDelegate(_buildSkeleton, childCount: 4),
       ),
     );
   }
 }
 
-Widget _buildSkeleton(BuildContext context, int index) => const ShopListingCardSkeleton();
+Widget _buildSkeleton(BuildContext context, int index) =>
+    const ShopListingCardSkeleton();

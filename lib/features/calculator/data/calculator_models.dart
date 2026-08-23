@@ -16,7 +16,8 @@ enum WeightUnit {
 
   /// The mock pricing model is expressed per pound, so kg inputs are
   /// normalised before the formula runs.
-  double toLbs(double value) => this == WeightUnit.lbs ? value : value * 2.20462;
+  double toLbs(double value) =>
+      this == WeightUnit.lbs ? value : value * 2.20462;
 }
 
 /// Unit selector under `DIMENSIONS (optional)`.
@@ -69,21 +70,21 @@ class ShippingEstimateRequest {
   bool get hasDimensions => length != null && width != null && height != null;
 
   Map<String, dynamic> toJson() => {
-        'destinationCountryCode': destinationCountryCode,
-        // ASSUMPTION: the server distinguishes the two tabs by an explicit
-        // mode discriminator rather than by which fields are present.
-        'mode': mode.name.toUpperCase(),
-        if (productUrl != null) 'productUrl': productUrl,
-        if (weight != null) 'weight': weight,
-        if (weightUnit != null) 'weightUnit': weightUnit!.label,
-        if (hasDimensions)
-          'dimensions': {
-            'length': length,
-            'width': width,
-            'height': height,
-            'unit': dimensionUnit?.label ?? DimensionUnit.cm.label,
-          },
-      };
+    'destinationCountryCode': destinationCountryCode,
+    // ASSUMPTION: the server distinguishes the two tabs by an explicit
+    // mode discriminator rather than by which fields are present.
+    'mode': mode.name.toUpperCase(),
+    if (productUrl != null) 'productUrl': productUrl,
+    if (weight != null) 'weight': weight,
+    if (weightUnit != null) 'weightUnit': weightUnit!.label,
+    if (hasDimensions)
+      'dimensions': {
+        'length': length,
+        'width': width,
+        'height': height,
+        'unit': dimensionUnit?.label ?? DimensionUnit.cm.label,
+      },
+  };
 }
 
 /// Response body. The result card shows a USD figure and the destination
@@ -107,10 +108,12 @@ class ShippingEstimate {
   /// adjustment.
   final double? billableWeightLbs;
 
-  factory ShippingEstimate.fromJson(Map<String, dynamic> json) => ShippingEstimate(
+  factory ShippingEstimate.fromJson(Map<String, dynamic> json) =>
+      ShippingEstimate(
         shipping: Money.fromJson(json['shipping'] as Map<String, dynamic>),
-        destination:
-            DestinationCountry.fromCode(json['destinationCountryCode'] as String),
+        destination: DestinationCountry.fromCode(
+          json['destinationCountryCode'] as String,
+        ),
         productTitle: json['productTitle'] as String?,
         billableWeightLbs: (json['billableWeightLbs'] as num?)?.toDouble(),
       );

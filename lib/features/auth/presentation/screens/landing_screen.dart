@@ -190,7 +190,10 @@ class _Hero extends ConsumerWidget {
         const SizedBox(height: AppSpace.xl),
         const HeroHeadline(),
         const SizedBox(height: AppSpace.xl),
-        Text(subhead, style: AppText.body14.copyWith(color: AppColors.neutral1)),
+        Text(
+          subhead,
+          style: AppText.body14.copyWith(color: AppColors.neutral1),
+        ),
         const SizedBox(height: AppSpace.xl),
         _ShopShipToggle(
           mode: mode,
@@ -239,9 +242,9 @@ class _Hero extends ConsumerWidget {
   }
 
   static String _currencyWord(DestinationCountry c) => switch (c) {
-        DestinationCountry.ghana => 'Cedis',
-        DestinationCountry.nigeria => 'Naira',
-      };
+    DestinationCountry.ghana => 'Cedis',
+    DestinationCountry.nigeria => 'Naira',
+  };
 }
 
 class _ShopShipToggle extends StatelessWidget {
@@ -371,28 +374,52 @@ class _Step {
 }
 
 const _shopSteps = <_Step>[
-  _Step('01', 'Find Your Product',
-      'Search any US store or paste a product link. We show the full landed cost up front.'),
-  _Step('02', 'Pay for the Item',
-      'Pay in your own currency with Mobile Money, card or bank transfer — no US card needed.'),
-  _Step('03', 'We Handle Everything',
-      'We buy it, receive it at our tax-free Delaware warehouse and ship it out.'),
-  _Step('04', 'You Receive',
-      'Delivery or pickup near you, typically 7-14 days after we receive your items.'),
+  _Step(
+    '01',
+    'Find Your Product',
+    'Search any US store or paste a product link. We show the full landed cost up front.',
+  ),
+  _Step(
+    '02',
+    'Pay for the Item',
+    'Pay in your own currency with Mobile Money, card or bank transfer — no US card needed.',
+  ),
+  _Step(
+    '03',
+    'We Handle Everything',
+    'We buy it, receive it at our tax-free Delaware warehouse and ship it out.',
+  ),
+  _Step(
+    '04',
+    'You Receive',
+    'Delivery or pickup near you, typically 7-14 days after we receive your items.',
+  ),
 ];
 
 // ASSUMPTION: only the "Shop on Wolevo" step titles were captured in discovery.
 // The "Ship for Me" step bodies below are written to match the observed
 // `/ship` flow (tracking number + receipt upload, then warehouse receipt).
 const _shipSteps = <_Step>[
-  _Step('01', 'Get Your US Address',
-      'Sign up and we assign you a locker ID at our Delaware warehouse instantly.'),
-  _Step('02', 'Shop Anywhere',
-      'Buy from any US store and ship to your locker address — use your exact locker name.'),
-  _Step('03', 'Register Your Shipment',
-      'Add the tracking number and upload your receipt so we can match the parcel to you.'),
-  _Step('04', 'You Receive',
-      'We consolidate, ship and deliver to you — or hold it for pickup.'),
+  _Step(
+    '01',
+    'Get Your US Address',
+    'Sign up and we assign you a locker ID at our Delaware warehouse instantly.',
+  ),
+  _Step(
+    '02',
+    'Shop Anywhere',
+    'Buy from any US store and ship to your locker address — use your exact locker name.',
+  ),
+  _Step(
+    '03',
+    'Register Your Shipment',
+    'Add the tracking number and upload your receipt so we can match the parcel to you.',
+  ),
+  _Step(
+    '04',
+    'You Receive',
+    'We consolidate, ship and deliver to you — or hold it for pickup.',
+  ),
 ];
 
 class _HowItWorks extends ConsumerWidget {
@@ -536,13 +563,7 @@ class _CalculatorSection extends StatelessWidget {
 // We deliver to
 // ---------------------------------------------------------------------------
 
-const _ghanaCities = [
-  'Accra',
-  'Kumasi',
-  'Tamale',
-  'Takoradi',
-  'Cape Coast',
-];
+const _ghanaCities = ['Accra', 'Kumasi', 'Tamale', 'Takoradi', 'Cape Coast'];
 
 class _DeliverTo extends StatelessWidget {
   const _DeliverTo({super.key, required this.region});

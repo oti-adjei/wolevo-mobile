@@ -36,7 +36,8 @@ abstract final class OnboardingContent {
     OnboardingSlide(
       eyebrow: 'Shop global',
       title: 'Receive it at home.',
-      body: 'Shop from top U.S. stores and have it delivered to your door in '
+      body:
+          'Shop from top U.S. stores and have it delivered to your door in '
           'Ghana or Nigeria. Delivered in 7-14 days.',
       icon: Icons.public,
       accent: AppColors.primary,
@@ -50,7 +51,8 @@ abstract final class OnboardingContent {
     OnboardingSlide(
       eyebrow: 'Ship for me',
       title: 'Your own US address.',
-      body: 'Get a real Delaware address the moment you sign up. Ship to it '
+      body:
+          'Get a real Delaware address the moment you sign up. Ship to it '
           'from any US store, or have family send to it.',
       icon: Icons.local_shipping_outlined,
       accent: AppColors.tertiary,
@@ -66,7 +68,8 @@ abstract final class OnboardingContent {
     OnboardingSlide(
       eyebrow: 'Pay your way',
       title: 'No US card needed.',
-      body: 'Pay in your own currency via Mobile Money (MoMo), card or bank '
+      body:
+          'Pay in your own currency via Mobile Money (MoMo), card or bank '
           'transfer. No dollar account, no conversion stress.',
       icon: Icons.account_balance_wallet_outlined,
       accent: AppColors.primary,
@@ -80,7 +83,8 @@ abstract final class OnboardingContent {
     OnboardingSlide(
       eyebrow: 'Stay in the loop',
       title: 'Track every package.',
-      body: 'Get quotes, pay, and follow each parcel from our warehouse to '
+      body:
+          'Get quotes, pay, and follow each parcel from our warehouse to '
           'your door. Delivery or pickup — your choice.',
       icon: Icons.inventory_2_outlined,
       accent: AppColors.tertiary,

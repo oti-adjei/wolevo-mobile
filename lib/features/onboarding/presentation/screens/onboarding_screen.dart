@@ -43,14 +43,16 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
   }
 
   Future<void> _finish(String destination, {required bool completed}) async {
-    ref.read(analyticsProvider).track(
-      completed
-          ? AnalyticsEvents.onboardingCompleted
-          : AnalyticsEvents.onboardingSkipped,
-      // Which slide they left on is the useful part: it says where the story
-      // stops holding attention.
-      properties: {'last_slide': _index + 1, 'slide_count': _slides.length},
-    );
+    ref
+        .read(analyticsProvider)
+        .track(
+          completed
+              ? AnalyticsEvents.onboardingCompleted
+              : AnalyticsEvents.onboardingSkipped,
+          // Which slide they left on is the useful part: it says where the story
+          // stops holding attention.
+          properties: {'last_slide': _index + 1, 'slide_count': _slides.length},
+        );
     await ref.read(onboardingRepositoryProvider).markSeen();
     ref.invalidate(hasSeenOnboardingProvider);
     if (mounted) context.go(destination);
@@ -94,8 +96,11 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                   ),
                   const Spacer(),
                   TextButton(
-                    onPressed: () => _finish(AppRoutes.register, completed: false),
-                    style: TextButton.styleFrom(foregroundColor: AppColors.neutral1),
+                    onPressed: () =>
+                        _finish(AppRoutes.register, completed: false),
+                    style: TextButton.styleFrom(
+                      foregroundColor: AppColors.neutral1,
+                    ),
                     child: Text('Skip', style: AppText.body14Semibold),
                   ),
                 ],
@@ -127,8 +132,11 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                   const SizedBox(height: AppSpace.sm),
                   if (_isLast)
                     TextButton(
-                      onPressed: () => _finish(AppRoutes.login, completed: true),
-                      style: TextButton.styleFrom(foregroundColor: AppColors.secondary),
+                      onPressed: () =>
+                          _finish(AppRoutes.login, completed: true),
+                      style: TextButton.styleFrom(
+                        foregroundColor: AppColors.secondary,
+                      ),
                       child: Text(
                         'I already have an account',
                         style: AppText.body14Semibold,
@@ -136,9 +144,15 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                     )
                   else
                     TextButton(
-                      onPressed: () => _finish(AppRoutes.landing, completed: false),
-                      style: TextButton.styleFrom(foregroundColor: AppColors.neutral1),
-                      child: Text('Explore first', style: AppText.body14Semibold),
+                      onPressed: () =>
+                          _finish(AppRoutes.landing, completed: false),
+                      style: TextButton.styleFrom(
+                        foregroundColor: AppColors.neutral1,
+                      ),
+                      child: Text(
+                        'Explore first',
+                        style: AppText.body14Semibold,
+                      ),
                     ),
                 ],
               ),

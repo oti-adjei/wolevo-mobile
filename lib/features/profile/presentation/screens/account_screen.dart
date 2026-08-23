@@ -56,19 +56,23 @@ class AccountScreen extends ConsumerWidget {
               _RowSpec(
                 icon: Icons.person_outline,
                 label: 'Profile',
-                onTap: () => context.push(AppRoutes.accountSection(ProfileSection.profile.name)),
+                onTap: () => context.push(
+                  AppRoutes.accountSection(ProfileSection.profile.name),
+                ),
               ),
               _RowSpec(
                 icon: Icons.location_on_outlined,
                 label: 'Addresses',
-                onTap: () =>
-                    context.push(AppRoutes.accountSection(ProfileSection.addresses.name)),
+                onTap: () => context.push(
+                  AppRoutes.accountSection(ProfileSection.addresses.name),
+                ),
               ),
               _RowSpec(
                 icon: Icons.card_giftcard_outlined,
                 label: 'Referrals',
-                onTap: () =>
-                    context.push(AppRoutes.accountSection(ProfileSection.referrals.name)),
+                onTap: () => context.push(
+                  AppRoutes.accountSection(ProfileSection.referrals.name),
+                ),
               ),
             ],
           ),
@@ -79,8 +83,9 @@ class AccountScreen extends ConsumerWidget {
               _RowSpec(
                 icon: Icons.settings_outlined,
                 label: 'Settings',
-                onTap: () =>
-                    context.push(AppRoutes.accountSection(ProfileSection.settings.name)),
+                onTap: () => context.push(
+                  AppRoutes.accountSection(ProfileSection.settings.name),
+                ),
               ),
               _RowSpec(
                 icon: Icons.notifications_none,
@@ -101,8 +106,9 @@ class AccountScreen extends ConsumerWidget {
               _RowSpec(
                 icon: Icons.support_agent_outlined,
                 label: 'Support',
-                onTap: () =>
-                    context.push(AppRoutes.accountSection(ProfileSection.support.name)),
+                onTap: () => context.push(
+                  AppRoutes.accountSection(ProfileSection.support.name),
+                ),
               ),
               _RowSpec(
                 icon: Icons.receipt_long_outlined,
@@ -173,7 +179,9 @@ class _IdentityCard extends ConsumerWidget {
                       user.email,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
-                      style: AppText.caption.copyWith(color: AppColors.secondary7),
+                      style: AppText.caption.copyWith(
+                        color: AppColors.secondary7,
+                      ),
                     ),
                   ],
                 ),
@@ -198,7 +206,9 @@ class _IdentityCard extends ConsumerWidget {
                     children: [
                       Text(
                         'YOUR LOCKER ID',
-                        style: AppText.micro.copyWith(color: AppColors.tertiary),
+                        style: AppText.micro.copyWith(
+                          color: AppColors.tertiary,
+                        ),
                       ),
                       const SizedBox(height: 2),
                       Text(
@@ -252,7 +262,11 @@ class _CopyLockerButton extends StatelessWidget {
 }
 
 class _RowSpec {
-  const _RowSpec({required this.icon, required this.label, required this.onTap});
+  const _RowSpec({
+    required this.icon,
+    required this.label,
+    required this.onTap,
+  });
 
   final IconData icon;
   final String label;
@@ -315,7 +329,11 @@ class _AccountRow extends StatelessWidget {
             Icon(spec.icon, size: 22, color: AppColors.neutral1),
             const SizedBox(width: AppSpace.lg),
             Expanded(child: Text(spec.label, style: AppText.body)),
-            const Icon(Icons.chevron_right, size: 22, color: AppColors.neutral2),
+            const Icon(
+              Icons.chevron_right,
+              size: 22,
+              color: AppColors.neutral2,
+            ),
           ],
         ),
       ),

@@ -36,9 +36,9 @@ enum DestinationCountry {
   final double mockRate;
 
   static DestinationCountry fromCode(String code) => values.firstWhere(
-        (c) => c.code == code.toUpperCase(),
-        orElse: () => DestinationCountry.ghana,
-      );
+    (c) => c.code == code.toUpperCase(),
+    orElse: () => DestinationCountry.ghana,
+  );
 
   /// Maps a dial code back to a destination. Signup never asks for a country —
   /// the web app infers it from the phone country code and the nav switcher

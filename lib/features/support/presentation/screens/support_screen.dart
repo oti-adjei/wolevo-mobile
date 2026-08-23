@@ -28,8 +28,9 @@ class _SupportScreenState extends State<SupportScreen> {
   int _initialIndex() {
     final country = widget.initialCountry?.toLowerCase();
     if (country == null) return 0;
-    final index = SupportContent.offices
-        .indexWhere((o) => o.country.toLowerCase().startsWith(country));
+    final index = SupportContent.offices.indexWhere(
+      (o) => o.country.toLowerCase().startsWith(country),
+    );
     return index == -1 ? 0 : index;
   }
 
@@ -40,7 +41,8 @@ class _SupportScreenState extends State<SupportScreen> {
       appBar: AppBar(
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
-          onPressed: () => context.canPop() ? context.pop() : context.go(AppRoutes.landing),
+          onPressed: () =>
+              context.canPop() ? context.pop() : context.go(AppRoutes.landing),
         ),
         title: const Text('Contact Us'),
       ),
@@ -106,13 +108,17 @@ class _OfficeCard extends StatelessWidget {
                         const SizedBox(height: 2),
                         Text(
                           office.city,
-                          style: AppText.caption.copyWith(color: AppColors.neutral1),
+                          style: AppText.caption.copyWith(
+                            color: AppColors.neutral1,
+                          ),
                         ),
                       ],
                     ),
                   ),
                   Icon(
-                    expanded ? Icons.keyboard_arrow_up : Icons.keyboard_arrow_down,
+                    expanded
+                        ? Icons.keyboard_arrow_up
+                        : Icons.keyboard_arrow_down,
                     size: 20,
                     color: AppColors.neutral1,
                   ),
@@ -141,7 +147,8 @@ class _OfficeCard extends StatelessWidget {
                     icon: Icons.call_outlined,
                     label: 'Phone',
                     value: office.phone,
-                    onTap: () => _launch('tel:${office.phone.replaceAll(' ', '')}'),
+                    onTap: () =>
+                        _launch('tel:${office.phone.replaceAll(' ', '')}'),
                   ),
                   _DetailRow(
                     icon: Icons.chat_bubble_outline,
@@ -202,12 +209,17 @@ class _DetailRow extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(label, style: AppText.caption.copyWith(color: AppColors.neutral1)),
+                  Text(
+                    label,
+                    style: AppText.caption.copyWith(color: AppColors.neutral1),
+                  ),
                   const SizedBox(height: 2),
                   Text(
                     value,
                     style: AppText.body14Medium.copyWith(
-                      color: onTap == null ? AppColors.bodyText : AppColors.secondary,
+                      color: onTap == null
+                          ? AppColors.bodyText
+                          : AppColors.secondary,
                     ),
                   ),
                 ],

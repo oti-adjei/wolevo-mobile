@@ -62,7 +62,9 @@ class FulfillmentCard extends StatelessWidget {
                     Flexible(
                       child: Text(
                         f.sourceLabel,
-                        style: AppText.body14.copyWith(color: AppColors.neutral1),
+                        style: AppText.body14.copyWith(
+                          color: AppColors.neutral1,
+                        ),
                         overflow: TextOverflow.ellipsis,
                       ),
                     ),
@@ -87,7 +89,9 @@ class FulfillmentCard extends StatelessWidget {
                     Expanded(
                       child: Text(
                         _dateFormat.format(f.createdAt),
-                        style: AppText.caption.copyWith(color: AppColors.neutral1),
+                        style: AppText.caption.copyWith(
+                          color: AppColors.neutral1,
+                        ),
                       ),
                     ),
                     Column(
@@ -96,7 +100,9 @@ class FulfillmentCard extends StatelessWidget {
                         Text(f.total.usdLabel, style: AppText.bodySemibold),
                         Text(
                           f.total.localLabel,
-                          style: AppText.caption.copyWith(color: AppColors.neutral1),
+                          style: AppText.caption.copyWith(
+                            color: AppColors.neutral1,
+                          ),
                         ),
                       ],
                     ),
@@ -107,7 +113,11 @@ class FulfillmentCard extends StatelessWidget {
           ),
           const Padding(
             padding: EdgeInsets.only(left: AppSpace.sm, top: 2),
-            child: Icon(Icons.chevron_right, size: 20, color: AppColors.neutral2),
+            child: Icon(
+              Icons.chevron_right,
+              size: 20,
+              color: AppColors.neutral2,
+            ),
           ),
         ],
       ),

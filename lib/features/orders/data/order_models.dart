@@ -25,25 +25,25 @@ enum OrderStatus {
   /// "waiting on us", mint for "bought", pale green for "moving", success for
   /// "done", red for "stopped".
   Color get background => switch (this) {
-        OrderStatus.pending => AppColors.tertiary,
-        OrderStatus.purchased => AppColors.secondary2,
-        OrderStatus.shipped => AppColors.primary2,
-        OrderStatus.delivered => AppColors.success,
-        OrderStatus.cancelled => AppColors.error3,
-      };
+    OrderStatus.pending => AppColors.tertiary,
+    OrderStatus.purchased => AppColors.secondary2,
+    OrderStatus.shipped => AppColors.primary2,
+    OrderStatus.delivered => AppColors.success,
+    OrderStatus.cancelled => AppColors.error3,
+  };
 
   Color get foreground => switch (this) {
-        OrderStatus.pending => AppColors.secondary,
-        OrderStatus.purchased => AppColors.secondary,
-        OrderStatus.shipped => AppColors.secondary,
-        OrderStatus.delivered => Colors.white,
-        OrderStatus.cancelled => AppColors.error,
-      };
+    OrderStatus.pending => AppColors.secondary,
+    OrderStatus.purchased => AppColors.secondary,
+    OrderStatus.shipped => AppColors.secondary,
+    OrderStatus.delivered => Colors.white,
+    OrderStatus.cancelled => AppColors.error,
+  };
 
   static OrderStatus fromApi(String value) => values.firstWhere(
-        (s) => s.apiValue == value.toUpperCase(),
-        orElse: () => OrderStatus.pending,
-      );
+    (s) => s.apiValue == value.toUpperCase(),
+    orElse: () => OrderStatus.pending,
+  );
 }
 
 /// `/user/fulfillments` is deliberately not called `/orders`: the list mixes
@@ -61,9 +61,9 @@ enum FulfillmentKind {
   final String label;
 
   static FulfillmentKind fromApi(String value) => values.firstWhere(
-        (k) => k.apiValue == value.toUpperCase(),
-        orElse: () => FulfillmentKind.order,
-      );
+    (k) => k.apiValue == value.toUpperCase(),
+    orElse: () => FulfillmentKind.order,
+  );
 }
 
 /// The stages of the tracking timeline.
@@ -89,19 +89,19 @@ enum TrackingStage {
   final String label;
 
   IconData get icon => switch (this) {
-        TrackingStage.ordered => Icons.receipt_long_outlined,
-        TrackingStage.receivedAtWarehouse => Icons.warehouse_outlined,
-        TrackingStage.shipped => Icons.flight_takeoff_outlined,
-        TrackingStage.inCustoms => Icons.gavel_outlined,
-        TrackingStage.outForDelivery => Icons.local_shipping_outlined,
-        TrackingStage.delivered => Icons.check_circle_outline,
-        TrackingStage.readyForPickup => Icons.storefront_outlined,
-      };
+    TrackingStage.ordered => Icons.receipt_long_outlined,
+    TrackingStage.receivedAtWarehouse => Icons.warehouse_outlined,
+    TrackingStage.shipped => Icons.flight_takeoff_outlined,
+    TrackingStage.inCustoms => Icons.gavel_outlined,
+    TrackingStage.outForDelivery => Icons.local_shipping_outlined,
+    TrackingStage.delivered => Icons.check_circle_outline,
+    TrackingStage.readyForPickup => Icons.storefront_outlined,
+  };
 
   static TrackingStage fromApi(String value) => values.firstWhere(
-        (s) => s.apiValue == value.toUpperCase(),
-        orElse: () => TrackingStage.ordered,
-      );
+    (s) => s.apiValue == value.toUpperCase(),
+    orElse: () => TrackingStage.ordered,
+  );
 }
 
 /// One node on the vertical timeline. Future stages carry no [timestamp].
@@ -128,22 +128,22 @@ class TrackingEvent {
   final bool completed;
 
   factory TrackingEvent.fromJson(Map<String, dynamic> json) => TrackingEvent(
-        stage: TrackingStage.fromApi(json['stage'] as String),
-        label: json['label'] as String,
-        description: json['description'] as String? ?? '',
-        completed: json['completed'] as bool? ?? false,
-        timestamp: json['timestamp'] == null
-            ? null
-            : DateTime.parse(json['timestamp'] as String),
-      );
+    stage: TrackingStage.fromApi(json['stage'] as String),
+    label: json['label'] as String,
+    description: json['description'] as String? ?? '',
+    completed: json['completed'] as bool? ?? false,
+    timestamp: json['timestamp'] == null
+        ? null
+        : DateTime.parse(json['timestamp'] as String),
+  );
 
   Map<String, dynamic> toJson() => {
-        'stage': stage.apiValue,
-        'label': label,
-        'description': description,
-        'completed': completed,
-        'timestamp': timestamp?.toIso8601String(),
-      };
+    'stage': stage.apiValue,
+    'label': label,
+    'description': description,
+    'completed': completed,
+    'timestamp': timestamp?.toIso8601String(),
+  };
 }
 
 /// One line item inside a proxy-buy order.
@@ -169,7 +169,8 @@ class FulfillmentItem {
 
   Money get lineTotal => unitPrice * quantity;
 
-  factory FulfillmentItem.fromJson(Map<String, dynamic> json) => FulfillmentItem(
+  factory FulfillmentItem.fromJson(Map<String, dynamic> json) =>
+      FulfillmentItem(
         title: json['title'] as String,
         imageUrl: json['imageUrl'] as String?,
         quantity: (json['quantity'] as num).toInt(),
@@ -178,12 +179,12 @@ class FulfillmentItem {
       );
 
   Map<String, dynamic> toJson() => {
-        'title': title,
-        'imageUrl': imageUrl,
-        'quantity': quantity,
-        'unitPrice': unitPrice.toJson(),
-        'retailer': retailer.apiValue,
-      };
+    'title': title,
+    'imageUrl': imageUrl,
+    'quantity': quantity,
+    'unitPrice': unitPrice.toJson(),
+    'retailer': retailer.apiValue,
+  };
 }
 
 /// The cost summary. Nullable components render as "Calculated at checkout",
@@ -207,29 +208,31 @@ class CostBreakdown {
   /// True while any component is still unpriced — the cart shows `$187.68+`
   /// with a trailing plus in this case.
   bool get isEstimate =>
-      retailerShipping == null || shippingToDestination == null || handling == null;
+      retailerShipping == null ||
+      shippingToDestination == null ||
+      handling == null;
 
   factory CostBreakdown.fromJson(Map<String, dynamic> json) => CostBreakdown(
-        subtotal: Money.fromJson(json['subtotal'] as Map<String, dynamic>),
-        retailerShipping: json['retailerShipping'] == null
-            ? null
-            : Money.fromJson(json['retailerShipping'] as Map<String, dynamic>),
-        shippingToDestination: json['shippingToDestination'] == null
-            ? null
-            : Money.fromJson(json['shippingToDestination'] as Map<String, dynamic>),
-        handling: json['handling'] == null
-            ? null
-            : Money.fromJson(json['handling'] as Map<String, dynamic>),
-        total: Money.fromJson(json['total'] as Map<String, dynamic>),
-      );
+    subtotal: Money.fromJson(json['subtotal'] as Map<String, dynamic>),
+    retailerShipping: json['retailerShipping'] == null
+        ? null
+        : Money.fromJson(json['retailerShipping'] as Map<String, dynamic>),
+    shippingToDestination: json['shippingToDestination'] == null
+        ? null
+        : Money.fromJson(json['shippingToDestination'] as Map<String, dynamic>),
+    handling: json['handling'] == null
+        ? null
+        : Money.fromJson(json['handling'] as Map<String, dynamic>),
+    total: Money.fromJson(json['total'] as Map<String, dynamic>),
+  );
 
   Map<String, dynamic> toJson() => {
-        'subtotal': subtotal.toJson(),
-        'retailerShipping': retailerShipping?.toJson(),
-        'shippingToDestination': shippingToDestination?.toJson(),
-        'handling': handling?.toJson(),
-        'total': total.toJson(),
-      };
+    'subtotal': subtotal.toJson(),
+    'retailerShipping': retailerShipping?.toJson(),
+    'shippingToDestination': shippingToDestination?.toJson(),
+    'handling': handling?.toJson(),
+    'total': total.toJson(),
+  };
 }
 
 /// The delivery address as it is echoed back on a fulfillment. `nearestLandmark`
@@ -264,12 +267,12 @@ class DeliveryAddressSummary {
       );
 
   Map<String, dynamic> toJson() => {
-        'line1': line1,
-        'city': city,
-        'region': region,
-        'countryName': countryName,
-        'nearestLandmark': nearestLandmark,
-      };
+    'line1': line1,
+    'city': city,
+    'region': region,
+    'countryName': countryName,
+    'nearestLandmark': nearestLandmark,
+  };
 }
 
 /// A row in `GET /api/v1/user/fulfillments`, and the payload of the detail
@@ -332,45 +335,46 @@ class Fulfillment {
   }
 
   factory Fulfillment.fromJson(Map<String, dynamic> json) => Fulfillment(
-        id: json['id'] as String,
-        reference: json['reference'] as String,
-        kind: FulfillmentKind.fromApi(json['kind'] as String),
-        status: OrderStatus.fromApi(json['status'] as String),
-        createdAt: DateTime.parse(json['createdAt'] as String),
-        retailer: json['retailer'] == null
-            ? null
-            : Retailer.fromApi(json['retailer'] as String),
-        trackingNumber: json['trackingNumber'] as String?,
-        itemCount: (json['itemCount'] as num).toInt(),
-        total: Money.fromJson(json['total'] as Map<String, dynamic>),
-        destinationCountry:
-            DestinationCountry.fromCode(json['destinationCountryCode'] as String),
-        items: (json['items'] as List<dynamic>? ?? const [])
-            .map((e) => FulfillmentItem.fromJson(e as Map<String, dynamic>))
-            .toList(),
-        timeline: (json['timeline'] as List<dynamic>? ?? const [])
-            .map((e) => TrackingEvent.fromJson(e as Map<String, dynamic>))
-            .toList(),
-        deliveryAddress: DeliveryAddressSummary.fromJson(
-          json['deliveryAddress'] as Map<String, dynamic>,
-        ),
-        costs: CostBreakdown.fromJson(json['costs'] as Map<String, dynamic>),
-      );
+    id: json['id'] as String,
+    reference: json['reference'] as String,
+    kind: FulfillmentKind.fromApi(json['kind'] as String),
+    status: OrderStatus.fromApi(json['status'] as String),
+    createdAt: DateTime.parse(json['createdAt'] as String),
+    retailer: json['retailer'] == null
+        ? null
+        : Retailer.fromApi(json['retailer'] as String),
+    trackingNumber: json['trackingNumber'] as String?,
+    itemCount: (json['itemCount'] as num).toInt(),
+    total: Money.fromJson(json['total'] as Map<String, dynamic>),
+    destinationCountry: DestinationCountry.fromCode(
+      json['destinationCountryCode'] as String,
+    ),
+    items: (json['items'] as List<dynamic>? ?? const [])
+        .map((e) => FulfillmentItem.fromJson(e as Map<String, dynamic>))
+        .toList(),
+    timeline: (json['timeline'] as List<dynamic>? ?? const [])
+        .map((e) => TrackingEvent.fromJson(e as Map<String, dynamic>))
+        .toList(),
+    deliveryAddress: DeliveryAddressSummary.fromJson(
+      json['deliveryAddress'] as Map<String, dynamic>,
+    ),
+    costs: CostBreakdown.fromJson(json['costs'] as Map<String, dynamic>),
+  );
 
   Map<String, dynamic> toJson() => {
-        'id': id,
-        'reference': reference,
-        'kind': kind.apiValue,
-        'status': status.apiValue,
-        'createdAt': createdAt.toIso8601String(),
-        'retailer': retailer?.apiValue,
-        'trackingNumber': trackingNumber,
-        'itemCount': itemCount,
-        'total': total.toJson(),
-        'destinationCountryCode': destinationCountry.code,
-        'items': items.map((e) => e.toJson()).toList(),
-        'timeline': timeline.map((e) => e.toJson()).toList(),
-        'deliveryAddress': deliveryAddress.toJson(),
-        'costs': costs.toJson(),
-      };
+    'id': id,
+    'reference': reference,
+    'kind': kind.apiValue,
+    'status': status.apiValue,
+    'createdAt': createdAt.toIso8601String(),
+    'retailer': retailer?.apiValue,
+    'trackingNumber': trackingNumber,
+    'itemCount': itemCount,
+    'total': total.toJson(),
+    'destinationCountryCode': destinationCountry.code,
+    'items': items.map((e) => e.toJson()).toList(),
+    'timeline': timeline.map((e) => e.toJson()).toList(),
+    'deliveryAddress': deliveryAddress.toJson(),
+    'costs': costs.toJson(),
+  };
 }

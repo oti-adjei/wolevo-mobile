@@ -14,7 +14,9 @@ enum VariantOptionKind {
   color;
 
   static VariantOptionKind fromApi(String? value) =>
-      value?.toUpperCase() == 'COLOR' ? VariantOptionKind.color : VariantOptionKind.text;
+      value?.toUpperCase() == 'COLOR'
+      ? VariantOptionKind.color
+      : VariantOptionKind.text;
 }
 
 class VariantOption {
@@ -36,28 +38,28 @@ class VariantOption {
   final bool available;
 
   VariantOption copyWith({bool? selected}) => VariantOption(
-        id: id,
-        label: label,
-        selected: selected ?? this.selected,
-        kind: kind,
-        available: available,
-      );
+    id: id,
+    label: label,
+    selected: selected ?? this.selected,
+    kind: kind,
+    available: available,
+  );
 
   factory VariantOption.fromJson(Map<String, dynamic> json) => VariantOption(
-        id: json['id'] as String,
-        label: json['label'] as String? ?? '',
-        selected: json['selected'] as bool? ?? false,
-        kind: VariantOptionKind.fromApi(json['kind'] as String?),
-        available: json['available'] as bool? ?? true,
-      );
+    id: json['id'] as String,
+    label: json['label'] as String? ?? '',
+    selected: json['selected'] as bool? ?? false,
+    kind: VariantOptionKind.fromApi(json['kind'] as String?),
+    available: json['available'] as bool? ?? true,
+  );
 
   Map<String, dynamic> toJson() => {
-        'id': id,
-        'label': label,
-        'selected': selected,
-        'kind': kind.name.toUpperCase(),
-        'available': available,
-      };
+    'id': id,
+    'label': label,
+    'selected': selected,
+    'kind': kind.name.toUpperCase(),
+    'available': available,
+  };
 }
 
 /// One picker. The group names come straight from the retailer's own product
@@ -82,23 +84,21 @@ class VariantGroup {
       name.replaceAllMapped(RegExp(r'(?<=[a-z])(?=[A-Z])'), (_) => ' ');
 
   VariantGroup select(String optionId) => VariantGroup(
-        name: name,
-        options: [
-          for (final o in options) o.copyWith(selected: o.id == optionId),
-        ],
-      );
+    name: name,
+    options: [for (final o in options) o.copyWith(selected: o.id == optionId)],
+  );
 
   factory VariantGroup.fromJson(Map<String, dynamic> json) => VariantGroup(
-        name: json['name'] as String? ?? '',
-        options: (json['options'] as List<dynamic>? ?? const [])
-            .map((e) => VariantOption.fromJson(e as Map<String, dynamic>))
-            .toList(growable: false),
-      );
+    name: json['name'] as String? ?? '',
+    options: (json['options'] as List<dynamic>? ?? const [])
+        .map((e) => VariantOption.fromJson(e as Map<String, dynamic>))
+        .toList(growable: false),
+  );
 
   Map<String, dynamic> toJson() => {
-        'name': name,
-        'options': options.map((o) => o.toJson()).toList(),
-      };
+    'name': name,
+    'options': options.map((o) => o.toJson()).toList(),
+  };
 }
 
 /// What it costs to get the item from the store to the buyer's door.
@@ -135,18 +135,20 @@ class LandedCost {
       'Ship to ${destination.name} for ${toYourDoor.usdLabel}';
 
   factory LandedCost.fromJson(Map<String, dynamic> json) => LandedCost(
-        storeShipping: Money.fromJson(json['storeShipping'] as Map<String, dynamic>),
-        toYourDoor: Money.fromJson(json['toYourDoor'] as Map<String, dynamic>),
-        destination: DestinationCountry.fromCode(
-          json['destinationCountryCode'] as String? ?? 'GH',
-        ),
-      );
+    storeShipping: Money.fromJson(
+      json['storeShipping'] as Map<String, dynamic>,
+    ),
+    toYourDoor: Money.fromJson(json['toYourDoor'] as Map<String, dynamic>),
+    destination: DestinationCountry.fromCode(
+      json['destinationCountryCode'] as String? ?? 'GH',
+    ),
+  );
 
   Map<String, dynamic> toJson() => {
-        'storeShipping': storeShipping.toJson(),
-        'toYourDoor': toYourDoor.toJson(),
-        'destinationCountryCode': destination.code,
-      };
+    'storeShipping': storeShipping.toJson(),
+    'toYourDoor': toYourDoor.toJson(),
+    'destinationCountryCode': destination.code,
+  };
 }
 
 /// `GET /api/v1/shop/products/parse?retailer=AMAZON&productId=B088NRLMPV
@@ -209,7 +211,10 @@ class ProductDetail {
   }
 
   /// Applies a pick to one group, leaving the others untouched.
-  ProductDetail selectVariant({required String groupName, required String optionId}) {
+  ProductDetail selectVariant({
+    required String groupName,
+    required String optionId,
+  }) {
     return copyWith(
       variantGroups: [
         for (final g in variantGroups)
@@ -219,62 +224,63 @@ class ProductDetail {
   }
 
   ProductDetail copyWith({List<VariantGroup>? variantGroups}) => ProductDetail(
-        productId: productId,
-        retailer: retailer,
-        title: title,
-        seller: seller,
-        brand: brand,
-        condition: condition,
-        images: images,
-        price: price,
-        wasPrice: wasPrice,
-        inStock: inStock,
-        landedCost: landedCost,
-        variantGroups: variantGroups ?? this.variantGroups,
-        highlights: highlights,
-        dimensions: dimensions,
-      );
+    productId: productId,
+    retailer: retailer,
+    title: title,
+    seller: seller,
+    brand: brand,
+    condition: condition,
+    images: images,
+    price: price,
+    wasPrice: wasPrice,
+    inStock: inStock,
+    landedCost: landedCost,
+    variantGroups: variantGroups ?? this.variantGroups,
+    highlights: highlights,
+    dimensions: dimensions,
+  );
 
   factory ProductDetail.fromJson(Map<String, dynamic> json) => ProductDetail(
-        productId: json['productId'] as String,
-        retailer: Retailer.fromApi(json['retailer'] as String? ?? 'AMAZON'),
-        title: json['title'] as String? ?? '',
-        seller: json['seller'] as String? ?? '',
-        brand: json['brand'] as String? ?? '',
-        condition: json['condition'] as String? ?? 'New',
-        images: (json['images'] as List<dynamic>? ?? const [])
-            .map((e) => e as String)
-            .toList(growable: false),
-        price: Money.fromJson(json['price'] as Map<String, dynamic>),
-        wasPrice: json['wasPrice'] == null
-            ? null
-            : Money.fromJson(json['wasPrice'] as Map<String, dynamic>),
-        inStock: json['inStock'] as bool? ?? true,
-        landedCost: LandedCost.fromJson(json['landedCost'] as Map<String, dynamic>),
-        variantGroups: (json['variantGroups'] as List<dynamic>? ?? const [])
-            .map((e) => VariantGroup.fromJson(e as Map<String, dynamic>))
-            .toList(growable: false),
-        highlights: (json['highlights'] as List<dynamic>? ?? const [])
-            .map((e) => e as String)
-            .toList(growable: false),
-        dimensions: (json['dimensions'] as Map<String, dynamic>? ?? const {})
-            .map((k, v) => MapEntry(k, '$v')),
-      );
+    productId: json['productId'] as String,
+    retailer: Retailer.fromApi(json['retailer'] as String? ?? 'AMAZON'),
+    title: json['title'] as String? ?? '',
+    seller: json['seller'] as String? ?? '',
+    brand: json['brand'] as String? ?? '',
+    condition: json['condition'] as String? ?? 'New',
+    images: (json['images'] as List<dynamic>? ?? const [])
+        .map((e) => e as String)
+        .toList(growable: false),
+    price: Money.fromJson(json['price'] as Map<String, dynamic>),
+    wasPrice: json['wasPrice'] == null
+        ? null
+        : Money.fromJson(json['wasPrice'] as Map<String, dynamic>),
+    inStock: json['inStock'] as bool? ?? true,
+    landedCost: LandedCost.fromJson(json['landedCost'] as Map<String, dynamic>),
+    variantGroups: (json['variantGroups'] as List<dynamic>? ?? const [])
+        .map((e) => VariantGroup.fromJson(e as Map<String, dynamic>))
+        .toList(growable: false),
+    highlights: (json['highlights'] as List<dynamic>? ?? const [])
+        .map((e) => e as String)
+        .toList(growable: false),
+    dimensions: (json['dimensions'] as Map<String, dynamic>? ?? const {}).map(
+      (k, v) => MapEntry(k, '$v'),
+    ),
+  );
 
   Map<String, dynamic> toJson() => {
-        'productId': productId,
-        'retailer': retailer.apiValue,
-        'title': title,
-        'seller': seller,
-        'brand': brand,
-        'condition': condition,
-        'images': images,
-        'price': price.toJson(),
-        if (wasPrice != null) 'wasPrice': wasPrice!.toJson(),
-        'inStock': inStock,
-        'landedCost': landedCost.toJson(),
-        'variantGroups': variantGroups.map((g) => g.toJson()).toList(),
-        'highlights': highlights,
-        'dimensions': dimensions,
-      };
+    'productId': productId,
+    'retailer': retailer.apiValue,
+    'title': title,
+    'seller': seller,
+    'brand': brand,
+    'condition': condition,
+    'images': images,
+    'price': price.toJson(),
+    if (wasPrice != null) 'wasPrice': wasPrice!.toJson(),
+    'inStock': inStock,
+    'landedCost': landedCost.toJson(),
+    'variantGroups': variantGroups.map((g) => g.toJson()).toList(),
+    'highlights': highlights,
+    'dimensions': dimensions,
+  };
 }

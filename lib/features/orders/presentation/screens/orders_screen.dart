@@ -83,7 +83,9 @@ class _OrdersScreenState extends ConsumerState<OrdersScreen> {
                     children: [
                       Text(
                         'Track all your orders in one place',
-                        style: AppText.body14.copyWith(color: AppColors.neutral1),
+                        style: AppText.body14.copyWith(
+                          color: AppColors.neutral1,
+                        ),
                       ),
                       const SizedBox(height: AppSpace.lg),
                       // Desktop floated these top-right; on a phone they read
@@ -110,8 +112,9 @@ class _OrdersScreenState extends ConsumerState<OrdersScreen> {
                       const SizedBox(height: AppSpace.lg),
                       OrdersSearchField(
                         controller: _searchController,
-                        onChanged: (value) =>
-                            ref.read(ordersFilterProvider.notifier).setQuery(value),
+                        onChanged: (value) => ref
+                            .read(ordersFilterProvider.notifier)
+                            .setQuery(value),
                       ),
                     ],
                   ),
@@ -144,64 +147,70 @@ class _OrdersScreenState extends ConsumerState<OrdersScreen> {
                 ),
               ...switch (listState) {
                 AsyncError(:final error) => [
-                    SliverFillRemaining(
-                      hasScrollBody: false,
-                      child: ErrorRetry(
-                        message: '$error',
-                        onRetry: () => ref.invalidate(ordersListProvider),
-                      ),
+                  SliverFillRemaining(
+                    hasScrollBody: false,
+                    child: ErrorRetry(
+                      message: '$error',
+                      onRetry: () => ref.invalidate(ordersListProvider),
                     ),
-                  ],
+                  ),
+                ],
                 AsyncData(:final value) when value.isEmpty => [
-                    SliverFillRemaining(
-                      hasScrollBody: false,
-                      child: filter.isActive
-                          ? EmptyState(
-                              icon: Icons.filter_alt_off_outlined,
-                              title: 'No matching orders',
-                              message: 'Try adjusting your search or filters.',
-                              actionLabel: 'Clear Filters',
-                              onAction: _clearFilters,
-                            )
-                          : EmptyState(
-                              icon: Icons.receipt_long_outlined,
-                              title: 'No orders yet',
-                              message: 'Your orders and shipments will appear here.',
-                              actionLabel: 'Start Shopping',
-                              onAction: () => context.go(AppRoutes.shop),
-                            ),
-                    ),
-                  ],
+                  SliverFillRemaining(
+                    hasScrollBody: false,
+                    child: filter.isActive
+                        ? EmptyState(
+                            icon: Icons.filter_alt_off_outlined,
+                            title: 'No matching orders',
+                            message: 'Try adjusting your search or filters.',
+                            actionLabel: 'Clear Filters',
+                            onAction: _clearFilters,
+                          )
+                        : EmptyState(
+                            icon: Icons.receipt_long_outlined,
+                            title: 'No orders yet',
+                            message:
+                                'Your orders and shipments will appear here.',
+                            actionLabel: 'Start Shopping',
+                            onAction: () => context.go(AppRoutes.shop),
+                          ),
+                  ),
+                ],
                 AsyncData(:final value) => [
-                    SliverPadding(
-                      padding: const EdgeInsets.fromLTRB(
-                        AppSpace.gutter,
-                        AppSpace.lg,
-                        AppSpace.gutter,
-                        AppSpace.xxl,
-                      ),
-                      sliver: SliverList.separated(
-                        itemCount: value.items.length + (value.loadingMore ? 1 : 0),
-                        separatorBuilder: (_, _) => const SizedBox(height: AppSpace.md),
-                        itemBuilder: (context, index) {
-                          if (index >= value.items.length) {
-                            return const Padding(
-                              padding: EdgeInsets.symmetric(vertical: AppSpace.xl),
-                              child: AppLoader(),
-                            );
-                          }
-                          final item = value.items[index];
-                          return FulfillmentCard(
-                            fulfillment: item,
-                            onTap: () => context.push(AppRoutes.orderDetail(item.id)),
-                          );
-                        },
-                      ),
+                  SliverPadding(
+                    padding: const EdgeInsets.fromLTRB(
+                      AppSpace.gutter,
+                      AppSpace.lg,
+                      AppSpace.gutter,
+                      AppSpace.xxl,
                     ),
-                  ],
+                    sliver: SliverList.separated(
+                      itemCount:
+                          value.items.length + (value.loadingMore ? 1 : 0),
+                      separatorBuilder: (_, _) =>
+                          const SizedBox(height: AppSpace.md),
+                      itemBuilder: (context, index) {
+                        if (index >= value.items.length) {
+                          return const Padding(
+                            padding: EdgeInsets.symmetric(
+                              vertical: AppSpace.xl,
+                            ),
+                            child: AppLoader(),
+                          );
+                        }
+                        final item = value.items[index];
+                        return FulfillmentCard(
+                          fulfillment: item,
+                          onTap: () =>
+                              context.push(AppRoutes.orderDetail(item.id)),
+                        );
+                      },
+                    ),
+                  ),
+                ],
                 _ => const [
-                    SliverFillRemaining(hasScrollBody: false, child: AppLoader()),
-                  ],
+                  SliverFillRemaining(hasScrollBody: false, child: AppLoader()),
+                ],
               },
             ],
           ),

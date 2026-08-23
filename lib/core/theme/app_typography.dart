@@ -28,16 +28,36 @@ TextStyle _sora({
 /// body and below keep their exact web values.
 abstract final class AppText {
   /// Web H1 is 48/700 with tight tracking. On a phone hero this lands at 34.
-  static final h1 = _sora(size: 34, weight: 700, height: 40, letterSpacing: -0.85);
+  static final h1 = _sora(
+    size: 34,
+    weight: 700,
+    height: 40,
+    letterSpacing: -0.85,
+  );
 
   /// Web H2 30/700/-0.75px.
-  static final h2 = _sora(size: 26, weight: 700, height: 32, letterSpacing: -0.65);
+  static final h2 = _sora(
+    size: 26,
+    weight: 700,
+    height: 32,
+    letterSpacing: -0.65,
+  );
 
   /// Web H3 24–30/700.
-  static final h3 = _sora(size: 22, weight: 700, height: 28, letterSpacing: -0.4);
+  static final h3 = _sora(
+    size: 22,
+    weight: 700,
+    height: 28,
+    letterSpacing: -0.4,
+  );
 
   /// Card / section titles: 18–20 / 600–700.
-  static final cardTitle = _sora(size: 18, weight: 700, height: 24, letterSpacing: -0.2);
+  static final cardTitle = _sora(
+    size: 18,
+    weight: 700,
+    height: 24,
+    letterSpacing: -0.2,
+  );
   static final cardTitleMedium = _sora(size: 16, weight: 600, height: 22);
 
   /// Body 16/400/24 — the dominant style on the site.
@@ -55,7 +75,12 @@ abstract final class AppText {
   static final captionSemibold = _sora(size: 12, weight: 600, height: 18);
 
   /// Micro label — the `PRIMARY` / `YOU'RE HERE` badges: 10/600 uppercase.
-  static final micro = _sora(size: 10, weight: 600, height: 15, letterSpacing: 0.6);
+  static final micro = _sora(
+    size: 10,
+    weight: 600,
+    height: 15,
+    letterSpacing: 0.6,
+  );
 
   /// Eyebrow labels sit above form sections and page sections
   /// (`PACKAGE DETAILS`, `NAME`, `SHIPPING CALCULATOR`). Uppercase, small,

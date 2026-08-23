@@ -116,7 +116,9 @@ class _Hero extends StatelessWidget {
                 const SizedBox(width: AppSpace.xs),
                 TextButton(
                   onPressed: () => context.push(AppRoutes.login),
-                  style: TextButton.styleFrom(foregroundColor: AppColors.tertiary),
+                  style: TextButton.styleFrom(
+                    foregroundColor: AppColors.tertiary,
+                  ),
                   child: Text('Login', style: AppText.body14Semibold),
                 ),
               ],
@@ -137,7 +139,10 @@ class _Hero extends StatelessWidget {
                   style: AppText.h2.copyWith(color: Colors.white),
                 ),
                 Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 1),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 6,
+                    vertical: 1,
+                  ),
                   color: AppColors.primary,
                   child: Text(
                     'home.',
@@ -181,7 +186,11 @@ class _CountryPill extends StatelessWidget {
             children: [
               Text(country.flag, style: const TextStyle(fontSize: 14)),
               const SizedBox(width: 4),
-              const Icon(Icons.keyboard_arrow_down, size: 16, color: Colors.white),
+              const Icon(
+                Icons.keyboard_arrow_down,
+                size: 16,
+                color: Colors.white,
+              ),
             ],
           ),
         ),
@@ -239,7 +248,11 @@ class _TabBarHeader extends SliverPersistentHeaderDelegate {
   double get maxExtent => _height;
 
   @override
-  Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
+  Widget build(
+    BuildContext context,
+    double shrinkOffset,
+    bool overlapsContent,
+  ) {
     // A full-width white band under the green hero read as a hard seam. The
     // switcher is a floating pill on the page background instead, so the hero
     // and the content below it stay visually separate without a slab between.
@@ -315,7 +328,7 @@ class _ShopTabState extends State<_ShopTab> {
     final destination = q.isEmpty
         ? '${AppRoutes.shop}?retailer=${_retailer.apiValue}'
         : '${AppRoutes.shop}?mode=search&retailer=${_retailer.apiValue}'
-            '&q=${Uri.encodeComponent(q)}';
+              '&q=${Uri.encodeComponent(q)}';
     context.push(AppRoutes.loginWithNext(destination));
   }
 
@@ -350,7 +363,8 @@ class _ShopTabState extends State<_ShopTab> {
                 child: ListView.separated(
                   scrollDirection: Axis.horizontal,
                   itemCount: Retailer.values.length,
-                  separatorBuilder: (_, _) => const SizedBox(width: AppSpace.sm),
+                  separatorBuilder: (_, _) =>
+                      const SizedBox(width: AppSpace.sm),
                   itemBuilder: (context, i) {
                     final r = Retailer.values[i];
                     final selected = r == _retailer;
@@ -413,11 +427,16 @@ class _ShipTab extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('Your US warehouse address', style: AppText.cardTitleMedium),
+                        Text(
+                          'Your US warehouse address',
+                          style: AppText.cardTitleMedium,
+                        ),
                         const SizedBox(height: 2),
                         Text(
                           'Assigned the moment you sign up',
-                          style: AppText.caption.copyWith(color: AppColors.neutral1),
+                          style: AppText.caption.copyWith(
+                            color: AppColors.neutral1,
+                          ),
                         ),
                       ],
                     ),
@@ -435,9 +454,8 @@ class _ShipTab extends StatelessWidget {
               PrimaryButton(
                 label: 'Get your US address',
                 trailingIcon: Icons.arrow_forward,
-                onPressed: () => context.push(
-                  AppRoutes.loginWithNext(AppRoutes.ship),
-                ),
+                onPressed: () =>
+                    context.push(AppRoutes.loginWithNext(AppRoutes.ship)),
               ),
             ],
           ),
@@ -478,7 +496,11 @@ class _CalculatorTab extends StatelessWidget {
 }
 
 class _Chip extends StatelessWidget {
-  const _Chip({required this.label, required this.selected, required this.onTap});
+  const _Chip({
+    required this.label,
+    required this.selected,
+    required this.onTap,
+  });
 
   final String label;
   final bool selected;
@@ -528,7 +550,11 @@ class _PointList extends StatelessWidget {
             children: [
               const Padding(
                 padding: EdgeInsets.only(top: 2),
-                child: Icon(Icons.check_circle, size: 18, color: AppColors.secondary3),
+                child: Icon(
+                  Icons.check_circle,
+                  size: 18,
+                  color: AppColors.secondary3,
+                ),
               ),
               const SizedBox(width: AppSpace.md),
               Expanded(child: Text(point, style: AppText.body14)),

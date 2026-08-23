@@ -66,7 +66,9 @@ class ProductCard extends StatelessWidget {
               Flexible(
                 child: Text(
                   product.price.usdLabel,
-                  style: AppText.bodySemibold.copyWith(color: AppColors.secondary3),
+                  style: AppText.bodySemibold.copyWith(
+                    color: AppColors.secondary3,
+                  ),
                   overflow: TextOverflow.ellipsis,
                 ),
               ),
@@ -106,20 +108,23 @@ class ProductCard extends StatelessWidget {
 /// Grey stand-in shown while the feed loads. Matches the card's footprint so
 /// the real content does not shift the scroll position when it arrives.
 class ProductCardSkeleton extends StatelessWidget {
-  const ProductCardSkeleton({super.key, this.width = ProductCard.carouselWidth});
+  const ProductCardSkeleton({
+    super.key,
+    this.width = ProductCard.carouselWidth,
+  });
 
   final double width;
 
   @override
   Widget build(BuildContext context) {
     Widget bar(double w, double h) => Container(
-          width: w,
-          height: h,
-          decoration: BoxDecoration(
-            color: AppColors.surface3,
-            borderRadius: BorderRadius.circular(4),
-          ),
-        );
+      width: w,
+      height: h,
+      decoration: BoxDecoration(
+        color: AppColors.surface3,
+        borderRadius: BorderRadius.circular(4),
+      ),
+    );
 
     return SizedBox(
       width: width,

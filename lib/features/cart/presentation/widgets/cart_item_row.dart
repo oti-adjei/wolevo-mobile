@@ -53,7 +53,9 @@ class CartItemRow extends StatelessWidget {
                 const SizedBox(height: 6),
                 Text(
                   item.unitPrice.usdLabel,
-                  style: AppText.bodySemibold.copyWith(color: AppColors.secondary3),
+                  style: AppText.bodySemibold.copyWith(
+                    color: AppColors.secondary3,
+                  ),
                 ),
                 Text(
                   item.unitPrice.localLabel,
@@ -119,7 +121,9 @@ class QuantityStepper extends StatelessWidget {
         children: [
           _StepButton(
             icon: Icons.remove,
-            onTap: enabled && quantity > min ? () => onChanged(quantity - 1) : null,
+            onTap: enabled && quantity > min
+                ? () => onChanged(quantity - 1)
+                : null,
           ),
           SizedBox(
             width: 34,
@@ -131,7 +135,9 @@ class QuantityStepper extends StatelessWidget {
           ),
           _StepButton(
             icon: Icons.add,
-            onTap: enabled && quantity < max ? () => onChanged(quantity + 1) : null,
+            onTap: enabled && quantity < max
+                ? () => onChanged(quantity + 1)
+                : null,
           ),
         ],
       ),

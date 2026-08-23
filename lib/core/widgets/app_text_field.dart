@@ -79,7 +79,8 @@ class AppTextField extends StatelessWidget {
             hintText: hint,
             prefixIcon: prefix,
             suffixIcon: suffix,
-            errorText: null, // rendered manually below so the ⓘ icon matches web
+            errorText:
+                null, // rendered manually below so the ⓘ icon matches web
           ),
         ),
         if (errorText != null) ...[
@@ -87,7 +88,10 @@ class AppTextField extends StatelessWidget {
           FieldError(errorText!),
         ] else if (helper != null) ...[
           const SizedBox(height: 6),
-          Text(helper!, style: AppText.caption.copyWith(color: AppColors.neutral1)),
+          Text(
+            helper!,
+            style: AppText.caption.copyWith(color: AppColors.neutral1),
+          ),
         ],
       ],
     );
@@ -134,7 +138,10 @@ class FieldError extends StatelessWidget {
         ),
         const SizedBox(width: 6),
         Expanded(
-          child: Text(message, style: AppText.caption.copyWith(color: AppColors.error)),
+          child: Text(
+            message,
+            style: AppText.caption.copyWith(color: AppColors.error),
+          ),
         ),
       ],
     );
@@ -153,7 +160,10 @@ class ErrorBanner extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.symmetric(horizontal: AppSpace.lg, vertical: AppSpace.md),
+      padding: const EdgeInsets.symmetric(
+        horizontal: AppSpace.lg,
+        vertical: AppSpace.md,
+      ),
       decoration: BoxDecoration(
         color: AppColors.error3,
         borderRadius: AppRadius.rInput,
@@ -164,7 +174,10 @@ class ErrorBanner extends StatelessWidget {
           const Icon(Icons.error_outline, size: 18, color: AppColors.error),
           const SizedBox(width: AppSpace.md),
           Expanded(
-            child: Text(message, style: AppText.body14.copyWith(color: AppColors.error)),
+            child: Text(
+              message,
+              style: AppText.body14.copyWith(color: AppColors.error),
+            ),
           ),
           if (onDismiss != null)
             InkWell(
@@ -196,16 +209,28 @@ class SuccessBanner extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Icon(Icons.check_circle_outline, size: 18, color: AppColors.success2),
+          const Icon(
+            Icons.check_circle_outline,
+            size: 18,
+            color: AppColors.success2,
+          ),
           const SizedBox(width: AppSpace.md),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(title, style: AppText.body14Semibold.copyWith(color: AppColors.success2)),
+                Text(
+                  title,
+                  style: AppText.body14Semibold.copyWith(
+                    color: AppColors.success2,
+                  ),
+                ),
                 if (message != null) ...[
                   const SizedBox(height: 2),
-                  Text(message!, style: AppText.caption.copyWith(color: AppColors.success2)),
+                  Text(
+                    message!,
+                    style: AppText.caption.copyWith(color: AppColors.success2),
+                  ),
                 ],
               ],
             ),

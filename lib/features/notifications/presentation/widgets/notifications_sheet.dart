@@ -38,47 +38,51 @@ class _NotificationsSheet extends ConsumerWidget {
             ),
             child: switch (recent) {
               AsyncError(:final error) => Padding(
-                  padding: const EdgeInsets.all(AppSpace.xl),
-                  child: Text(
-                    '$error',
-                    style: AppText.body14.copyWith(color: AppColors.neutral1),
-                  ),
+                padding: const EdgeInsets.all(AppSpace.xl),
+                child: Text(
+                  '$error',
+                  style: AppText.body14.copyWith(color: AppColors.neutral1),
                 ),
+              ),
               AsyncData(:final value) when value.isEmpty => const Padding(
-                  padding: EdgeInsets.symmetric(vertical: AppSpace.section),
-                  child: Column(
-                    children: [
-                      Icon(
-                        Icons.notifications_none,
-                        size: 40,
-                        color: AppColors.surface4,
-                      ),
-                      SizedBox(height: AppSpace.md),
-                      _CaughtUpText(),
-                    ],
-                  ),
+                padding: EdgeInsets.symmetric(vertical: AppSpace.section),
+                child: Column(
+                  children: [
+                    Icon(
+                      Icons.notifications_none,
+                      size: 40,
+                      color: AppColors.surface4,
+                    ),
+                    SizedBox(height: AppSpace.md),
+                    _CaughtUpText(),
+                  ],
                 ),
+              ),
               AsyncData(:final value) => ListView.separated(
-                  shrinkWrap: true,
-                  padding: const EdgeInsets.symmetric(horizontal: AppSpace.gutter),
-                  itemCount: value.length,
-                  separatorBuilder: (_, _) => const SizedBox(height: AppSpace.sm),
-                  itemBuilder: (context, index) {
-                    final n = value[index];
-                    return NotificationRow(
-                      notification: n,
-                      onTap: () {
-                        ref.read(notificationsListProvider.notifier).markRead(n.id);
-                        Navigator.of(context).pop();
-                        if (n.deepLink case final link?) context.push(link);
-                      },
-                    );
-                  },
+                shrinkWrap: true,
+                padding: const EdgeInsets.symmetric(
+                  horizontal: AppSpace.gutter,
                 ),
+                itemCount: value.length,
+                separatorBuilder: (_, _) => const SizedBox(height: AppSpace.sm),
+                itemBuilder: (context, index) {
+                  final n = value[index];
+                  return NotificationRow(
+                    notification: n,
+                    onTap: () {
+                      ref
+                          .read(notificationsListProvider.notifier)
+                          .markRead(n.id);
+                      Navigator.of(context).pop();
+                      if (n.deepLink case final link?) context.push(link);
+                    },
+                  );
+                },
+              ),
               _ => const Padding(
-                  padding: EdgeInsets.symmetric(vertical: AppSpace.section),
-                  child: AppLoader(),
-                ),
+                padding: EdgeInsets.symmetric(vertical: AppSpace.section),
+                child: AppLoader(),
+              ),
             },
           ),
           const Divider(height: AppSpace.xxl),
@@ -98,7 +102,10 @@ class _NotificationsSheet extends ConsumerWidget {
                 foregroundColor: AppColors.secondary,
                 minimumSize: const Size.fromHeight(44),
               ),
-              child: Text('View all notifications', style: AppText.body14Semibold),
+              child: Text(
+                'View all notifications',
+                style: AppText.body14Semibold,
+              ),
             ),
           ),
         ],

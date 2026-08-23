@@ -31,7 +31,8 @@ abstract interface class AppIconRepository {
 }
 
 class PlatformAppIconRepository implements AppIconRepository {
-  PlatformAppIconRepository({AppLogger? logger}) : _logger = logger ?? const NoopLogger();
+  PlatformAppIconRepository({AppLogger? logger})
+    : _logger = logger ?? const NoopLogger();
 
   final AppLogger _logger;
 
@@ -49,7 +50,8 @@ class PlatformAppIconRepository implements AppIconRepository {
     if (kIsWeb) return false;
     if (!Platform.isIOS && !Platform.isAndroid) return false;
     try {
-      return await _channel.invokeMethod<bool>('supportsAlternateIcons') ?? false;
+      return await _channel.invokeMethod<bool>('supportsAlternateIcons') ??
+          false;
     } catch (_) {
       return false;
     }
@@ -92,7 +94,9 @@ class PlatformAppIconRepository implements AppIconRepository {
       // One name, two meanings: on iOS it is the CFBundleAlternateIcons key
       // (null restores the primary icon), on Android it is the activity-alias
       // to enable.
-      final name = Platform.isIOS ? variant.iosAlternateName : variant.androidAlias;
+      final name = Platform.isIOS
+          ? variant.iosAlternateName
+          : variant.androidAlias;
       await _channel.invokeMethod<void>('setAlternateIcon', {'name': name});
     } catch (e) {
       // A failed icon swap is cosmetic — never let it break the screen the

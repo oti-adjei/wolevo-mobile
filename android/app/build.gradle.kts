@@ -6,7 +6,10 @@ plugins {
 
 android {
     namespace = "com.wolevo.wolevo"
-    compileSdk = flutter.compileSdkVersion
+    // 37, not flutter.compileSdkVersion (36): flutter_secure_storage compiles
+    // against 37 and the AAR metadata check fails otherwise. compileSdk is
+    // backward compatible, so this does not change the minimum supported device.
+    compileSdk = 37
     ndkVersion = flutter.ndkVersion
 
     compileOptions {

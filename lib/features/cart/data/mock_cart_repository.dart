@@ -29,7 +29,8 @@ class MockCartRepository implements CartRepository {
       id: 'ci_1',
       productId: 'B088NRLMPV',
       retailer: Retailer.amazon,
-      title: 'UGREEN 10Gbps USB C to Micro B Cable 1.5FT for External Hard Drive',
+      title:
+          'UGREEN 10Gbps USB C to Micro B Cable 1.5FT for External Hard Drive',
       unitPriceUsd: 8.99,
       quantity: 1,
     ),
@@ -37,7 +38,8 @@ class MockCartRepository implements CartRepository {
       id: 'ci_2',
       productId: 'B0B3RS7B6L',
       retailer: Retailer.amazon,
-      title: 'SANDISK 1TB Portable SSD - Up to 800MB/s, USB-C, USB 3.2 Gen 2, '
+      title:
+          'SANDISK 1TB Portable SSD - Up to 800MB/s, USB-C, USB 3.2 Gen 2, '
           'Updated Firmware - External Solid State Drive - SDSSDE30-1T00-G26',
       unitPriceUsd: 165.70,
       quantity: 1,
@@ -46,7 +48,8 @@ class MockCartRepository implements CartRepository {
       id: 'ci_3',
       productId: 'B0CJ2K7M4T',
       retailer: Retailer.amazon,
-      title: 'Slipdrive Short USB C to USB C 3.2 Gen 2 (12 in.) - 20Gbps, SSD '
+      title:
+          'Slipdrive Short USB C to USB C 3.2 Gen 2 (12 in.) - 20Gbps, SSD '
           'HDD Hard Drive Cable - Right Angle High Speed Data Transfer 4K Video '
           'Output 90 Degree 100W Fast Charging (Black)',
       unitPriceUsd: 12.99,
@@ -72,7 +75,9 @@ class MockCartRepository implements CartRepository {
     // panel renders `Amazon (3 items)` as a single block per store.
     final byRetailer = <Retailer, List<CartItem>>{};
     for (final line in _lines) {
-      byRetailer.putIfAbsent(line.retailer, () => []).add(line.toItem(_country));
+      byRetailer
+          .putIfAbsent(line.retailer, () => [])
+          .add(line.toItem(_country));
     }
 
     final groups = [
@@ -98,7 +103,9 @@ class MockCartRepository implements CartRepository {
         // (less any discount). The web shows `$187.68+` — the subtotal, marked
         // as incomplete rather than as a final figure.
         estimatedTotal: Money.mock(subtotalUsd - (discountUsd ?? 0), _country),
-        discount: discountUsd == null ? null : Money.mock(discountUsd, _country),
+        discount: discountUsd == null
+            ? null
+            : Money.mock(discountUsd, _country),
       ),
       destinationCountry: _country,
       promoCode: _promoCode,
@@ -236,24 +243,24 @@ class _Line {
   final String? variantSummary;
 
   _Line copyWith({int? quantity}) => _Line(
-        id: id,
-        productId: productId,
-        retailer: retailer,
-        title: title,
-        unitPriceUsd: unitPriceUsd,
-        quantity: quantity ?? this.quantity,
-        imageUrl: imageUrl,
-        variantSummary: variantSummary,
-      );
+    id: id,
+    productId: productId,
+    retailer: retailer,
+    title: title,
+    unitPriceUsd: unitPriceUsd,
+    quantity: quantity ?? this.quantity,
+    imageUrl: imageUrl,
+    variantSummary: variantSummary,
+  );
 
   CartItem toItem(DestinationCountry country) => CartItem(
-        id: id,
-        productId: productId,
-        retailer: retailer,
-        title: title,
-        unitPrice: Money.mock(unitPriceUsd, country),
-        quantity: quantity,
-        imageUrl: imageUrl,
-        variantSummary: variantSummary,
-      );
+    id: id,
+    productId: productId,
+    retailer: retailer,
+    title: title,
+    unitPrice: Money.mock(unitPriceUsd, country),
+    quantity: quantity,
+    imageUrl: imageUrl,
+    variantSummary: variantSummary,
+  );
 }

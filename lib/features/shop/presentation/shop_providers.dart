@@ -39,7 +39,8 @@ class ShopQuery {
 
   bool get hasKeyword => trimmedKeyword.isNotEmpty;
 
-  ShopQuery copyWith({ShopMode? mode, Retailer? retailer, String? keyword}) => ShopQuery(
+  ShopQuery copyWith({ShopMode? mode, Retailer? retailer, String? keyword}) =>
+      ShopQuery(
         mode: mode ?? this.mode,
         retailer: retailer ?? this.retailer,
         keyword: keyword ?? this.keyword,
@@ -75,7 +76,11 @@ class ShopQueryController extends Notifier<ShopQuery> {
   void hydrate({Retailer? retailer, ShopMode? mode, String? query}) {
     _debounce?.cancel();
     state = ShopQuery(
-      mode: mode ?? (query != null && query.trim().isNotEmpty ? ShopMode.search : state.mode),
+      mode:
+          mode ??
+          (query != null && query.trim().isNotEmpty
+              ? ShopMode.search
+              : state.mode),
       retailer: retailer ?? state.retailer,
       keyword: query ?? state.keyword,
     );
@@ -114,13 +119,15 @@ class ShopQueryController extends Notifier<ShopQuery> {
     // On submit only. Firing per keystroke would bury the real searches under
     // every prefix the user typed on the way there.
     if (keyword.trim().isNotEmpty) {
-      ref.read(analyticsProvider).track(
-        AnalyticsEvents.productSearched,
-        properties: {
-          'query': keyword.trim(),
-          'retailer': state.retailer.apiValue,
-        },
-      );
+      ref
+          .read(analyticsProvider)
+          .track(
+            AnalyticsEvents.productSearched,
+            properties: {
+              'query': keyword.trim(),
+              'retailer': state.retailer.apiValue,
+            },
+          );
     }
   }
 
@@ -131,8 +138,9 @@ class ShopQueryController extends Notifier<ShopQuery> {
   }
 }
 
-final shopQueryProvider =
-    NotifierProvider<ShopQueryController, ShopQuery>(ShopQueryController.new);
+final shopQueryProvider = NotifierProvider<ShopQueryController, ShopQuery>(
+  ShopQueryController.new,
+);
 
 /// Accumulated pages plus the flags the grid needs to drive infinite scroll.
 class ShopListState {
@@ -205,7 +213,9 @@ class ShopListController extends AsyncNotifier<ShopListState> {
     // Paste mode has no grid, and search with an empty box shows nothing —
     // neither state should fire a request.
     if (query.mode == ShopMode.paste) return ShopListState.idle;
-    if (query.mode == ShopMode.search && !query.hasKeyword) return ShopListState.idle;
+    if (query.mode == ShopMode.search && !query.hasKeyword) {
+      return ShopListState.idle;
+    }
 
     final page = query.mode == ShopMode.search
         ? await _repo.search(
@@ -263,12 +273,18 @@ class ShopListController extends AsyncNotifier<ShopListState> {
 }
 
 final shopListProvider =
-    AsyncNotifierProvider<ShopListController, ShopListState>(ShopListController.new);
+    AsyncNotifierProvider<ShopListController, ShopListState>(
+      ShopListController.new,
+    );
 
 /// The paste-a-link panel's own state machine: idle → submitting → resolved,
 /// with the failure surfaced inline under the field rather than as a toast.
 class PasteLinkState {
-  const PasteLinkState({this.submitting = false, this.errorMessage, this.resolved});
+  const PasteLinkState({
+    this.submitting = false,
+    this.errorMessage,
+    this.resolved,
+  });
 
   final bool submitting;
   final String? errorMessage;
@@ -286,10 +302,9 @@ class PasteLinkController extends Notifier<PasteLinkState> {
   Future<ShopListing?> submit(String url) async {
     state = const PasteLinkState(submitting: true);
     try {
-      final listing = await ref.read(shopRepositoryProvider).parseLink(
-            url: url,
-            country: ref.read(shopDestinationProvider),
-          );
+      final listing = await ref
+          .read(shopRepositoryProvider)
+          .parseLink(url: url, country: ref.read(shopDestinationProvider));
       state = PasteLinkState(resolved: listing);
       return listing;
     } on ShopLinkException catch (e) {
@@ -302,5 +317,6 @@ class PasteLinkController extends Notifier<PasteLinkState> {
   }
 }
 
-final pasteLinkProvider =
-    NotifierProvider<PasteLinkController, PasteLinkState>(PasteLinkController.new);
+final pasteLinkProvider = NotifierProvider<PasteLinkController, PasteLinkState>(
+  PasteLinkController.new,
+);

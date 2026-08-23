@@ -112,7 +112,9 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
       // Destination country is never asked on this form — the backend infers it
       // from the phone country code (and the landing page's country switcher),
       // matching the live signup (discovery-notes.md § 2, "Notable").
-      await ref.read(sessionProvider.notifier).register(
+      await ref
+          .read(sessionProvider.notifier)
+          .register(
             RegisterRequest(
               firstName: _firstName.text.trim(),
               lastName: _lastName.text.trim(),
@@ -294,7 +296,8 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                   open: _referralOpen,
                   controller: _referral,
                   enabled: !busy,
-                  onToggle: () => setState(() => _referralOpen = !_referralOpen),
+                  onToggle: () =>
+                      setState(() => _referralOpen = !_referralOpen),
                 ),
                 const SizedBox(height: AppSpace.xl),
                 PrimaryButton(

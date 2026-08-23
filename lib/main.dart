@@ -23,18 +23,18 @@ Future<void> _bootstrap() async {
   final logger = container.read(loggerProvider);
 
   void run() {
-    logger.info('Wolevo starting', context: {
-      'env': AppEnvironment.current.name,
-      'api': AppEnvironment.current.apiBaseUrl,
-      'crashReporting': Observability.sentryEnabled,
-      'analytics': Observability.postHogEnabled,
-    });
+    logger.info(
+      'Wolevo starting',
+      context: {
+        'env': AppEnvironment.current.name,
+        'api': AppEnvironment.current.apiBaseUrl,
+        'crashReporting': Observability.sentryEnabled,
+        'analytics': Observability.postHogEnabled,
+      },
+    );
 
     runApp(
-      UncontrolledProviderScope(
-        container: container,
-        child: const WolevoApp(),
-      ),
+      UncontrolledProviderScope(container: container, child: const WolevoApp()),
     );
   }
 
@@ -60,17 +60,18 @@ Future<void> _bootstrap() async {
       };
 
       WidgetsBinding.instance.platformDispatcher.onError = (error, stack) {
-        logger.error('Uncaught platform error', error: error, stackTrace: stack);
+        logger.error(
+          'Uncaught platform error',
+          error: error,
+          stackTrace: stack,
+        );
         return true;
       };
 
       run();
     },
-    (error, stack) => logger.error(
-      'Uncaught zone error',
-      error: error,
-      stackTrace: stack,
-    ),
+    (error, stack) =>
+        logger.error('Uncaught zone error', error: error, stackTrace: stack),
   );
 }
 

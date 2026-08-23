@@ -54,12 +54,17 @@ class NotificationRow extends StatelessWidget {
                         Expanded(
                           child: Text(
                             n.title,
-                            style: n.read ? AppText.body14Medium : AppText.body14Semibold,
+                            style: n.read
+                                ? AppText.body14Medium
+                                : AppText.body14Semibold,
                           ),
                         ),
                         if (!n.read)
                           Container(
-                            margin: const EdgeInsets.only(left: AppSpace.sm, top: 6),
+                            margin: const EdgeInsets.only(
+                              left: AppSpace.sm,
+                              top: 6,
+                            ),
                             height: 8,
                             width: 8,
                             decoration: const BoxDecoration(
@@ -73,13 +78,17 @@ class NotificationRow extends StatelessWidget {
                       const SizedBox(height: 2),
                       Text(
                         n.body,
-                        style: AppText.caption.copyWith(color: AppColors.neutral1),
+                        style: AppText.caption.copyWith(
+                          color: AppColors.neutral1,
+                        ),
                       ),
                     ],
                     const SizedBox(height: 6),
                     Text(
                       _relative(n.createdAt),
-                      style: AppText.caption.copyWith(color: AppColors.neutral2),
+                      style: AppText.caption.copyWith(
+                        color: AppColors.neutral2,
+                      ),
                     ),
                   ],
                 ),

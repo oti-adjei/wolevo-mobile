@@ -60,7 +60,9 @@ class _SettingsSectionState extends ConsumerState<SettingsSection> {
                 onAction: () => ScaffoldMessenger.of(context)
                   ..hideCurrentSnackBar()
                   ..showSnackBar(
-                    const SnackBar(content: Text('Two-factor auth is coming soon')),
+                    const SnackBar(
+                      content: Text('Two-factor auth is coming soon'),
+                    ),
                   ),
               ),
             ],
@@ -80,7 +82,8 @@ class _SettingsSectionState extends ConsumerState<SettingsSection> {
                   children: [
                     Checkbox(
                       value: promo,
-                      onChanged: (v) => setState(() => _promoOverride = v ?? false),
+                      onChanged: (v) =>
+                          setState(() => _promoOverride = v ?? false),
                     ),
                     const SizedBox(width: AppSpace.sm),
                     Expanded(
@@ -88,11 +91,16 @@ class _SettingsSectionState extends ConsumerState<SettingsSection> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           const SizedBox(height: 10),
-                          Text('Promotional emails', style: AppText.body14Semibold),
+                          Text(
+                            'Promotional emails',
+                            style: AppText.body14Semibold,
+                          ),
                           const SizedBox(height: 2),
                           Text(
                             'Receive deals, sales, and new retailer announcements',
-                            style: AppText.caption.copyWith(color: AppColors.neutral1),
+                            style: AppText.caption.copyWith(
+                              color: AppColors.neutral1,
+                            ),
                           ),
                         ],
                       ),
@@ -122,7 +130,11 @@ class _SettingsSectionState extends ConsumerState<SettingsSection> {
         const SizedBox(height: AppSpace.xxl),
         Row(
           children: [
-            const Icon(Icons.warning_amber_outlined, size: 14, color: AppColors.error),
+            const Icon(
+              Icons.warning_amber_outlined,
+              size: 14,
+              color: AppColors.error,
+            ),
             const SizedBox(width: 6),
             EyebrowLabel('Danger zone', color: AppColors.error),
           ],
@@ -158,7 +170,9 @@ class _SettingsSectionState extends ConsumerState<SettingsSection> {
     try {
       await ref.read(profileRepositoryProvider).setPromotionalEmails(promo);
       final user = ref.read(currentUserProvider);
-      ref.read(sessionProvider.notifier).applyUser(user.copyWith(promotionalEmails: promo));
+      ref
+          .read(sessionProvider.notifier)
+          .applyUser(user.copyWith(promotionalEmails: promo));
       if (!mounted) return;
       setState(() => _promoOverride = null);
       ScaffoldMessenger.of(context)
@@ -233,7 +247,8 @@ class _ChangePasswordSheet extends ConsumerStatefulWidget {
   const _ChangePasswordSheet();
 
   @override
-  ConsumerState<_ChangePasswordSheet> createState() => _ChangePasswordSheetState();
+  ConsumerState<_ChangePasswordSheet> createState() =>
+      _ChangePasswordSheetState();
 }
 
 class _ChangePasswordSheetState extends ConsumerState<_ChangePasswordSheet> {
@@ -299,7 +314,8 @@ class _ChangePasswordSheetState extends ConsumerState<_ChangePasswordSheet> {
           children: [
             const SheetHeader(
               title: 'Change password',
-              subtitle: 'Use at least 8 characters with a capital, a digit and a symbol.',
+              subtitle:
+                  'Use at least 8 characters with a capital, a digit and a symbol.',
             ),
             Padding(
               padding: const EdgeInsets.fromLTRB(
@@ -358,7 +374,8 @@ class _DeleteAccountSheet extends ConsumerStatefulWidget {
   const _DeleteAccountSheet();
 
   @override
-  ConsumerState<_DeleteAccountSheet> createState() => _DeleteAccountSheetState();
+  ConsumerState<_DeleteAccountSheet> createState() =>
+      _DeleteAccountSheetState();
 }
 
 class _DeleteAccountSheetState extends ConsumerState<_DeleteAccountSheet> {
@@ -396,7 +413,8 @@ class _DeleteAccountSheetState extends ConsumerState<_DeleteAccountSheet> {
           children: [
             const SheetHeader(
               title: 'Delete account',
-              subtitle: 'This permanently deletes your account and all associated data. '
+              subtitle:
+                  'This permanently deletes your account and all associated data. '
                   'It cannot be undone.',
             ),
             Padding(

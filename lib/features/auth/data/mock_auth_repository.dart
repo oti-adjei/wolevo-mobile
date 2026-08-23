@@ -52,16 +52,16 @@ class MockAuthRepository implements AuthRepository {
   AuthSession? _session;
 
   WarehouseAddress _addressFor(WolevoUser user) => WarehouseAddress(
-        name: user.lockerName,
-        addressLine1: _warehouse.addressLine1,
-        addressLine2: _warehouse.addressLine2,
-        city: _warehouse.city,
-        stateCode: _warehouse.stateCode,
-        stateName: _warehouse.stateName,
-        zipCode: _warehouse.zipCode,
-        countryCode: _warehouse.countryCode,
-        phone: _warehouse.phone,
-      );
+    name: user.lockerName,
+    addressLine1: _warehouse.addressLine1,
+    addressLine2: _warehouse.addressLine2,
+    city: _warehouse.city,
+    stateCode: _warehouse.stateCode,
+    stateName: _warehouse.stateName,
+    zipCode: _warehouse.zipCode,
+    countryCode: _warehouse.countryCode,
+    phone: _warehouse.phone,
+  );
 
   @override
   Future<AuthSession?> restore() async {
@@ -92,7 +92,8 @@ class MockAuthRepository implements AuthRepository {
     final fieldErrors = <String, String>{};
 
     if (_users.containsKey(email)) {
-      fieldErrors['email'] = 'An account with this email already exists. Please sign in.';
+      fieldErrors['email'] =
+          'An account with this email already exists. Please sign in.';
     }
     if (_users.values.any((u) => u.phoneNumber == request.phoneNumber)) {
       fieldErrors['phoneNumber'] = 'Account exists with phone number entered';
@@ -107,9 +108,10 @@ class MockAuthRepository implements AuthRepository {
 
     // Destination country is never asked for — it is inferred from the phone
     // country code, exactly as the live signup does.
-    final dial = DestinationCountry.values
-        .firstWhere((c) => request.phoneNumber.startsWith(c.dialCode),
-            orElse: () => DestinationCountry.ghana);
+    final dial = DestinationCountry.values.firstWhere(
+      (c) => request.phoneNumber.startsWith(c.dialCode),
+      orElse: () => DestinationCountry.ghana,
+    );
 
     final user = WolevoUser(
       id: 'usr_${DateTime.now().millisecondsSinceEpoch}',

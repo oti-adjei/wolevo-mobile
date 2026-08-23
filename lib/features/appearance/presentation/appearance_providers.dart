@@ -22,7 +22,9 @@ final iconSwitchingSupportedProvider = FutureProvider<bool>(
 /// The campaign the server is advertising, if any, and only while it is inside
 /// its window.
 final activeCampaignProvider = FutureProvider<IconCampaign?>((ref) async {
-  final campaign = await ref.watch(appearanceRepositoryProvider).currentCampaign();
+  final campaign = await ref
+      .watch(appearanceRepositoryProvider)
+      .currentCampaign();
   if (campaign == null) return null;
   return campaign.isActiveAt(DateTime.now()) ? campaign : null;
 });
@@ -51,7 +53,9 @@ class AppIconState {
     return AppIconState(
       selected: selected ?? this.selected,
       followsCampaigns: followsCampaigns ?? this.followsCampaigns,
-      appliedCampaign: clearCampaign ? null : appliedCampaign ?? this.appliedCampaign,
+      appliedCampaign: clearCampaign
+          ? null
+          : appliedCampaign ?? this.appliedCampaign,
     );
   }
 }
@@ -95,16 +99,19 @@ class AppIconController extends AsyncNotifier<AppIconState> {
     // Optimistic: the OS swap is slow and the alert is modal, so reflect the
     // choice immediately rather than leaving the grid unresponsive.
     state = AsyncValue.data(
-      (current ?? const AppIconState(
-        selected: AppIconVariant.wolevo,
-        followsCampaigns: true,
-      ))
+      (current ??
+              const AppIconState(
+                selected: AppIconVariant.wolevo,
+                followsCampaigns: true,
+              ))
           .copyWith(selected: variant, clearCampaign: true),
     );
-    ref.read(analyticsProvider).track(
-      AnalyticsEvents.appIconChanged,
-      properties: {'variant': variant.id},
-    );
+    ref
+        .read(analyticsProvider)
+        .track(
+          AnalyticsEvents.appIconChanged,
+          properties: {'variant': variant.id},
+        );
     await _repo.apply(variant);
   }
 
@@ -114,5 +121,6 @@ class AppIconController extends AsyncNotifier<AppIconState> {
   }
 }
 
-final appIconProvider =
-    AsyncNotifierProvider<AppIconController, AppIconState>(AppIconController.new);
+final appIconProvider = AsyncNotifierProvider<AppIconController, AppIconState>(
+  AppIconController.new,
+);

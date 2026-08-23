@@ -48,9 +48,7 @@ class SkuEntryRow extends StatelessWidget {
                 ),
               ),
               const SizedBox(width: AppSpace.sm),
-              _EnterSkuButton(
-                onTap: () => _openSheet(context),
-              ),
+              _EnterSkuButton(onTap: () => _openSheet(context)),
             ],
           ),
           if (onPasteLink != null) ...[
@@ -96,10 +94,16 @@ class _EnterSkuButton extends StatelessWidget {
             children: [
               Text(
                 'Enter SKU',
-                style: AppText.body14Semibold.copyWith(color: AppColors.secondary),
+                style: AppText.body14Semibold.copyWith(
+                  color: AppColors.secondary,
+                ),
               ),
               const SizedBox(width: 4),
-              const Icon(Icons.arrow_forward, size: 16, color: AppColors.secondary),
+              const Icon(
+                Icons.arrow_forward,
+                size: 16,
+                color: AppColors.secondary,
+              ),
             ],
           ),
         ),
@@ -128,11 +132,11 @@ class _SkuSheetState extends State<_SkuSheet> {
 
   /// Example ids per store, so it is obvious what is being asked for.
   String get _hint => switch (widget.retailer) {
-        Retailer.amazon => 'e.g. B088NRLMPV',
-        Retailer.bestBuy => 'e.g. 6565837',
-        Retailer.ebay => 'e.g. 235049283746',
-        _ => 'Product ID',
-      };
+    Retailer.amazon => 'e.g. B088NRLMPV',
+    Retailer.bestBuy => 'e.g. 6565837',
+    Retailer.ebay => 'e.g. 235049283746',
+    _ => 'Product ID',
+  };
 
   @override
   Widget build(BuildContext context) {
@@ -144,7 +148,8 @@ class _SkuSheetState extends State<_SkuSheet> {
           children: [
             SheetHeader(
               title: 'Enter a ${widget.retailer.label} SKU',
-              subtitle: 'We will pull the product details straight from the store.',
+              subtitle:
+                  'We will pull the product details straight from the store.',
             ),
             Padding(
               padding: const EdgeInsets.fromLTRB(

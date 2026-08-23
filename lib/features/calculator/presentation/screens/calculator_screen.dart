@@ -28,8 +28,9 @@ class CalculatorScreen extends ConsumerWidget {
             foregroundColor: Colors.white,
             leading: IconButton(
               icon: const Icon(Icons.arrow_back),
-              onPressed: () =>
-                  context.canPop() ? context.pop() : context.go(AppRoutes.landing),
+              onPressed: () => context.canPop()
+                  ? context.pop()
+                  : context.go(AppRoutes.landing),
             ),
             flexibleSpace: const FlexibleSpaceBar(
               background: _CalculatorHero(),

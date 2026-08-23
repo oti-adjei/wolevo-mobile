@@ -82,7 +82,11 @@ class _AppSearchFieldState extends State<AppSearchField> {
           if (hasText)
             IconButton(
               visualDensity: VisualDensity.compact,
-              icon: const Icon(Icons.close, size: 18, color: AppColors.neutral1),
+              icon: const Icon(
+                Icons.close,
+                size: 18,
+                color: AppColors.neutral1,
+              ),
               onPressed: () {
                 widget.controller.clear();
                 widget.onCleared?.call();

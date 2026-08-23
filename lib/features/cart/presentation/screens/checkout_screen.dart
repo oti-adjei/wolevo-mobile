@@ -83,25 +83,26 @@ class _CheckoutScreenState extends ConsumerState<CheckoutScreen> {
       ),
       body: switch (cartAsync) {
         AsyncError(:final error) => ErrorRetry(
-            message: '$error',
-            onRetry: () => ref.read(cartProvider.notifier).refresh(),
-          ),
-        AsyncData(:final value) => value.isEmpty
-            ? const EmptyState(
-                icon: Icons.shopping_cart_outlined,
-                title: 'Your cart is empty',
-                message: 'There is nothing left to pay for.',
-              )
-            : _buildBody(value, checkout),
+          message: '$error',
+          onRetry: () => ref.read(cartProvider.notifier).refresh(),
+        ),
+        AsyncData(:final value) =>
+          value.isEmpty
+              ? const EmptyState(
+                  icon: Icons.shopping_cart_outlined,
+                  title: 'Your cart is empty',
+                  message: 'There is nothing left to pay for.',
+                )
+              : _buildBody(value, checkout),
         _ => const AppLoader(),
       },
       bottomNavigationBar: switch (cartAsync) {
         AsyncData(:final value) when !value.isEmpty => _PayBar(
-            label: 'Pay ${value.totals.estimatedTotal.usdLabel}',
-            localLabel: value.totals.estimatedTotal.localLabel,
-            loading: checkout.isLoading,
-            onPay: _canPay ? _pay : null,
-          ),
+          label: 'Pay ${value.totals.estimatedTotal.usdLabel}',
+          localLabel: value.totals.estimatedTotal.localLabel,
+          loading: checkout.isLoading,
+          onPay: _canPay ? _pay : null,
+        ),
         _ => null,
       },
     );
@@ -166,7 +167,9 @@ class _CheckoutScreenState extends ConsumerState<CheckoutScreen> {
                       const SizedBox(height: 2),
                       Text(
                         method.subtitle,
-                        style: AppText.caption.copyWith(color: AppColors.neutral1),
+                        style: AppText.caption.copyWith(
+                          color: AppColors.neutral1,
+                        ),
                       ),
                       if (_method == method) ...[
                         const SizedBox(height: AppSpace.sm),
@@ -183,11 +186,11 @@ class _CheckoutScreenState extends ConsumerState<CheckoutScreen> {
         const SizedBox(height: AppSpace.sm),
         switch (_method) {
           PaymentMethod.mobileMoney => _MobileMoneyPanel(
-              network: _network,
-              onNetworkChanged: (n) => setState(() => _network = n),
-              destination: cart.destinationCountry,
-              onPhoneChanged: (v) => setState(() => _momoPhone = v),
-            ),
+            network: _network,
+            onNetworkChanged: (n) => setState(() => _network = n),
+            destination: cart.destinationCountry,
+            onPhoneChanged: (v) => setState(() => _momoPhone = v),
+          ),
           PaymentMethod.card => const _CardPanel(),
           PaymentMethod.bankTransfer => const _BankTransferPanel(),
         },
@@ -198,10 +201,10 @@ class _CheckoutScreenState extends ConsumerState<CheckoutScreen> {
   }
 
   IconData _iconFor(PaymentMethod method) => switch (method) {
-        PaymentMethod.card => Icons.credit_card,
-        PaymentMethod.mobileMoney => Icons.smartphone,
-        PaymentMethod.bankTransfer => Icons.account_balance,
-      };
+    PaymentMethod.card => Icons.credit_card,
+    PaymentMethod.mobileMoney => Icons.smartphone,
+    PaymentMethod.bankTransfer => Icons.account_balance,
+  };
 }
 
 class _OrderRecap extends ConsumerWidget {
@@ -373,9 +376,7 @@ class _CardPanel extends StatelessWidget {
             'Mastercard details and approve the charge.',
           ),
           SizedBox(height: AppSpace.sm),
-          Text(
-            "You'll come straight back here once the payment clears.",
-          ),
+          Text("You'll come straight back here once the payment clears."),
         ],
       ),
     );
@@ -451,7 +452,9 @@ class _CopyRow extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 7),
               child: Text(
                 'Copy',
-                style: AppText.captionSemibold.copyWith(color: AppColors.secondary),
+                style: AppText.captionSemibold.copyWith(
+                  color: AppColors.secondary,
+                ),
               ),
             ),
           ),
@@ -522,9 +525,7 @@ class _SuccessScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              const Center(
-                child: IconChip(icon: Icons.check, size: 72),
-              ),
+              const Center(child: IconChip(icon: Icons.check, size: 72)),
               const SizedBox(height: AppSpace.xl),
               Text(
                 'Payment received',
@@ -552,7 +553,9 @@ class _SuccessScreen extends StatelessWidget {
                     ),
                     Text(
                       'Paid by ${result.method.label}',
-                      style: AppText.caption.copyWith(color: AppColors.neutral1),
+                      style: AppText.caption.copyWith(
+                        color: AppColors.neutral1,
+                      ),
                     ),
                   ],
                 ),

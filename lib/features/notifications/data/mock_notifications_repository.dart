@@ -44,7 +44,8 @@ class MockNotificationsRepository implements NotificationsRepository {
       AppNotification(
         id: 'ntf_3',
         title: 'Order purchased',
-        body: 'We bought your 2 items from Amazon. Tracking follows once they ship.',
+        body:
+            'We bought your 2 items from Amazon. Tracking follows once they ship.',
         createdAt: now.subtract(const Duration(days: 2)),
         read: true,
         kind: NotificationKind.order,
@@ -53,7 +54,8 @@ class MockNotificationsRepository implements NotificationsRepository {
       AppNotification(
         id: 'ntf_4',
         title: 'Delivered',
-        body: 'WLV-10233 was delivered in Accra. Thanks for shopping with Wolevo.',
+        body:
+            'WLV-10233 was delivered in Accra. Thanks for shopping with Wolevo.',
         createdAt: now.subtract(const Duration(days: 6)),
         read: true,
         kind: NotificationKind.order,
@@ -74,7 +76,11 @@ class MockNotificationsRepository implements NotificationsRepository {
 
     final start = (pagination.pageNumber - 1) * pagination.pageSize;
     if (start >= filtered.length) {
-      return Paged(items: const [], pageNumber: pagination.pageNumber, hasMore: false);
+      return Paged(
+        items: const [],
+        pageNumber: pagination.pageNumber,
+        hasMore: false,
+      );
     }
     final end = (start + pagination.pageSize).clamp(0, filtered.length);
 

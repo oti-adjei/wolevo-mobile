@@ -28,7 +28,8 @@ class RegisterPackageScreen extends ConsumerStatefulWidget {
   const RegisterPackageScreen({super.key});
 
   @override
-  ConsumerState<RegisterPackageScreen> createState() => _RegisterPackageScreenState();
+  ConsumerState<RegisterPackageScreen> createState() =>
+      _RegisterPackageScreenState();
 }
 
 class _RegisterPackageScreenState extends ConsumerState<RegisterPackageScreen> {
@@ -76,7 +77,9 @@ class _RegisterPackageScreenState extends ConsumerState<RegisterPackageScreen> {
     if (country == null || value == null) return;
 
     FocusScope.of(context).unfocus();
-    await ref.read(registerPackageProvider.notifier).submit(
+    await ref
+        .read(registerPackageProvider.notifier)
+        .submit(
           PackageRegistration(
             destinationCountryCode: country.code,
             trackingNumber: _trackingController.text.trim(),
@@ -98,7 +101,9 @@ class _RegisterPackageScreenState extends ConsumerState<RegisterPackageScreen> {
     return Scaffold(
       backgroundColor: AppColors.surface6,
       appBar: AppBar(
-        title: Text(shipment == null ? 'Register package' : 'Package registered'),
+        title: Text(
+          shipment == null ? 'Register package' : 'Package registered',
+        ),
         leading: shipment == null
             ? null
             : IconButton(
@@ -161,13 +166,19 @@ class _RegisterPackageScreenState extends ConsumerState<RegisterPackageScreen> {
                 controller: _valueController,
                 hint: '0.00',
                 helper: 'Total value of all items in the package',
-                keyboardType: const TextInputType.numberWithOptions(decimal: true),
+                keyboardType: const TextInputType.numberWithOptions(
+                  decimal: true,
+                ),
                 inputFormatters: [
                   FilteringTextInputFormatter.allow(RegExp(r'^\d*\.?\d{0,2}')),
                 ],
                 prefix: const Padding(
                   padding: EdgeInsets.symmetric(horizontal: AppSpace.lg),
-                  child: Icon(Icons.attach_money, size: 18, color: AppColors.neutral1),
+                  child: Icon(
+                    Icons.attach_money,
+                    size: 18,
+                    color: AppColors.neutral1,
+                  ),
                 ),
               ),
               const SizedBox(height: AppSpace.xl),
@@ -267,9 +278,18 @@ class _RegistrationSuccess extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               _SummaryRow(label: 'Shipment ID', value: shipment.id),
-              _SummaryRow(label: 'Tracking number', value: shipment.trackingNumber),
-              _SummaryRow(label: 'Destination', value: shipment.destinationCountry.name),
-              _SummaryRow(label: 'Declared value', value: shipment.declaredValue.usdLabel),
+              _SummaryRow(
+                label: 'Tracking number',
+                value: shipment.trackingNumber,
+              ),
+              _SummaryRow(
+                label: 'Destination',
+                value: shipment.destinationCountry.name,
+              ),
+              _SummaryRow(
+                label: 'Declared value',
+                value: shipment.declaredValue.usdLabel,
+              ),
               Padding(
                 padding: const EdgeInsets.only(top: AppSpace.md),
                 child: Row(

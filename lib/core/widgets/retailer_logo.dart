@@ -21,28 +21,28 @@ class RetailerLogo extends StatelessWidget {
   Widget build(BuildContext context) {
     return switch (retailer) {
       Retailer.amazon => SvgPicture.asset(
-          'assets/logos/amazon.svg',
-          fit: BoxFit.contain,
-        ),
+        'assets/logos/amazon.svg',
+        fit: BoxFit.contain,
+      ),
       Retailer.ebay => SvgPicture.asset(
-          'assets/logos/ebay.svg',
-          fit: BoxFit.contain,
-        ),
+        'assets/logos/ebay.svg',
+        fit: BoxFit.contain,
+      ),
       Retailer.bestBuy => SvgPicture.asset(
-          'assets/logos/best-buy.svg',
-          fit: BoxFit.contain,
-        ),
+        'assets/logos/best-buy.svg',
+        fit: BoxFit.contain,
+      ),
       Retailer.plugTech => Image.asset(
-          'assets/logos/plug_tech.webp',
-          fit: BoxFit.contain,
-          errorBuilder: (_, _, _) => RetailerWordmark(retailer: retailer),
-        ),
+        'assets/logos/plug_tech.webp',
+        fit: BoxFit.contain,
+        errorBuilder: (_, _, _) => RetailerWordmark(retailer: retailer),
+      ),
       Retailer.sephora => Image.asset(
-          'assets/logos/Sephora.png',
-          fit: BoxFit.contain,
-          color: AppColors.secondary,
-          errorBuilder: (_, _, _) => RetailerWordmark(retailer: retailer),
-        ),
+        'assets/logos/Sephora.png',
+        fit: BoxFit.contain,
+        color: AppColors.secondary,
+        errorBuilder: (_, _, _) => RetailerWordmark(retailer: retailer),
+      ),
       Retailer.fashionNova => RetailerWordmark(retailer: retailer),
     };
   }
@@ -55,13 +55,13 @@ class RetailerWordmark extends StatelessWidget {
 
   /// Short forms — full labels wrap badly inside a 78px tile.
   String get _short => switch (retailer) {
-        Retailer.amazon => 'amazon',
-        Retailer.ebay => 'ebay',
-        Retailer.fashionNova => 'NOVA',
-        Retailer.plugTech => 'plug',
-        Retailer.bestBuy => 'BEST BUY',
-        Retailer.sephora => 'SEPHORA',
-      };
+    Retailer.amazon => 'amazon',
+    Retailer.ebay => 'ebay',
+    Retailer.fashionNova => 'NOVA',
+    Retailer.plugTech => 'plug',
+    Retailer.bestBuy => 'BEST BUY',
+    Retailer.sephora => 'SEPHORA',
+  };
 
   @override
   Widget build(BuildContext context) {
@@ -78,4 +78,3 @@ class RetailerWordmark extends StatelessWidget {
     );
   }
 }
-

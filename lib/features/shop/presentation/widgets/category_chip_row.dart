@@ -13,22 +13,56 @@ import '../../../../core/theme/app_typography.dart';
 // the server value and nothing else changes.
 enum ShopCategory {
   all('All'),
-  electronics('Electronics', keywords: [
-    'tv', 'monitor', 'ssd', 'drive', 'camera', 'speaker', 'console',
-    'playstation', 'xbox', 'switch', 'router', 'mesh', 'tablet', 'ipad',
-  ]),
-  headphones('Headphones', keywords: [
-    'headphone', 'earbud', 'airpod', 'beats', 'wh-1000', 'on-ear', 'over-ear',
-  ]),
-  laptops('Laptops', keywords: [
-    'laptop', 'macbook', 'notebook', 'chromebook', 'thinkpad', 'omnibook',
-  ]),
-  phones('Phones', keywords: [
-    'iphone', 'galaxy', 'pixel', 'phone', 'razr', 'smartphone',
-  ]),
-  accessories('Accessories', keywords: [
-    'cable', 'charger', 'case', 'adapter', 'mount', 'hub', 'cord',
-  ]);
+  electronics(
+    'Electronics',
+    keywords: [
+      'tv',
+      'monitor',
+      'ssd',
+      'drive',
+      'camera',
+      'speaker',
+      'console',
+      'playstation',
+      'xbox',
+      'switch',
+      'router',
+      'mesh',
+      'tablet',
+      'ipad',
+    ],
+  ),
+  headphones(
+    'Headphones',
+    keywords: [
+      'headphone',
+      'earbud',
+      'airpod',
+      'beats',
+      'wh-1000',
+      'on-ear',
+      'over-ear',
+    ],
+  ),
+  laptops(
+    'Laptops',
+    keywords: [
+      'laptop',
+      'macbook',
+      'notebook',
+      'chromebook',
+      'thinkpad',
+      'omnibook',
+    ],
+  ),
+  phones(
+    'Phones',
+    keywords: ['iphone', 'galaxy', 'pixel', 'phone', 'razr', 'smartphone'],
+  ),
+  accessories(
+    'Accessories',
+    keywords: ['cable', 'charger', 'case', 'adapter', 'mount', 'hub', 'cord'],
+  );
 
   const ShopCategory(this.label, {this.keywords = const []});
 
@@ -83,7 +117,9 @@ class CategoryChipRow extends StatelessWidget {
                 child: Text(
                   category.label,
                   style: AppText.body14Medium.copyWith(
-                    color: isSelected ? AppColors.secondary : AppColors.neutral1,
+                    color: isSelected
+                        ? AppColors.secondary
+                        : AppColors.neutral1,
                   ),
                 ),
               ),

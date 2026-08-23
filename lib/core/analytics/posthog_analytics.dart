@@ -15,10 +15,7 @@ class PostHogAnalytics implements AnalyticsClient {
 
   @override
   void track(String event, {Map<String, Object?> properties = const {}}) {
-    Posthog().capture(
-      eventName: event,
-      properties: _clean(properties),
-    );
+    Posthog().capture(eventName: event, properties: _clean(properties));
   }
 
   @override
@@ -29,18 +26,12 @@ class PostHogAnalytics implements AnalyticsClient {
       reset();
       return;
     }
-    Posthog().identify(
-      userId: userId,
-      userProperties: _clean(traits),
-    );
+    Posthog().identify(userId: userId, userProperties: _clean(traits));
   }
 
   @override
   void screen(String name, {Map<String, Object?> properties = const {}}) {
-    Posthog().screen(
-      screenName: name,
-      properties: _clean(properties),
-    );
+    Posthog().screen(screenName: name, properties: _clean(properties));
   }
 
   @override

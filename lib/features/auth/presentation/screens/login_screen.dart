@@ -47,8 +47,9 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
     final emailOk = RegExp(r'^[^@\s]+@[^@\s]+\.[^@\s]+$').hasMatch(email);
     setState(() {
       _emailError = emailOk ? null : 'Please enter a valid email address';
-      _passwordError =
-          _password.text.length >= 8 ? null : 'Must be at least 8 characters';
+      _passwordError = _password.text.length >= 8
+          ? null
+          : 'Must be at least 8 characters';
     });
     return _emailError == null && _passwordError == null;
   }
@@ -56,7 +57,9 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   void _onAuthenticated() {
     // Preserving the intended destination through the auth wall is a
     // deliberate improvement on the live site, which drops it.
-    final next = GoRouterState.of(context).uri.queryParameters[AppRoutes.nextParam];
+    final next = GoRouterState.of(
+      context,
+    ).uri.queryParameters[AppRoutes.nextParam];
     context.go(next != null && next.isNotEmpty ? next : AppRoutes.home);
   }
 
@@ -68,10 +71,9 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
       _banner = null;
     });
     try {
-      await ref.read(sessionProvider.notifier).login(
-            email: _email.text.trim(),
-            password: _password.text,
-          );
+      await ref
+          .read(sessionProvider.notifier)
+          .login(email: _email.text.trim(), password: _password.text);
       if (!mounted) return;
       _onAuthenticated();
     } on ApiException catch (e) {
@@ -167,7 +169,9 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                   suffix: IconButton(
                     onPressed: () => setState(() => _obscure = !_obscure),
                     icon: Icon(
-                      _obscure ? Icons.visibility_outlined : Icons.visibility_off_outlined,
+                      _obscure
+                          ? Icons.visibility_outlined
+                          : Icons.visibility_off_outlined,
                       size: 20,
                       color: AppColors.neutral1,
                     ),

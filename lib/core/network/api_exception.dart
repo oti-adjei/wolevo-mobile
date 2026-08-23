@@ -3,7 +3,11 @@
 /// (`email` → "An account with this email already exists. Please sign in.",
 /// `phoneNumber` → "Account exists with phone number entered").
 class ApiException implements Exception {
-  const ApiException(this.message, {this.statusCode, this.fieldErrors = const {}});
+  const ApiException(
+    this.message, {
+    this.statusCode,
+    this.fieldErrors = const {},
+  });
 
   final String message;
   final int? statusCode;

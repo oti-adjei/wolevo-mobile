@@ -5,10 +5,7 @@ import '../../../core/models/money.dart';
 /// Selecting one swaps the content below the cards *and* the CTA labels — see
 /// discovery-notes.md § 2.2 and § "Anything else notable", item 8.
 enum ShipIntent {
-  yetToShop(
-    title: "I'm yet to shop",
-    subtitle: 'Shop any US store',
-  ),
+  yetToShop(title: "I'm yet to shop", subtitle: 'Shop any US store'),
   someoneSending(
     title: 'Someone is sending to me',
     subtitle: 'Friend or family sending',
@@ -79,14 +76,15 @@ class PackageRegistration {
   /// `proofOfPurchase[]` file part. The map below is the field half only; the
   /// files are attached by the Dio repository, not encoded here.
   Map<String, dynamic> toJson() => {
-        'destinationCountryCode': destinationCountryCode,
-        'trackingNumber': trackingNumber,
-        'declaredValueUsd': declaredValueUsd,
-        if (notes != null && notes!.trim().isNotEmpty) 'notes': notes!.trim(),
-        'proofOfPurchase': [
-          for (final f in proofOfPurchase) {'name': f.name, 'sizeBytes': f.sizeBytes},
-        ],
-      };
+    'destinationCountryCode': destinationCountryCode,
+    'trackingNumber': trackingNumber,
+    'declaredValueUsd': declaredValueUsd,
+    if (notes != null && notes!.trim().isNotEmpty) 'notes': notes!.trim(),
+    'proofOfPurchase': [
+      for (final f in proofOfPurchase)
+        {'name': f.name, 'sizeBytes': f.sizeBytes},
+    ],
+  };
 }
 
 /// ASSUMPTION: the status vocabulary is taken from the `/orders` status chips
@@ -106,9 +104,9 @@ enum ShipmentStatus {
   final String label;
 
   static ShipmentStatus fromApi(String v) => values.firstWhere(
-        (s) => s.apiValue == v.toUpperCase(),
-        orElse: () => ShipmentStatus.pending,
-      );
+    (s) => s.apiValue == v.toUpperCase(),
+    orElse: () => ShipmentStatus.pending,
+  );
 }
 
 /// What the server hands back once a package has been registered.
@@ -129,13 +127,17 @@ class RegisteredShipment {
   final Money declaredValue;
   final DestinationCountry destinationCountry;
 
-  factory RegisteredShipment.fromJson(Map<String, dynamic> json) => RegisteredShipment(
+  factory RegisteredShipment.fromJson(Map<String, dynamic> json) =>
+      RegisteredShipment(
         id: json['id'] as String,
         trackingNumber: json['trackingNumber'] as String,
         status: ShipmentStatus.fromApi(json['status'] as String? ?? 'PENDING'),
         createdAt: DateTime.parse(json['createdAt'] as String),
-        declaredValue: Money.fromJson(json['declaredValue'] as Map<String, dynamic>),
-        destinationCountry:
-            DestinationCountry.fromCode(json['destinationCountryCode'] as String? ?? 'GH'),
+        declaredValue: Money.fromJson(
+          json['declaredValue'] as Map<String, dynamic>,
+        ),
+        destinationCountry: DestinationCountry.fromCode(
+          json['destinationCountryCode'] as String? ?? 'GH',
+        ),
       );
 }

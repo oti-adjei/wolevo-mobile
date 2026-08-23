@@ -53,14 +53,16 @@ class _CartScreenState extends ConsumerState<CartScreen> {
     setState(() => _step = 1);
     if (_checkoutStartedReported) return;
     _checkoutStartedReported = true;
-    ref.read(analyticsProvider).track(
-      AnalyticsEvents.checkoutStarted,
-      properties: {
-        'item_count': cart.itemCount,
-        'subtotal_usd': cart.totals.subtotal.usd,
-        'destination': cart.destinationCountry.code,
-      },
-    );
+    ref
+        .read(analyticsProvider)
+        .track(
+          AnalyticsEvents.checkoutStarted,
+          properties: {
+            'item_count': cart.itemCount,
+            'subtotal_usd': cart.totals.subtotal.usd,
+            'destination': cart.destinationCountry.code,
+          },
+        );
   }
 
   final _receiverNameController = TextEditingController();
@@ -164,12 +166,15 @@ class _CartScreenState extends ConsumerState<CartScreen> {
       ),
       body: switch (async) {
         AsyncError(:final error) => ErrorRetry(
-            message: '$error',
-            onRetry: () => ref.read(cartProvider.notifier).refresh(),
-          ),
-        AsyncData(:final value) => value.isEmpty
-            ? const _EmptyCart()
-            : (_step == 0 ? _buildItemsStep(value) : _buildDeliveryStep(value)),
+          message: '$error',
+          onRetry: () => ref.read(cartProvider.notifier).refresh(),
+        ),
+        AsyncData(:final value) =>
+          value.isEmpty
+              ? const _EmptyCart()
+              : (_step == 0
+                    ? _buildItemsStep(value)
+                    : _buildDeliveryStep(value)),
         _ => const AppLoader(),
       },
       bottomNavigationBar: cart == null || isEmpty
@@ -205,11 +210,16 @@ class _CartScreenState extends ConsumerState<CartScreen> {
                   child: Row(
                     children: [
                       Expanded(
-                        child: Text(group.retailer.label, style: AppText.cardTitle),
+                        child: Text(
+                          group.retailer.label,
+                          style: AppText.cardTitle,
+                        ),
                       ),
                       Text(
                         '(${group.itemCount} items)',
-                        style: AppText.body14.copyWith(color: AppColors.neutral1),
+                        style: AppText.body14.copyWith(
+                          color: AppColors.neutral1,
+                        ),
                       ),
                     ],
                   ),
@@ -276,7 +286,9 @@ class _CartScreenState extends ConsumerState<CartScreen> {
         PrimaryButton(
           label: 'Continue',
           trailingIcon: Icons.arrow_forward,
-          onPressed: _mutating || cart == null ? null : () => _goToDelivery(cart),
+          onPressed: _mutating || cart == null
+              ? null
+              : () => _goToDelivery(cart),
         ),
         const SizedBox(height: AppSpace.sm),
         SecondaryButton(
@@ -421,7 +433,9 @@ class _CartScreenState extends ConsumerState<CartScreen> {
         const SizedBox(height: AppSpace.sm),
         PrimaryButton(
           label: 'Checkout',
-          onPressed: canCheckout ? () => context.push(AppRoutes.checkout) : null,
+          onPressed: canCheckout
+              ? () => context.push(AppRoutes.checkout)
+              : null,
         ),
         if (!canCheckout) ...[
           const SizedBox(height: 6),
@@ -469,7 +483,10 @@ class _ReceiverToggle extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Different receiver? (optional)', style: AppText.body14Medium),
+                  Text(
+                    'Different receiver? (optional)',
+                    style: AppText.body14Medium,
+                  ),
                   const SizedBox(height: 2),
                   Text(
                     'Check this if someone else will receive the delivery',

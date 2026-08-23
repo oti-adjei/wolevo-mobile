@@ -49,8 +49,9 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
     FocusScope.of(context).unfocus();
     final email = _email.text.trim();
     final valid = RegExp(r'^[^@\s]+@[^@\s]+\.[^@\s]+$').hasMatch(email);
-    setState(() =>
-        _emailError = valid ? null : 'Please enter a valid email address');
+    setState(
+      () => _emailError = valid ? null : 'Please enter a valid email address',
+    );
     if (!valid) return;
 
     setState(() {

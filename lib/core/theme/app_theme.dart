@@ -65,7 +65,10 @@ abstract final class AppTheme {
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
         fillColor: AppColors.background,
-        contentPadding: const EdgeInsets.symmetric(horizontal: 14, vertical: 14),
+        contentPadding: const EdgeInsets.symmetric(
+          horizontal: 14,
+          vertical: 14,
+        ),
         hintStyle: AppText.body.copyWith(color: AppColors.neutral2),
         border: const OutlineInputBorder(
           borderRadius: AppRadius.rInput,
@@ -115,15 +118,21 @@ abstract final class AppTheme {
         shape: const RoundedRectangleBorder(borderRadius: AppRadius.rSm),
         side: const BorderSide(color: AppColors.inputBorder, width: 1.5),
         fillColor: WidgetStateProperty.resolveWith(
-          (s) => s.contains(WidgetState.selected) ? AppColors.secondary : Colors.transparent,
+          (s) => s.contains(WidgetState.selected)
+              ? AppColors.secondary
+              : Colors.transparent,
         ),
       ),
       switchTheme: SwitchThemeData(
         thumbColor: WidgetStateProperty.resolveWith(
-          (s) => s.contains(WidgetState.selected) ? Colors.white : AppColors.neutral2,
+          (s) => s.contains(WidgetState.selected)
+              ? Colors.white
+              : AppColors.neutral2,
         ),
         trackColor: WidgetStateProperty.resolveWith(
-          (s) => s.contains(WidgetState.selected) ? AppColors.secondary : AppColors.surface4,
+          (s) => s.contains(WidgetState.selected)
+              ? AppColors.secondary
+              : AppColors.surface4,
         ),
         trackOutlineColor: const WidgetStatePropertyAll(Colors.transparent),
       ),

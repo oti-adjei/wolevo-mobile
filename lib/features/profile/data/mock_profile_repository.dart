@@ -85,7 +85,9 @@ class MockProfileRepository implements ProfileRepository {
     final index = _addresses.indexWhere((x) => x.id == saved.id);
     if (index == -1) {
       // The very first address is always primary, whatever the checkbox says.
-      _addresses.add(_addresses.isEmpty ? saved.copyWith(isPrimary: true) : saved);
+      _addresses.add(
+        _addresses.isEmpty ? saved.copyWith(isPrimary: true) : saved,
+      );
     } else {
       _addresses[index] = saved;
     }
@@ -97,7 +99,10 @@ class MockProfileRepository implements ProfileRepository {
     await _wait();
     final removed = _addresses.indexWhere((a) => a.id == id);
     if (removed == -1) {
-      throw const ApiException('That address no longer exists.', statusCode: 404);
+      throw const ApiException(
+        'That address no longer exists.',
+        statusCode: 404,
+      );
     }
     final wasPrimary = _addresses[removed].isPrimary;
     _addresses.removeAt(removed);
@@ -133,7 +138,10 @@ class MockProfileRepository implements ProfileRepository {
   }
 
   @override
-  Future<void> changePassword({required String current, required String next}) async {
+  Future<void> changePassword({
+    required String current,
+    required String next,
+  }) async {
     await _wait();
     // ASSUMPTION: the API rejects a wrong current password with a 400; the mock
     // uses the demo account's password so the error path is demoable.
@@ -153,17 +161,18 @@ class MockProfileRepository implements ProfileRepository {
 
   /// (code, name, flag) for the two deliverable countries; anything else keeps
   /// the code and shows a globe.
-  (String, String, String) _countryOf(String code) => switch (code.toUpperCase()) {
+  (String, String, String) _countryOf(String code) =>
+      switch (code.toUpperCase()) {
         'GH' => ('GH', 'Ghana', '🇬🇭'),
         'NG' => ('NG', 'Nigeria', '🇳🇬'),
         final other => (other, other, '🌍'),
       };
 
   List<String> _regionsFor(String code) => switch (code.toUpperCase()) {
-        'GH' => const ['Greater Accra', 'Eastern', 'Ashanti', 'Central'],
-        'NG' => const ['Lagos', 'Ogun', 'Abuja FCT', 'Rivers'],
-        _ => const ['Region'],
-      };
+    'GH' => const ['Greater Accra', 'Eastern', 'Ashanti', 'Central'],
+    'NG' => const ['Lagos', 'Ogun', 'Abuja FCT', 'Rivers'],
+    _ => const ['Region'],
+  };
 
   String _titleCase(String v) => v
       .split(RegExp(r'\s+'))
